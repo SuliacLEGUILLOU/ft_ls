@@ -12,10 +12,12 @@
 
 #include <ft_ls.h>
 
-int		somme_opt(t_opt *opt)
-{
-	return (opt->lst + opt->rec + opt->all + opt->rev + opt->tmp);
-}
+/*
+** int		somme_opt(t_opt *opt)
+** {
+**	return (opt->lst + opt->rec + opt->all + opt->rev + opt->tmp);
+** }
+*/
 
 void	init_opt(t_opt *opt)
 {
@@ -24,6 +26,21 @@ void	init_opt(t_opt *opt)
 	opt->all = 0;
 	opt->rev = 0;
 	opt->tmp = 0;
+}
+
+int		is_flag(const char *arg)
+{
+	int		i;
+
+	if (*arg != '-' || (*arg == '-' && !*(arg + 1)))
+		return (0);
+	i = 0;
+	while (arg[++i])
+	{
+		if (arg[i] != 'l' || arg[i] != 'R' || arg[i] != 'a'
+			|| arg[i] != 'r' || arg[i] != 't')
+			ft_error_illegal_opt(arg[i]);
+	}
 }
 
 void	set_flag(t_opt *opt, char *arg)

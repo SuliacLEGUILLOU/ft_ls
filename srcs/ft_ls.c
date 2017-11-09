@@ -12,19 +12,9 @@
 
 #include <ft_ls.h>
 
-static int	is_flag(const char *arg)
+static void	init_ls(t_ls *ls)
 {
-	int		i;
 
-	if (*arg != '-' || (*arg == '-' && !*(arg + 1)))
-		return (0);
-	i = 0;
-	while (arg[++i])
-	{
-		if (arg[i] != 'l' || arg[i] != 'R' || arg[i] != 'a'
-			|| arg[i] != 'r' || arg[i] != 't')
-			ft_error_illegal_opt(arg[i]);
-	}
 }
 
 static void	set_dir(char **dir, int pos, int argc, char **argv)
@@ -64,11 +54,11 @@ static int	ft_ls(char **dir, t_opt *opt)
 int			main(int argc, char **argv, char **env)
 {
 	char	**dir;
-	t_opt	*opt;
+	t_ls	*ls;
 	int		i;
 
 	i = 0;
-	init_opt(opt);
+	init_ls(ls);
 	if (argc != 1)
 	{
 		while ((++i < argc) && is_flag(argv[i]))

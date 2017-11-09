@@ -15,10 +15,15 @@
 
 # include <libft.h>
 
+# define F1	1
+# define F2 2
+# define F3 4
+# define F4 8
+# define F5 16
+
 typedef struct s_opt	t_opt;
 typedef struct s_doc	t_doc;
 typedef struct s_ls		t_ls;
-
 
 struct	s_opt
 {
