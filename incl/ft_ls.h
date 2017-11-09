@@ -16,6 +16,9 @@
 # include <libft.h>
 
 typedef struct s_opt	t_opt;
+typedef struct s_doc	t_doc;
+typedef struct s_ls		t_ls;
+
 
 struct	s_opt
 {
@@ -24,6 +27,20 @@ struct	s_opt
 	int		all;
 	int		rev;
 	int		tmp;
+};
+
+struct	s_doc
+{
+	char	*name;
+	size_t	ctime;
+	t_doc	**sub;
+	t_stat	*data;
+};
+
+struct	s_ls
+{
+	t_opt	*opt;
+	t_doc	**av;
 };
 
 int		somme_opt(t_opt *opt);
