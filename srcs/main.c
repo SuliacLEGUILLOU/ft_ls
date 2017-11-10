@@ -14,13 +14,43 @@
 
 static void	init_ls(t_ls *ls)
 {
-	t_opt	opt;
 
 	if (!(ls = (t_ls*)malloc(sizeof(t_ls))))
 		ft_error_init();
 	ls->data = NULL;
+	ls->opt = NULL;
 	set_flag(ls, nul);
-	ls->opt = &opt;
+}
+
+static void	set_arg(t_ls *ls, char **av, int at, int ac)
+{
+	return ;
+}
+
+static void	ft_setenv(t_ls *ls, char **env)
+{
+	char	**fold;
+
+	*fold = ft_getenv("PWD", env);
+	set_arg(ls, fold, 0, 1);
+	free(*fold);
+}
+
+void		clear_ls(t_ls *ls)
+{
+	if (ls)
+	{
+		if (ls->opt)
+			free(ls->opt);
+		if (ls->data)
+		{
+			clear_data(ls->data);
+			free(ls->data);
+		}
+		ls->opt = NULL;
+		ls->data = NULL;
+		free(ls);
+	}
 }
 
 int			main(int argc, char **argv, char **env)

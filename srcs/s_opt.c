@@ -11,33 +11,44 @@
 /* ************************************************************************** */
 
 #include <ft_ls.h>
-
-/*
-** int		somme_opt(t_opt *opt)
-** {
-**	return (opt.lst + opt.rec + opt.all + opt.rev + opt.tmp);
-** }
-*/
+#include <stdlib.h>
 
 void	set_flag(t_ls *ls, char f)
 {
-	ls->opt.lst |= (f == 'l');
-	ls->opt.rec |= (f == 'R');
-	ls->opt.all |= (f == 'a');
-	ls->opt.rev |= (f == 'r');
-	ls->opt.tmp |= (f == 't');
+	t_opt	*opt;
+
+	opt = NULL;
+	if (!ls->opt)
+	{
+		if (!(opt = (t_opt*)malloc(sizeof(t_opt))))
+			ft_error_malloc(ls);
+		opt->lst = 0;
+		opt->rec = 0;
+		opt->all = 0;
+		opt->rev = 0;
+		opt->tmp = 0;		
+	}
+	else
+		opt = ls->opt;
+	opt->lst |= (f == 'l');
+	opt->rec |= (f == 'R');
+	opt->all |= (f == 'a');
+	opt->rev |= (f == 'r');
+	opt->tmp |= (f == 't');
+	opt->opt = (opt->tmp + (opt->rev << 1) + (opt->all << 2)
+		+ (opt->rec <<) 3 + (opt->lst << 4));
+	ls->opt = opt;
 }
 
 int		is_flag(const char *arg, t_ls *ls)
 {
 	int		i;
 
-	if (*arg != '-' || (*arg == '-' && !*(arg + 1)))
+	if (arg[0] != '-' || (arg[0] == '-' && !arg[1]))
 		return (0);
 	i = 0;
 	while (arg[++i])
 	{
-		if 
 		if (arg[i] != 'l' || arg[i] != 'R' || arg[i] != 'a'
 			|| arg[i] != 'r' || arg[i] != 't')
 			ft_error_illegal_opt(arg[i], ls);

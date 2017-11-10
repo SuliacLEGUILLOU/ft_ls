@@ -17,11 +17,14 @@ struct	s_test
 	int	a;
 	int	b;
 	int	c;
+	int d;
 };
 
 int		main(void)
 {
 	t_test t = { .a = 1, .b = 2, .c = 3 };
+	t.d = (t.a + (t.b << 1)
+		+ (t.c << 4));
 
 	return (0);
 }

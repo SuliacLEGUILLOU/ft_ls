@@ -13,9 +13,22 @@
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
+# include <sys/stat.h>
+
+typedef struct stat		t_stat;
+typedef struct dirent	t_dir;
+
+typedef struct s_tmp	t_tmp;
 typedef struct s_opt	t_opt;
 typedef struct s_doc	t_doc;
 typedef struct s_ls		t_ls;
+
+struct	s_tmp
+{
+	int		nb;
+	t_dir	*dir;
+	t_tmp	*next;
+}
 
 struct	s_opt
 {
@@ -40,7 +53,7 @@ struct	s_doc
 struct	s_ls
 {
 	t_opt	opt;
-	t_doc	**av;
+	t_doc	**data;
 };
 
 #endif

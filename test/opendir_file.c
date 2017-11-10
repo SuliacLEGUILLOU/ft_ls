@@ -67,6 +67,7 @@ int			main()
 
 	if (!(d1 = opendir(dir)))
 		return (1);
+	write(1, "\n", 1);
 	while((r = readdir(d1)))
 	{
 		str = ft_strjoin_f(dir, r->d_name, 0);

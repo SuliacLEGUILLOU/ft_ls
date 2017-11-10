@@ -12,7 +12,7 @@
 
 #include <ft_ls.h>
 
-static int	ft_ls(char **dir, t_opt *opt)
+static int	ft_ls(t_ls *ls)
 {
 	char	**indir;
 	return (0);

@@ -16,5 +16,7 @@
 # include <ft_ls.h>
 
 void	ft_error_init(void);
+void	ft_error_malloc(t_ls *ls);
+void	ft_error_illegal_opt(char f, t_ls *ls);
 
 #endif

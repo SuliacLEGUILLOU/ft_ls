@@ -18,11 +18,11 @@
 # include <ft_error.h>
 # include <structure.h>
 
-/*
-**int		somme_opt(t_opt *opt);
-*/
+# include <stddef.h>
 
+void	clear_ls(t_ls *ls);
 void	set_flag(t_ls *ls, char f);
+
 int		is_flag(const char *arg, t_ls *ls);
 
 #endif
