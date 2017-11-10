@@ -12,6 +12,8 @@
 
 #include <unistd.h>
 
+#define nul '\0'
+
 int		main(int argc, char **argv)
 {
 	int		i;
@@ -34,5 +36,9 @@ int		main(int argc, char **argv)
 		write(1, &c, 1);
 		write(1, "\n", 1);
 	}
+	c = nul;
+	c += '0';
+	write(1, &c, 1);
+	write(1, "\n", 1);
 	return (0);
 }

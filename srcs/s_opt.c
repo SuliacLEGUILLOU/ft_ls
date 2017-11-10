@@ -19,7 +19,7 @@
 ** }
 */
 
-static void	set_flag(t_ls *ls, char f)
+void	set_flag(t_ls *ls, char f)
 {
 	ls->opt->lst |= (f == 'l');
 	ls->opt->rec |= (f == 'R');
@@ -28,7 +28,7 @@ static void	set_flag(t_ls *ls, char f)
 	ls->opt->tmp |= (f == 't');
 }
 
-int			is_flag(const char *arg, t_ls *ls)
+int		is_flag(const char *arg, t_ls *ls)
 {
 	int		i;
 

@@ -19,7 +19,7 @@ static void	init_ls(t_ls *ls)
 	if (!(ls = (t_ls*)malloc(sizeof(t_ls))))
 		ft_error_init();
 	ls->data = NULL;
-	opt = {.lst = 0, .rec = 0, .all = 0, .rev = 0, .tmp = 0};
+	set_flag(ls, nul);
 	ls->opt = &opt;
 }
 

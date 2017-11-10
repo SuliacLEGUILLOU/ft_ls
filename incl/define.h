@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 16:50:06 by msorin            #+#    #+#             */
-/*   Updated: 2017/10/30 16:50:08 by msorin           ###   ########.fr       */
+/*   Created: 2017/11/10 11:39:04 by msorin            #+#    #+#             */
+/*   Updated: 2017/11/10 11:39:06 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#ifndef DEFINE_H
+# define DEFINE_H
 
-# include <libft.h>
-# include <define.h>
-# include <ft_error.h>
-# include <structure.h>
-
-/*
-**int		somme_opt(t_opt *opt);
-*/
-
-void	set_flag(t_ls *ls, char f);
-int		is_flag(const char *arg, t_ls *ls);
+# define F1	1
+# define F2 2
+# define F3 4
+# define F4 8
+# define F5 16
+# define nul '\0'
 
 #endif
