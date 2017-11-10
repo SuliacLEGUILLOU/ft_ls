@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 08:51:52 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/10 08:51:54 by msorin           ###   ########.fr       */
+/*   Created: 2017/11/10 11:39:04 by msorin            #+#    #+#             */
+/*   Updated: 2017/11/10 11:39:06 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_ls.h>
+#ifndef DEFINE_H
+# define DEFINE_H
 
-static int	ft_ls(char **dir, t_opt *opt)
-{
-	char	**indir;
-	return (0);
-}
+# define F1		1
+# define F2		2
+# define F3		4
+# define F4		8
+# define F5		16
+# define nul	'\0'
+
+#endif

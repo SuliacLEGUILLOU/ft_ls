@@ -14,42 +14,15 @@
 # define FT_LS_H
 
 # include <libft.h>
+# include <define.h>
+# include <ft_error.h>
+# include <structure.h>
 
-# define F1	1
-# define F2 2
-# define F3 4
-# define F4 8
-# define F5 16
+/*
+**int		somme_opt(t_opt *opt);
+*/
 
-typedef struct s_opt	t_opt;
-typedef struct s_doc	t_doc;
-typedef struct s_ls		t_ls;
-
-struct	s_opt
-{
-	char	lst;
-	char	rec;
-	char	all;
-	char	rev;
-	char	tmp;
-	char	opt;
-};
-
-struct	s_doc
-{
-	char	*name;
-	size_t	ctime;
-	t_doc	**sub_dir;
-	t_stat	*data;
-	char	*to_print;
-};
-
-struct	s_ls
-{
-	t_opt	*opt;
-	t_doc	**av;
-};
-
-int		somme_opt(t_opt *opt);
+void	set_flag(t_ls *ls, char f);
+int		is_flag(const char *arg, t_ls *ls);
 
 #endif

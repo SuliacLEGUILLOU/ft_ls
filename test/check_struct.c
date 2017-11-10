@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   check_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 08:51:52 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/10 08:51:54 by msorin           ###   ########.fr       */
+/*   Created: 2017/11/10 10:48:26 by msorin            #+#    #+#             */
+/*   Updated: 2017/11/10 10:48:27 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_ls.h>
+typedef struct s_test	t_test;
 
-static int	ft_ls(char **dir, t_opt *opt)
+struct	s_test
 {
-	char	**indir;
+	int	a;
+	int	b;
+	int	c;
+};
+
+int		main(void)
+{
+	t_test t = { .a = 1, .b = 2, .c = 3 };
+
 	return (0);
 }

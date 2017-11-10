@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 08:51:52 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/10 08:51:54 by msorin           ###   ########.fr       */
+/*   Created: 2017/11/10 09:00:37 by msorin            #+#    #+#             */
+/*   Updated: 2017/11/10 09:00:39 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_ls.h>
+#ifndef FT_ERROR_H
+# define FT_ERROR_H
 
-static int	ft_ls(char **dir, t_opt *opt)
-{
-	char	**indir;
-	return (0);
-}
+# include <ft_ls.h>
+
+void	ft_error_init(void);
+
+#endif
