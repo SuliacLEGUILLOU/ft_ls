@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:50:06 by msorin            #+#    #+#             */
-/*   Updated: 2017/10/30 16:50:08 by msorin           ###   ########.fr       */
+/*   Updated: 2017/11/10 11:43:45 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,21 @@ typedef struct s_ls		t_ls;
 
 struct	s_opt
 {
-	int		lst;
-	int		rec;
-	int		all;
-	int		rev;
-	int		tmp;
+	char	lst;
+	char	rec;
+	char	all;
+	char	rev;
+	char	tmp;
+	char	opt;
 };
 
 struct	s_doc
 {
 	char	*name;
 	size_t	ctime;
-	t_doc	**sub;
+	t_doc	**sub_dir;
 	t_stat	*data;
+	char	*to_print;
 };
 
 struct	s_ls
