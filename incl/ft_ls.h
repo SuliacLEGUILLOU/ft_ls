@@ -14,6 +14,7 @@
 # define FT_LS_H
 
 # include <libft.h>
+# include <ft_error.h>
 
 # define F1	1
 # define F2 2
