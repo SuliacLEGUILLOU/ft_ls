@@ -15,17 +15,17 @@
 /*
 ** int		somme_opt(t_opt *opt)
 ** {
-**	return (opt->lst + opt->rec + opt->all + opt->rev + opt->tmp);
+**	return (opt.lst + opt.rec + opt.all + opt.rev + opt.tmp);
 ** }
 */
 
 void	set_flag(t_ls *ls, char f)
 {
-	ls->opt->lst |= (f == 'l');
-	ls->opt->rec |= (f == 'R');
-	ls->opt->all |= (f == 'a');
-	ls->opt->rev |= (f == 'r');
-	ls->opt->tmp |= (f == 't');
+	ls->opt.lst |= (f == 'l');
+	ls->opt.rec |= (f == 'R');
+	ls->opt.all |= (f == 'a');
+	ls->opt.rev |= (f == 'r');
+	ls->opt.tmp |= (f == 't');
 }
 
 int		is_flag(const char *arg, t_ls *ls)

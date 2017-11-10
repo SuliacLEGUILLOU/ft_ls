@@ -14,8 +14,23 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+static void	clear_ls(t_ls *ls)
+{
+	if (ls)
+	{
+		if (ls->opt)
+	}
+}
+
 void	ft_error_init(void)
 {
 	write(2, "An error occurred while initialising data.\n", 43);
 	exit(1);
+}
+
+void	ft_error_illegal_opt(char f, t_ls *ls)
+{
+	write(2, "ls: illegal option -- ", 22);
+	write(2, &f, 1);
+	write(2, "\nusage: ls [-Ralrt] [file ...]\n", 31);
 }

@@ -19,24 +19,27 @@ typedef struct s_ls		t_ls;
 
 struct	s_opt
 {
-	int		lst;
-	int		rec;
-	int		all;
-	int		rev;
-	int		tmp;
+	char	lst;
+	char	rec;
+	char	all;
+	char	rev;
+	char	tmp;
+	char	opt;
 };
 
 struct	s_doc
 {
 	char	*name;
 	size_t	ctime;
-	t_doc	**sub;
+	t_doc	**sub_dir;
 	t_stat	*data;
+	char	*to_print;
 };
+
 
 struct	s_ls
 {
-	t_opt	*opt;
+	t_opt	opt;
 	t_doc	**av;
 };
 

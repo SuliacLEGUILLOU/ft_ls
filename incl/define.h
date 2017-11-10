@@ -13,11 +13,11 @@
 #ifndef DEFINE_H
 # define DEFINE_H
 
-# define F1	1
-# define F2 2
-# define F3 4
-# define F4 8
-# define F5 16
-# define nul '\0'
+# define F1		1
+# define F2		2
+# define F3		4
+# define F4		8
+# define F5		16
+# define nul	'\0'
 
 #endif
