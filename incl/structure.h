@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 11:41:44 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/10 11:41:45 by msorin           ###   ########.fr       */
+/*   Updated: 2017/11/11 16:12:12 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
+typedef short			t_mask;
+
+typedef unsigned long	size_t;
 
 typedef struct s_tmp	t_tmp;
 typedef struct s_opt	t_opt;
@@ -28,16 +31,6 @@ struct	s_tmp
 	int		nb;
 	t_dir	*dir;
 	t_tmp	*next;
-}
-
-struct	s_opt
-{
-	char	lst;
-	char	rec;
-	char	all;
-	char	rev;
-	char	tmp;
-	char	opt;
 };
 
 struct	s_doc
@@ -52,8 +45,8 @@ struct	s_doc
 
 struct	s_ls
 {
-	t_opt	opt;
-	t_doc	**data;
+	t_mask	opt;
+	t_doc	*data;
 };
 
 #endif

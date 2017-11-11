@@ -3,72 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 08:51:45 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/10 08:51:47 by msorin           ###   ########.fr       */
+/*   Updated: 2017/11/11 16:16:40 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-static void	init_ls(t_ls *ls)
+static void set_arg(t_ls *ls, char **av, int ac, int i)
 {
+	int		j;
 
-	if (!(ls = (t_ls*)malloc(sizeof(t_ls))))
-		ft_error_init();
-	ls->data = NULL;
-	ls->opt = NULL;
-	set_flag(ls, nul);
-}
-
-static void	set_arg(t_ls *ls, char **av, int at, int ac)
-{
-	return ;
-}
-
-static void	ft_setenv(t_ls *ls, char **env)
-{
-	char	**fold;
-
-	*fold = ft_getenv("PWD", env);
-	set_arg(ls, fold, 0, 1);
-	free(*fold);
-}
-
-void		clear_ls(t_ls *ls)
-{
-	if (ls)
+	j = 0;
+	ls->data = malloc(sizeof(t_doc*) * ac - i + 1);
+	while (i + j < ac)
 	{
-		if (ls->opt)
-			free(ls->opt);
-		if (ls->data)
-		{
-			clear_data(ls->data);
-			free(ls->data);
-		}
-		ls->opt = NULL;
-		ls->data = NULL;
-		free(ls);
+		ls->data[j].name = ft_strdup(av[i + j]);
+		++j;
 	}
+	ls->data[j].name = NULL;
+	sort_file_list(ls);
 }
 
 int			main(int argc, char **argv, char **env)
 {
-	t_ls	*ls;
+	t_ls	ls;
 	int		i;
 
-	ls = NULL;
-	init_ls(ls);
+	ls.opt = 0;
+	ls.data = NULL;
 	i = 0;
 	while (++i < argc)
 	{
-		if (!is_flag(argv[i], ls))
+		if (!is_flag(argv[i], &ls))
 			break ;
 	}
 	if (i == argc)
-		ft_setenv(ls, env);
+		(void)env;
+		//set_current_dir(&ls, env);
 	else
-		set_arg(ls, argv, i, argc);
-	return (ft_ls(ls));
+		set_arg(&ls, argv, argc, i);
+	ft_ls(ls);
+	return (0);
 }

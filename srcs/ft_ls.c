@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 08:51:52 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/10 08:51:54 by msorin           ###   ########.fr       */
+/*   Updated: 2017/11/11 16:16:53 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-static int	ft_ls(t_ls *ls)
+void	ft_ls(t_ls ls)
 {
-	char	**indir;
-	return (0);
+	for (int i = 0; ls.data[i].name; ++i) {
+		ft_putendl(ls.data[i].name);
+	}
 }

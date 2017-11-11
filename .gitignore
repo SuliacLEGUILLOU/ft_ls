@@ -1,4 +1,7 @@
+# Project file
 libft
+ft_ls
+libft.h
 # Prerequisites
 *.d
 
