@@ -6,18 +6,18 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 08:51:45 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/11 16:16:40 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/11 20:56:55 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-static void set_arg(t_ls *ls, char **av, int ac, int i)
+static void	set_arg(t_ls *ls, char **av, int ac, int i)
 {
 	int		j;
 
 	j = 0;
-	ls->data = malloc(sizeof(t_doc*) * ac - i + 1);
+	ls->data = malloc(sizeof(t_doc) * ac - i + 1);
 	while (i + j < ac)
 	{
 		ls->data[j].name = ft_strdup(av[i + j]);
@@ -27,7 +27,24 @@ static void set_arg(t_ls *ls, char **av, int ac, int i)
 	sort_file_list(ls);
 }
 
-int			main(int argc, char **argv, char **env)
+static void set_current_dir(t_ls *ls, char const **env)
+{
+	while (*env)
+	{
+		if (!ft_strncmp(*env, "PWD=", 4))
+		{
+			ls->data = malloc(sizeof(t_doc) * 2);
+			ls->data[0].name = ft_strdup((*env) + 4);
+			ls->data[1].name = NULL;
+			return ;
+		}
+		++env;
+	}
+	ft_putendl("Error : no file in parametter and env is unset");
+	exit(1);
+}
+
+int			main(int argc, char **argv, char const **env)
 {
 	t_ls	ls;
 	int		i;
@@ -41,8 +58,7 @@ int			main(int argc, char **argv, char **env)
 			break ;
 	}
 	if (i == argc)
-		(void)env;
-		//set_current_dir(&ls, env);
+		set_current_dir(&ls, env);
 	else
 		set_arg(&ls, argv, argc, i);
 	ft_ls(ls);
