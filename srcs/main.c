@@ -58,7 +58,7 @@ static void	set_arg(t_ls *ls, char **av, int ac, int i)
 	}
 	else
 		data[j] = NULL;
-	ls->data = data;
+	ls->arg = data;
 }
 
 /*
@@ -93,7 +93,7 @@ int			main(int argc, char **argv, char const **env)
 
 	ls.opt = 0;
 	ls.pwd = NULL;
-	ls.data = NULL;
+	ls.arg = NULL;
 	i = 0;
 	while (++i < argc)
 	{

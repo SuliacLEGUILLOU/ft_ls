@@ -22,8 +22,8 @@ int	ft_ls(t_ls *ls, int	rg)
 {
 	if (rg == 0)
 		;
-	for (int i = 0; ls->data[i]->name; ++i) {
-		ft_putendl(ls->data[i]->name);
+	for (int i = 0; ls->arg[i]->name; ++i) {
+		ft_putendl(ls->arg[i]->name);
 	}
 	return (0);
 }

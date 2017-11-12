@@ -37,7 +37,7 @@ struct	s_doc
 	char	*name;
 	size_t	ctime;
 	t_doc	**sub_dir;
-	t_stat	*data;
+	t_stat	*stat;
 	char	*to_print;
 };
 
@@ -46,7 +46,7 @@ struct	s_ls
 {
 	t_mask	opt;
 	char	*pwd;
-	t_doc	**data;
+	t_doc	**arg;
 	int		error;
 };
 
