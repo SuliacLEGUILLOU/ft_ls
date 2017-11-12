@@ -84,16 +84,14 @@ static void	change_prot(char f[4], char l[4], char p[4])
 	char	*ln;
 	char	*chmod;
 
-	touch = ft_strjoin_f("touch ", f, 0);
-	system(touch);
+	touch = ft_strjoin_f("mkdir -p ", f, 0);
+	ln = ft_strjoin_f(touch, "/", 0);
+	ln = ft_strjoin_f(ln, l, 1);
+	system(ln);
 	chmod = ft_strjoin_f("chmod ", p, 0);
 	chmod = ft_strjoin_f(chmod, " ", 1);
 	chmod = ft_strjoin_f(chmod, f, 1);
 	system(chmod);
-	ln = ft_strjoin_f("ln -s ", f, 0);
-	ln = ft_strjoin_f(ln, " ", 1);
-	ln = ft_strjoin_f(ln, l, 1);
-	system(ln);
 	free(touch);
 	free(chmod);
 	free(ln);

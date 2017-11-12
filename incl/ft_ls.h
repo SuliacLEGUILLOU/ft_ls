@@ -29,7 +29,7 @@ void	set_flag(t_ls *ls, char f);
 
 int		is_flag(const char *arg, t_ls *ls);
 
-void	ft_ls(t_ls ls);
+int		ft_ls(t_ls *ls);
 void	sort_file_list(t_ls *ls);
 
 #endif

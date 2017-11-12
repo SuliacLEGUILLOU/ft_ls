@@ -27,6 +27,10 @@ static void	set_arg(t_ls *ls, char **av, int ac, int i)
 	sort_file_list(ls);
 }
 
+/*
+** to change with ft_get/setenv
+*/
+
 static void set_current_dir(t_ls *ls, char const **env)
 {
 	while (*env)
@@ -41,8 +45,12 @@ static void set_current_dir(t_ls *ls, char const **env)
 		++env;
 	}
 	ft_putendl("Error : no file in parametter and env is unset");
-	exit(1);
+	exit(2);
 }
+
+/*
+** TODO: comment every function in order to explain why it is complicate
+*/
 
 int			main(int argc, char **argv, char const **env)
 {
@@ -61,6 +69,5 @@ int			main(int argc, char **argv, char const **env)
 		set_current_dir(&ls, env);
 	else
 		set_arg(&ls, argv, argc, i);
-	ft_ls(ls);
-	return (0);
+	return (ft_ls(ls));
 }
