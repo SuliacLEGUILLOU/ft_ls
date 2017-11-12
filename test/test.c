@@ -209,7 +209,7 @@ int	main(int ac, char **av, char **env)
 	t_stat	*s1;
 	t_stat	*s2;
 	char	*str;
-	char	dir[32] = "/Users/msorin/Desktop/beuha_ba";
+	char	dir[32] = "/Users/msorin/Desktop/pouet";
 	//char	dir[32] = "/dev";
 
 	s1 = malloc(sizeof(t_stat));

@@ -12,6 +12,10 @@
 
 #include <ft_ls.h>
 
+/*
+** ls -f enable the 'a' flag
+*/
+
 void	set_flag(t_ls *ls, char f)
 {
 	if (f == 'l' && !(ls->opt & DETAIL))
@@ -27,7 +31,7 @@ void	set_flag(t_ls *ls, char f)
 	else if (f == 't' && !(ls->opt & TIME))
 		ls->opt += TIME;
 	else if (f == 'f' && !(ls->opt & NO_SORT))
-		ls->opt += NO_SORT;
+		ls->opt += NO_SORT + ALL;
 	else if (f == 'F' && !(ls->opt & CLASSIFY))
 		ls->opt += CLASSIFY;
 }

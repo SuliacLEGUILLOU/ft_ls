@@ -14,11 +14,13 @@
 
 void	sort_file_list(t_ls *ls)
 {
-	t_stat	*t1;
-	t_stat	*t2;
-	t_doc	*d1;
-	t_doc	d2;
+	int		i;
+	t_doc	*tmp;
 
-	if (ls->opt & NO_SORT)
-		return ;
+	i = -1;
+	while (ls->data[++i])
+	{
+		if (lstat(ls->data[i]->name, ls->data[i]->data) && ls->error != 1)
+			ls->error = 1;
+	}
 }

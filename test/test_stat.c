@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   test_stat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 08:51:52 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/11 16:16:53 by sle-guil         ###   ########.fr       */
+/*   Created: 2017/11/12 14:47:19 by msorin            #+#    #+#             */
+/*   Updated: 2017/11/12 14:47:20 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_ls.h>
+#include <unistd.h>
+#include <stddef.h>
+#include <sys/stat.h>
 
-/*
-** for rg == 0 try opendir
-** if success, ls on sub_data
-** else print with (flag)
-*/
+typedef struct stat	t_stat;
 
-int	ft_ls(t_ls *ls, int	rg)
+int		main(void)
 {
-	if (rg == 0)
-		;
-	for (int i = 0; ls->data[i]->name; ++i) {
-		ft_putendl(ls->data[i]->name);
-	}
+	t_stat	*t;
+
+	t = NULL;
+	if (stat("/un/dossier/inexistant", t))
+		write(2, "Mon erreur\n", 11);
 	return (0);
 }

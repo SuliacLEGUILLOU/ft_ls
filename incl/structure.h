@@ -47,6 +47,7 @@ struct	s_ls
 	t_mask	opt;
 	char	*pwd;
 	t_doc	**data;
+	int		error;
 };
 
 #endif

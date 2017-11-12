@@ -12,6 +12,20 @@
 
 #include <ft_ls.h>
 
+static char	*set_name(char *av, char *pwd)
+{
+	char *name;
+
+	if (av[0] == '/')
+		name = ft_strdup(av);
+	else
+	{
+		name = ft_strjoin_f(pwd, "/", 0);
+		name = ft_strjoin_f(name, av, 1);
+	}
+	return (name);
+}
+
 /*
 ** We use un pointer to a t_doc array for easyest usage
 ** The functions stat and lstat need the absolute pathe of a file / folder
@@ -24,26 +38,33 @@ static void	set_arg(t_ls *ls, char **av, int ac, int i)
 	t_doc	**data;
 
 	j = 0;
-	data = malloc(sizeof(t_doc*) * ac - i + 1);
-	if (i == ac)
-		data[0]->name = ft_strdup(ls->pwd);
+	if (!(data = malloc(sizeof(t_doc*) * ac - i + 1)))
+		ft_error_init();
 	while (i + j < ac)
 	{
-		if (av[i + j][0] == '/')
-			data[j]->name = ft_strdup(av[i + j]);
-		else
-		{
-			data[j]->name = ft_strjoin_f(ls->pwd, "/", 0);
-			data[j]->name = ft_strjoin_f(data[j]->name, av[i + j], 1);
-		}
+		data[j]->name = set_name(av[i + j], ls->pwd)
+		data[j]->sub_dir = NULL;
+		data[j]->data = NULL;
+		data[j]->to_print = NULL;
 		++j;
 	}
-	data[j] = NULL;
+	if (j == 0)
+	{
+		data[0]->name = ft_strdup(ls->pwd);
+		data[0]->sub_dir = NULL;
+		data[0]->data = NULL;
+		data[0]->to_print = NULL;
+		data[1] = NULL;
+	}
+	else
+		data[j] = NULL;
 	ls->data = data;
 }
 
 /*
 ** to change with ft_get/setenv
+** Because stat and lstat need the absolute path,
+** we have to keep the pwd in the t_ls struct;
 */
 
 static void set_current_dir(t_ls *ls, char const **env)
@@ -71,6 +92,7 @@ int			main(int argc, char **argv, char const **env)
 	int		i;
 
 	ls.opt = 0;
+	ls.pwd = NULL;
 	ls.data = NULL;
 	i = 0;
 	while (++i < argc)
@@ -80,6 +102,6 @@ int			main(int argc, char **argv, char const **env)
 	}
 	set_current_dir(&ls, env);
 	set_arg(&ls, argv, argc, i);
-	sort_file_list(ls);
-	return (ft_ls(ls));
+	sort_file_list(&ls);
+	return (ft_ls(&ls, 0));
 }
