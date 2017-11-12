@@ -14,6 +14,11 @@
 
 void	sort_file_list(t_ls *ls)
 {
+	t_stat	*t1;
+	t_stat	*t2;
+	t_doc	*d1;
+	t_doc	d2;
+
 	if (ls->opt & NO_SORT)
 		return ;
 }

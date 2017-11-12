@@ -12,19 +12,34 @@
 
 #include <ft_ls.h>
 
+/*
+** We use un pointer to a t_doc array for easyest usage
+** The functions stat and lstat need the absolute pathe of a file / folder
+** so we have to keep in memory the pwd
+*/
+
 static void	set_arg(t_ls *ls, char **av, int ac, int i)
 {
 	int		j;
+	t_doc	**data;
 
 	j = 0;
-	ls->data = malloc(sizeof(t_doc) * ac - i + 1);
+	data = malloc(sizeof(t_doc*) * ac - i + 1);
+	if (i == ac)
+		data[0]->name = ft_strdup(ls->pwd);
 	while (i + j < ac)
 	{
-		ls->data[j].name = ft_strdup(av[i + j]);
+		if (av[i + j][0] == '/')
+			data[j]->name = ft_strdup(av[i + j]);
+		else
+		{
+			data[j]->name = ft_strjoin_f(ls->pwd, "/", 0);
+			data[j]->name = ft_strjoin_f(data[j]->name, av[i + j], 1);
+		}
 		++j;
 	}
-	ls->data[j].name = NULL;
-	sort_file_list(ls);
+	data[j] = NULL;
+	ls->data = data;
 }
 
 /*
@@ -37,12 +52,10 @@ static void set_current_dir(t_ls *ls, char const **env)
 	{
 		if (!ft_strncmp(*env, "PWD=", 4))
 		{
-			ls->data = malloc(sizeof(t_doc) * 2);
-			ls->data[0].name = ft_strdup((*env) + 4);
-			ls->data[1].name = NULL;
+			ls->pwd = ft_strdup((*env) + 4);
 			return ;
 		}
-		++env;
+		env++;
 	}
 	ft_putendl("Error : no file in parametter and env is unset");
 	exit(2);
@@ -65,9 +78,8 @@ int			main(int argc, char **argv, char const **env)
 		if (!is_flag(argv[i], &ls))
 			break ;
 	}
-	if (i == argc)
-		set_current_dir(&ls, env);
-	else
-		set_arg(&ls, argv, argc, i);
+	set_current_dir(&ls, env);
+	set_arg(&ls, argv, argc, i);
+	sort_file_list(ls);
 	return (ft_ls(ls));
 }

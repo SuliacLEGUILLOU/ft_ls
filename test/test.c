@@ -220,7 +220,7 @@ int	main(int ac, char **av, char **env)
 		str = ft_strjoin_f(ft_strjoin_f(dir, "/", 0), r->d_name, 1);
 		write(1, str, ft_strlen(str));
 		write(1, " :\n", 3);
-		if (stat(str,s1))
+		if (stat(str, s1))
 			perror("fail");
 		else
 		{
