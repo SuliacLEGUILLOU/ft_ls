@@ -65,6 +65,7 @@ static void	set_arg(t_ls *ls, char **av, int ac, int i)
 ** to change with ft_get/setenv
 ** Because stat and lstat need the absolute path,
 ** we have to keep the pwd in the t_ls struct;
+** TO_ADD : get_env("HOME");
 */
 
 static void set_current_dir(t_ls *ls, char const **env)
@@ -92,6 +93,7 @@ int			main(int argc, char **argv, char const **env)
 
 	ls.opt = 0;
 	ls.pwd = NULL;
+	ls.home = NULL;
 	ls.arg = NULL;
 	i = 0;
 	while (++i < argc)
@@ -102,5 +104,5 @@ int			main(int argc, char **argv, char const **env)
 	set_current_dir(&ls, env);
 	set_arg(&ls, argv, argc, i);
 	sort_file_list(&ls);
-	return (ft_ls(&ls, 0));
+	return (ft_ls(&ls));
 }

@@ -18,12 +18,12 @@
 ** else print with (flag)
 */
 
-int	ft_ls(t_ls *ls, int	rg)
+int		ft_ls(t_ls *ls)
 {
-	if (rg == 0)
-		;
+	int	i;
+
 	for (int i = 0; ls->arg[i]->name; ++i) {
 		ft_putendl(ls->arg[i]->name);
 	}
-	return (0);
+	return (ls->error);
 }

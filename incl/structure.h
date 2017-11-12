@@ -46,6 +46,7 @@ struct	s_ls
 {
 	t_mask	opt;
 	char	*pwd;
+	char	*home;
 	t_doc	**arg;
 	int		error;
 };

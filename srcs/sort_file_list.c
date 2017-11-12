@@ -12,77 +12,75 @@
 
 #include <ft_ls.h>
 
+static void	swap_doc(t_ls *ls, t_doc **d, int j)
+{
+	t_doc	*t;
+
+	t = ls->arg[j];
+	ls->arg[j] = *d;
+	*d = t;
+}
+
 static void	insert_nonstat(t_ls *ls, int i)
 {
 	int		j;
-	t_doc	*t1;
-	t_doc	*t2;
+	t_doc	*t;
 
 	j = 0;
-	t1 = ls->arg[i];
+	t = ls->arg[i];
 	while ((j < i) && !ls->arg[j]->stat)
 	{
-		if (!(ls->opt & NO_SORT) && (ft_strcmp(t1, ls->arg[j]->stat)))
-		{
-			t2 = ls->arg[j];
-			ls->arg[j] = t1;
-			t1 = t2;
-		}
+		if (!(ls->opt & NO_SORT) && (ft_strcmp(t, ls->arg[j]->stat)))
+			swap_doc(ls, &t, j);
 		j++;
 	}
 	while (j < i)
 	{
-		t2 = ls->arg[j];
-		ls->arg[j] = t1;
-		t1 = t2;
+		swap_doc(ls, &t, j);
 		j++
 	}
-	ls->arg[j] = t1;
+	ls->arg[j] = t;
 }
 
-static void	sort_data(t_ls *ls, int i)
+static void	sort_file(t_ls *ls, int i)
 {
 	int	j;
-	t_doc	*t1;
-	t_doc	*t2;
+	t_doc	*t;
 
 	j = -1;
-	t1 = ls->arg[i];
+	t = ls->arg[i];
 	while (!ls->arg[j + 1]->stat)
 		j++;
 	while (++j < i)
 	{
-		if (!(ls->opt & TIME) && (ft_strcmp(t1->name, ls->arg[j]->name) < 0))
-		{
-			t2 = ls->arg[j];
-			ls->arg[j] = t1;
-			t1 = t2;
-		}
+		if (!(ls->opt & TIME) && (ft_strcmp(t->name, ls->arg[j]->name) < 0))
+			swap_doc(ls, &t, j);
 		else if ((ls->opt & TIME)
-			&& (t1->stat->st_ctime < ls->arg[j]->stat->st_ctime))
-		{
-			t2 = ls->arg[j];
-			ls->arg[j] = t1;
-			t1 = t2;
-		}
+			&& (t->stat->st_ctime < ls->arg[j]->stat->st_ctime))
+			swap_doc(ls, &t, j);
 	}
-	ls->arg[i] = t1;
+	ls->arg[i] = t;
 }
 
 void	sort_file_list(t_ls *ls)
 {
+	DIR		*d;
 	int		i;
 
 	i = -1;
 	while (ls->arg[++i])
 	{
-		if (lstat(ls->arg[i]->name, ls->arg[i]->stat) && !ls->error)
+		if (lstat(ls->arg[i]->name, ls->arg[i]->stat))
 		{
 			ls->error = 1;
 			insert_nonstat(ls, i);
 		}
-		if (ls->opt & NO_SORT)
-			continue ;
-		sort_data(ls, i);
+		if (!(d = opendir(ls->arg[i]->name)))
+			sort_file(ls, i)
+		else
+		{
+			sort_directory(ls, i);
+			closedir(d);
+		}
 	}
 }

@@ -168,7 +168,7 @@ void ft_putnbr(int n)
 
 	// printf("s->st_dev - %d\t/* ID du périphérique contenant le fichier */\n", s->st_dev);
 	// printf("s->st_ino - %llu\t/* Numéro inœud */\n", s->st_ino);
-
+	// printf("s->st_mode - %d\t/* Protection */\n");
 	// printf("s->st_nlink - %d\t/* Nb liens matériels */\n", s->st_nlink);
 	// printf("s->st_uid - %d\t/* UID propriétaire */\n", s->st_uid);
 	// printf("s->st_gid - %d\t/* GID propriétaire */\n", s->st_gid);
