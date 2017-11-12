@@ -78,8 +78,7 @@ static void set_current_dir(t_ls *ls, char const **env)
 		}
 		env++;
 	}
-	ft_putendl("Error : no file in parametter and env is unset");
-	exit(2);
+	ft_error_env();
 }
 
 /*

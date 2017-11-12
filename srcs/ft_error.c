@@ -20,6 +20,12 @@ void	ft_error_init(void)
 	exit(12);
 }
 
+void	ft_error_env(void)
+{
+	write(2, "Error : no file in parametter and env is unset.\n", 48);
+	exit(2);
+}
+
 /*
 ** Certes, clear_ls n'est peut-etre pas indispensable,
 ** mais c'est sur le principe de la guerre aux leaks.
