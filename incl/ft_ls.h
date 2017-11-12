@@ -20,6 +20,11 @@
 
 # include <stddef.h>
 
+/*
+** needed in order to don't have leaks
+*/
+void	clear_ls(t_ls *ls);
+
 void	set_flag(t_ls *ls, char f);
 
 int		is_flag(const char *arg, t_ls *ls);
