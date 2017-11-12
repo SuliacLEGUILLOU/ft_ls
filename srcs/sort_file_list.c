@@ -18,9 +18,26 @@ static void	insert_nonstat(t_ls *ls, int i)
 	t_doc	*t1;
 	t_doc	*t2;
 
-	j = 0
+	j = 0;
 	t1 = ls->arg[i];
-	while (ls->arg[j]->stat)
+	while ((j < i) && !ls->arg[j]->stat)
+	{
+		if (!(ls->opt & NO_SORT) && (ft_strcmp(t1, ls->arg[j]->stat)))
+		{
+			t2 = ls->arg[j];
+			ls->arg[j] = t1;
+			t1 = t2;
+		}
+		j++;
+	}
+	while (j < i)
+	{
+		t2 = ls->arg[j];
+		ls->arg[j] = t1;
+		t1 = t2;
+		j++
+	}
+	ls->arg[j] = t1;
 }
 
 static void	sort_data(t_ls *ls, int i)
@@ -31,11 +48,18 @@ static void	sort_data(t_ls *ls, int i)
 
 	j = -1;
 	t1 = ls->arg[i];
+	while (!ls->arg[j + 1]->stat)
+		j++;
 	while (++j < i)
 	{
-		if (!ls->arg[j]->stat)
-			continue ;
-		if (ft_strcmp(t1->name, ls->arg[j]->name) < 0)
+		if (!(ls->opt & TIME) && (ft_strcmp(t1->name, ls->arg[j]->name) < 0))
+		{
+			t2 = ls->arg[j];
+			ls->arg[j] = t1;
+			t1 = t2;
+		}
+		else if ((ls->opt & TIME)
+			&& (t1->stat->st_ctime < ls->arg[j]->stat->st_ctime))
 		{
 			t2 = ls->arg[j];
 			ls->arg[j] = t1;
@@ -48,14 +72,17 @@ static void	sort_data(t_ls *ls, int i)
 void	sort_file_list(t_ls *ls)
 {
 	int		i;
-	int		j;
 
 	i = -1;
 	while (ls->arg[++i])
 	{
 		if (lstat(ls->arg[i]->name, ls->arg[i]->stat) && !ls->error)
+		{
 			ls->error = 1;
+			insert_nonstat(ls, i);
+		}
 		if (ls->opt & NO_SORT)
 			continue ;
+		sort_data(ls, i);
 	}
 }
