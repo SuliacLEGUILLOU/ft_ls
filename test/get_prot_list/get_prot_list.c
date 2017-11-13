@@ -15,6 +15,11 @@
 
 int		main(void)
 {
+	struct stat	s;
+
+	//lstat("/Users/msorin/Desktop/gh_ft_ls/test/get_prot_list/test", &s);
+	//printf("%o test\n\n", s.st_mode);
+
 	printf("%o mask file\n", S_IFMT);
 
 	printf("\n");

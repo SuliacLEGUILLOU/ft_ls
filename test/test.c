@@ -146,6 +146,26 @@ char		*ft_getenv(const char *val, char **env)
 	return (NULL);
 }
 
+void ft_putnbr_octal(int n)
+{
+	size_t	t;
+	char	c;
+
+	//printf("1\n");
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		t = -n;
+	}
+	else
+		t = n;
+	//printf("2\n");
+	if (t && (t / 8))
+		ft_putnbr_octal((int)(t / 8));
+	c = (t % 8) + '0';
+	write(1, &c, 1);
+}
+
 void ft_putnbr(int n)
 {
 	size_t	t;
@@ -188,7 +208,8 @@ void print_stat (t_stat *s)
 		//printf("12\n");
 	c = s->st_mode;
 		//printf("13\n");
-	ft_putnbr(c);
+	ft_putnbr_octal(c);
+//	ft_putnbr(c);
 		//printf("14\n");
 	write(1, "\t/* Protection */\n", 18);
 };
@@ -204,41 +225,41 @@ void	print_ls(char *src)
 
 int	main(int ac, char **av, char **env)
 {
-	DIR		*d;
+//	DIR		*d;
 	t_dir	*r;
 	t_stat	*s1;
 	t_stat	*s2;
-	char	*str;
-	char	dir[32] = "/Users/msorin/Desktop/pouet";
+//	char	*str;
+	char	dir[100] = "/Users/msorin/Desktop/gh_ft_ls/test/test_recu/a/c";
 	//char	dir[32] = "/dev";
 
 	s1 = malloc(sizeof(t_stat));
 	s2 = malloc(sizeof(t_stat));
-	d = opendir(dir);
-	while ((r = readdir(d)))
-	{
-		str = ft_strjoin_f(ft_strjoin_f(dir, "/", 0), r->d_name, 1);
-		write(1, str, ft_strlen(str));
-		write(1, " :\n", 3);
-		if (stat(str, s1))
+//	d = opendir(dir);
+//	while ((r = readdir(d)))
+//	{
+//		str = ft_strjoin_f(ft_strjoin_f(dir, "/", 0), r->d_name, 1);
+//		write(1, str, ft_strlen(str));
+//		write(1, " :\n", 3);
+		if (stat(dir, s1))
 			perror("fail");
 		else
 		{
 			write(1, "stat : ", 7);
 			print_stat(s1);
 		}
-		if (lstat(str, s2))
+		if (lstat(dir, s2))
 			perror("arfl");
 		else
 		{
 			write(1, "lstat : ", 8);
 			print_stat(s2);
 		}
-		print_ls(str);
-		free(str);
-	}
+		print_ls(dir);
+//		free(str);
+//	}
 	free(s1);
 	free(s2);
-	closedir(d);
+//	closedir(d);
 	return (0);
 }
