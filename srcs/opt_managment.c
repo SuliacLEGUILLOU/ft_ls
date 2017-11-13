@@ -16,7 +16,7 @@
 ** ls -f enable the 'a' flag
 */
 
-void	set_flag(t_ls *ls, char f)
+static void	set_flag(t_ls *ls, char f)
 {
 	if (f == 'l' && !(ls->opt & DETAIL))
 		ls->opt += DETAIL;
@@ -36,7 +36,7 @@ void	set_flag(t_ls *ls, char f)
 		ls->opt += CLASSIFY;
 }
 
-int		is_flag(const char *arg, t_ls *ls)
+int			is_flag(const char *arg, t_ls *ls)
 {
 	int		i;
 

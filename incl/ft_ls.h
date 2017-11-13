@@ -25,7 +25,10 @@
 */
 void	clear_ls(t_ls *ls);
 
-void	set_flag(t_ls *ls, char f);
+/*
+** set_flag seems to be used only in is_flag, moved to static 
+** void	set_flag(t_ls *ls, char f);
+*/
 
 int		is_flag(const char *arg, t_ls *ls);
 
