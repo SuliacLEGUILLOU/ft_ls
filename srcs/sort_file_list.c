@@ -28,7 +28,8 @@ static void	insert_nonstat(t_ls *ls, int i)
 
 	j = 0;
 	t = ls->arg[i];
-	while ((j < i) && !ls->arg[j]->stat)
+	while ((j < i) && (!ls->arg[j]->stat
+		|| !(ls->arg[j]->stat-st_mode & S_IFMT)))
 	{
 		if (!(ls->opt & NO_SORT) && (ft_strcmp(t, ls->arg[j]->stat)))
 			swap_doc(ls, &t, j);
@@ -39,7 +40,7 @@ static void	insert_nonstat(t_ls *ls, int i)
 		swap_doc(ls, &t, j);
 		j++
 	}
-	ls->arg[j] = t;
+	ls->arg[i] = t;
 }
 
 static void	sort_file(t_ls *ls, int i)
@@ -49,10 +50,43 @@ static void	sort_file(t_ls *ls, int i)
 
 	j = -1;
 	t = ls->arg[i];
-	while (!ls->arg[j + 1]->stat)
+	while (!ls->arg[j + 1]->stat || !(ls->arg[j + 1]->stat-st_mode & S_IFMT))
+		j++;
+	while (++j < i && (!(ls->arg[j]->stat->st_mode & S_IFDIR)
+		&& !((ls->arg[j]->name[ft_strlen(ls->arg[j]->name - 1)] == '/')
+			&& (ls->arg[j]->stat->st_mode & S_IFLNK))))
+	{
+		if (ls->opt & NO_SORT)
+			continue ;
+		if (!(ls->opt & TIME) && (ft_strcmp(t->name, ls->arg[j]->name) < 0))
+			swap_doc(ls, &t, j);
+		else if ((ls->opt & TIME)
+			&& (t->stat->st_ctime < ls->arg[j]->stat->st_ctime))
+			swap_doc(ls, &t, j);
+	}
+	j--;
+	while (++j < i)
+		swap_doc(ls, &t, j);
+	ls->arg[i] = t;
+}
+
+static void	sort_directory(t_ls *ls, int i)
+{
+	int		j;
+	t_doc	*t;
+
+	j = -1;
+	t = ls->arg[i];
+	while ((j + 1 < i) && ((!ls->arg[j + 1]->stat
+			|| !(ls->arg[j]->stat->st_mode & S_IFMT))
+			|| (!(ls->arg[j]->stat->st_mode & S_IFDIR)
+			&& !((ls->arg[j]->name[ft_strlen(ls->arg[j]->name - 1)] == '/')
+				&& (ls->arg[j]->stat->st_mode & S_IFLNK)))))
 		j++;
 	while (++j < i)
 	{
+		if (ls->opt & NO_SORT)
+			continue ;
 		if (!(ls->opt & TIME) && (ft_strcmp(t->name, ls->arg[j]->name) < 0))
 			swap_doc(ls, &t, j);
 		else if ((ls->opt & TIME)
@@ -62,7 +96,7 @@ static void	sort_file(t_ls *ls, int i)
 	ls->arg[i] = t;
 }
 
-void	sort_file_list(t_ls *ls)
+void		sort_file_list(t_ls *ls)
 {
 	DIR		*d;
 	int		i;
@@ -70,17 +104,17 @@ void	sort_file_list(t_ls *ls)
 	i = -1;
 	while (ls->arg[++i])
 	{
-		if (lstat(ls->arg[i]->name, ls->arg[i]->stat))
+		if (lstat(ls->arg[i]->name, ls->arg[i]->stat)
+			|| !(ls->arg[i]->stat-st_mode & S_IFMT))
 		{
 			ls->error = 1;
 			insert_nonstat(ls, i);
 		}
-		if (!(d = opendir(ls->arg[i]->name)))
+		if (!(ls->arg[i]->stat->st_mode & S_IFDIR)
+			&& !((ls->arg[i]->name[ft_strlen(ls->arg[i]->name - 1)] == '/')
+				&& (ls->arg[i]->stat->st_mode & S_IFLNK)))
 			sort_file(ls, i)
 		else
-		{
 			sort_directory(ls, i);
-			closedir(d);
-		}
 	}
 }

@@ -15,11 +15,6 @@
 
 int		main(void)
 {
-	struct stat	s;
-
-	//lstat("/Users/msorin/Desktop/gh_ft_ls/test/get_prot_list/test", &s);
-	//printf("%o test\n\n", s.st_mode);
-
 	printf("%o mask file\n", S_IFMT);
 
 	printf("\n");
@@ -31,6 +26,16 @@ int		main(void)
 	printf("%o directory 'd' ('/' with -F)\n", S_IFDIR);
 	printf("%o character special file 'c'\n", S_IFCHR);
 	printf("%o FIFO 'p' ('|' with -F)\n", S_IFIFO);
+
+	printf("\n");
+
+	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFSOCK, ~S_IFMT & S_IFSOCK);
+	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFLNK, ~S_IFMT & S_IFLNK);
+	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFREG, ~S_IFMT & S_IFREG);
+	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFBLK, ~S_IFMT & S_IFBLK);
+	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFDIR, ~S_IFMT & S_IFDIR);
+	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFCHR, ~S_IFMT & S_IFCHR);
+	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFIFO, ~S_IFMT & S_IFIFO);
 
 	printf("\n");
 
