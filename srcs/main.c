@@ -42,7 +42,7 @@ static void	set_arg(t_ls *ls, char **av, int ac, int i)
 		ft_error_init();
 	while (i + j < ac)
 	{
-		data[j]->name = set_name(av[i + j], ls->pwd)
+		data[j]->name = set_name(av[i + j], ls->pwd);
 		data[j]->sub_dir = NULL;
 		data[j]->data = NULL;
 		data[j]->to_print = NULL;
@@ -68,7 +68,7 @@ static void	set_arg(t_ls *ls, char **av, int ac, int i)
 ** TO_ADD : get_env("HOME");
 */
 
-static void set_current_dir(t_ls *ls, char const **env)
+static void	set_current_dir(t_ls *ls, char const **env)
 {
 	while (*env)
 	{
