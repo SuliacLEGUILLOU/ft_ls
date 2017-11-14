@@ -230,7 +230,7 @@ int	main(int ac, char **av, char **env)
 	t_stat	*s1;
 	t_stat	*s2;
 //	char	*str;
-	char	dir[100] = "/Users/msorin/Desktop/gh_ft_ls/test/test_recu/a/c";
+	char	dir[100] = "/Users/msorin/Desktop/gh_ft_ls/test/testage/";
 	//char	dir[32] = "/dev";
 
 	s1 = malloc(sizeof(t_stat));

@@ -12,9 +12,21 @@
 
 #include <sys/stat.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+typedef struct stat	t_stat;
 
 int		main(void)
 {
+	t_stat	s1;
+
+	lstat("/Users/msorin/Desktop/gh_ft_ls/test/testage", &s1);
+	printf("%o s_fifo without '/'\n", s1.st_mode);
+	lstat("/Users/msorin/Desktop/gh_ft_ls/test/testage/", &s1);
+	printf("%o s_fifo with '/'\n", s1.st_mode);
+
+	printf("\n");
+
 	printf("%o mask file\n", S_IFMT);
 
 	printf("\n");

@@ -14,17 +14,24 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <sys/errno.h>
 
-char	*set_error(t_ls *ls, int i)
+char	*set_error(t_ls *ls, int i, int err)
 {
+	char	**name;
 	char	*err_str;
-	DIR		*d;
+	int		j;
 
-	d = opendir(ls->arg[i]->name);
-	err = ft_strjoin_f("ft_ls: ", data->name, 0);
-	err = ft_strjoin_f(err, ": ", 1);
-	err = ft_strjoin_f(err, strerror(errno), 1);
+	name = ft_strsplit(ls->arg[i]->name, '/');
+	j = 0;
+	while (name[j + 1])
+		j++;
+	err = ft_strjoin_f("ft_ls: ", name[j], 0);
+	j = -1;
+	while (name[++j])
+		free(name[j]);
+	free(name);
+	err_str = ft_strjoin_f(err_str, ": ", 1);
+	err_str = ft_strjoin_f(err_str, strerror(err), 1);
 	return (err);
 }
 

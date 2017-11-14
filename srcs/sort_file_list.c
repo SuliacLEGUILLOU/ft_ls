@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include <ft_ls.h>
+#include <sys/error.h>
+#include <sys/stat.h>
 
 static void	swap_doc(t_ls *ls, t_doc **d, int j)
 {
@@ -49,11 +51,9 @@ static void	sort_file(t_ls *ls, int i)
 
 	j = -1;
 	t = ls->arg[i];
-	while (!ls->arg[j + 1]->stat || !(ls->arg[j + 1]->stat->st_mode & S_IFMT))
+	while (ls->arg[j + 1]->err)
 		j++;
-	while (++j < i && (!(ls->arg[j]->stat->st_mode & S_IFDIR)
-		&& !((ls->arg[j]->name[ft_strlen(ls->arg[j]->name - 1)] == '/')
-			&& (ls->arg[j]->stat->st_mode & S_IFLNK))))
+	while (++j < i && !(ls->arg[j]->stat->st_mode & S_IFDIR))
 	{
 		if (ls->opt & NO_SORT)
 			continue ;
@@ -63,9 +63,11 @@ static void	sort_file(t_ls *ls, int i)
 			&& (t->stat->st_ctime < ls->arg[j]->stat->st_ctime))
 			swap_doc(ls, &t, j);
 	}
-	j--;
-	while (++j < i)
+	while (j < i)
+	{
 		swap_doc(ls, &t, j);
+		j++;
+	}
 	ls->arg[i] = t;
 }
 
@@ -76,11 +78,8 @@ static void	sort_directory(t_ls *ls, int i)
 
 	j = -1;
 	t = ls->arg[i];
-	while ((j + 1 < i) && ((!ls->arg[j + 1]->stat
-			|| !(ls->arg[j]->stat->st_mode & S_IFMT))
-			|| (!(ls->arg[j]->stat->st_mode & S_IFDIR)
-			&& !((ls->arg[j]->name[ft_strlen(ls->arg[j]->name - 1)] == '/')
-				&& (ls->arg[j]->stat->st_mode & S_IFLNK)))))
+	while ((j + 1 < i) && (ls->arg[j + 1]->err
+		|| !(ls->arg[j]->stat->st_mode & S_IFDIR)))
 		j++;
 	while (++j < i)
 	{
@@ -103,19 +102,13 @@ void		sort_file_list(t_ls *ls)
 	i = -1;
 	while (ls->arg[++i])
 	{
-		if (lstat(ls->arg[i]->name, ls->arg[i]->stat)
-			|| !(ls->arg[i]->stat->st_mode & S_IFMT)
-			|| ((ls->arg[i]->name[ft_strlen(ls->arg[i]->name - 1)] == '/')
-				&& (!(ls->arg[i]->stat->st_mode & S_IFDIR)
-					&& !(ls->arg[i]->stat->st_mode & S_IFLNK))))
+		if (lstat(ls->arg[i]->name, ls->arg[i]->stat))
 		{
 			ls->error = 1;
-			ls->arg[i]->err = set_error(ls->arg[i]);
+			ls->arg[i]->err = set_error(ls, i, errno);
 			insert_nonstat(ls, i);
 		}
-		if (!(ls->arg[i]->stat->st_mode & S_IFDIR)
-			&& !((ls->arg[i]->name[ft_strlen(ls->arg[i]->name - 1)] == '/')
-				&& (ls->arg[i]->stat->st_mode & S_IFLNK)))
+		else if (!(ls->arg[i]->stat->st_mode & S_IFDIR))
 			sort_file(ls, i);
 		else
 			sort_directory(ls, i);
