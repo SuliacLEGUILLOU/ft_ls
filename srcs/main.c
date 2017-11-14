@@ -37,27 +37,27 @@ static void	set_arg(t_ls *ls, char **av, int ac, int i)
 	int		j;
 	t_doc	**data;
 
-	j = 0;
+	j = -1;
 	if (!(data = malloc(sizeof(t_doc*) * ac - i + 1)))
 		ft_error_init();
-	while (i + j < ac)
+	while (++j + i < ac)
 	{
 		data[j]->name = set_name(av[i + j], ls->pwd);
 		data[j]->sub_dir = NULL;
 		data[j]->data = NULL;
 		data[j]->to_print = NULL;
-		++j;
+		data[j]->err = NULL;
 	}
+	data[j] = j == 0 ? data[j] : NULL;
 	if (j == 0)
 	{
 		data[0]->name = ft_strdup(ls->pwd);
 		data[0]->sub_dir = NULL;
 		data[0]->data = NULL;
 		data[0]->to_print = NULL;
+		data[0]->err = NULL;
 		data[1] = NULL;
 	}
-	else
-		data[j] = NULL;
 	ls->arg = data;
 }
 

@@ -28,8 +28,7 @@ static void	insert_nonstat(t_ls *ls, int i)
 
 	j = 0;
 	t = ls->arg[i];
-	while ((j < i) && (!ls->arg[j]->stat
-		|| !(ls->arg[j]->stat->st_mode & S_IFMT)))
+	while ((j < i) && ls->arg[j]->err)
 	{
 		if (!(ls->opt & NO_SORT) && (ft_strcmp(t, ls->arg[j]->stat)))
 			swap_doc(ls, &t, j);
@@ -105,9 +104,13 @@ void		sort_file_list(t_ls *ls)
 	while (ls->arg[++i])
 	{
 		if (lstat(ls->arg[i]->name, ls->arg[i]->stat)
-			|| !(ls->arg[i]->stat->st_mode & S_IFMT))
+			|| !(ls->arg[i]->stat->st_mode & S_IFMT)
+			|| ((ls->arg[i]->name[ft_strlen(ls->arg[i]->name - 1)] == '/')
+				&& (!(ls->arg[i]->stat->st_mode & S_IFDIR)
+					&& !(ls->arg[i]->stat->st_mode & S_IFLNK))))
 		{
 			ls->error = 1;
+			ls->arg[i]->err = set_error(ls->arg[i]);
 			insert_nonstat(ls, i);
 		}
 		if (!(ls->arg[i]->stat->st_mode & S_IFDIR)

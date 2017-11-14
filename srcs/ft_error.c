@@ -13,6 +13,20 @@
 #include <ft_ls.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <dirent.h>
+#include <sys/errno.h>
+
+char	*set_error(t_ls *ls, int i)
+{
+	char	*err_str;
+	DIR		*d;
+
+	d = opendir(ls->arg[i]->name);
+	err = ft_strjoin_f("ft_ls: ", data->name, 0);
+	err = ft_strjoin_f(err, ": ", 1);
+	err = ft_strjoin_f(err, strerror(errno), 1);
+	return (err);
+}
 
 void	ft_error_init(void)
 {
