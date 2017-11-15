@@ -13,37 +13,40 @@
 #include <ft_ls.h>
 #include <stdlib.h>
 
-static char	*get_file_name(char *av, char *pwd)
+static char	*get_file_name(char *av, t_ls *ls)
 {
 	char *name;
 
 	if (av[0] == '/')
 		name = ft_strdup(av);
+	else if (av[0] == '~')
+
 	else
 	{
-		name = ft_strjoin_f(pwd, "/", 0);
+		name = ft_strjoin_f(ls->pwd, "/", 0);
 		name = ft_strjoin_f(name, av, 1);
 	}
 	return (name);
 }
 
-t_doc	*insert_value(char *path, char *name, int flag)
+t_doc	*insert_value(char *name, char *path, int flag)
 {
 	t_doc	*data;
+	t_stat	*s;
 
 	if ((data = malloc(sizeof(t_doc))))
 		return (NULL);
 	data->name = ft_strdup(name);
 	data->path = ft_strdup(path);
+//	if (lstat())
 	data->sub_dir = NULL;
 	data->stat = NULL;
 	data->to_print = NULL;
 	data->err;
-	if (flag)
-	{
-		free(path);
+	if (flag & 1)
 		free(name);
-	}
+	if (flag & 2)
+		free(path);
 	return (data);
 }
 
@@ -57,7 +60,7 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 {
 	int		j;
 	t_doc	**data;
-	char	*(name_path[2]);
+	char	*name;
 	char	*file;
 
 	j = -1;
@@ -65,11 +68,9 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 		ft_error_init();
 	while (++j + i < ac)
 	{
-		file = get_file_name(av[j + i], ls->pwd);
-		name_path[0] = ft_strsplit_last(file, '/', 0);
-		name_path[1] = ft_strsplit_last(file, '/', 1);
-		data[j] = insert_value(name_path[0], name_path[1], 1);
-		free(file);
+		file = get_file_name(av[j + i], ls);
+		name = ft_strsplit_last(file, '/', 0);
+		data[j] = insert_value(name, file, 3);
 	}
 	if (j == 0)
 	{
