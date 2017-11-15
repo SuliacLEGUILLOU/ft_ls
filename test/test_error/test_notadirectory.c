@@ -18,14 +18,31 @@
 
 typedef struct stat	t_stat;
 
+/*
+**	DIR		*d;
+**	if (!(d = opendir(test)))
+**	{
+**		e = errno;
+**		str = strerror(e);
+**		perror("test");
+**		printf("%s - %d\n", str, e);
+**	}
+**	else
+**	{
+**		printf("done\n");
+**		closedir(d);
+**	}
+*/
+
 int	main(void)
 {
-	DIR		*d;
-	t_stat	t;
-	char	*str;
-	int		e;
-	char	test[256] = "unfichierinexistant";
+	static char	test[256] = "../";
+	t_stat		t;
+	char		*str;
+	int			e;
+	char		*(my_char[2]);
 
+	(void)my_char;
 	if (lstat(test, &t))
 	{
 		e = errno;
@@ -35,10 +52,5 @@ int	main(void)
 	}
 	else
 		printf("%o\n", t.st_mode);
-	d = opendir(test);
-	e = errno;
-	str = strerror(e);
-	perror("test");
-	printf("%s - %d\n", str, e);
 	return (0);
 }

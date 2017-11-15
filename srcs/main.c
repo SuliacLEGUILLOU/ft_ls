@@ -12,55 +12,6 @@
 
 #include <ft_ls.h>
 
-static char	*set_name(char *av, char *pwd)
-{
-	char *name;
-
-	if (av[0] == '/')
-		name = ft_strdup(av);
-	else
-	{
-		name = ft_strjoin_f(pwd, "/", 0);
-		name = ft_strjoin_f(name, av, 1);
-	}
-	return (name);
-}
-
-/*
-** We use un pointer to a t_doc array for easyest usage
-** The functions stat and lstat need the absolute pathe of a file / folder
-** so we have to keep in memory the pwd
-*/
-
-static void	set_arg(t_ls *ls, char **av, int ac, int i)
-{
-	int		j;
-	t_doc	**data;
-
-	j = -1;
-	if (!(data = malloc(sizeof(t_doc*) * ac - i + 1)))
-		ft_error_init();
-	while (++j + i < ac)
-	{
-		data[j]->name = set_name(av[i + j], ls->pwd);
-		data[j]->sub_dir = NULL;
-		data[j]->data = NULL;
-		data[j]->to_print = NULL;
-		data[j]->err = NULL;
-	}
-	data[j] = j == 0 ? data[j] : NULL;
-	if (j == 0)
-	{
-		data[0]->name = ft_strdup(ls->pwd);
-		data[0]->sub_dir = NULL;
-		data[0]->data = NULL;
-		data[0]->to_print = NULL;
-		data[0]->err = NULL;
-		data[1] = NULL;
-	}
-	ls->arg = data;
-}
-
 /*
 ** to change with ft_get/setenv
 ** Because stat and lstat need the absolute path,

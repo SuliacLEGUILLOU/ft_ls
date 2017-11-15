@@ -35,10 +35,12 @@ struct	s_tmp
 struct	s_doc
 {
 	char	*name;
+	char	*path;
 	size_t	ctime;
 	t_doc	**sub_dir;
 	t_stat	*stat;
 	char	*to_print;
+	char	*err;
 };
 
 
