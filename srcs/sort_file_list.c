@@ -100,10 +100,9 @@ void		sort_file_list(t_ls *ls)
 	i = -1;
 	while (ls->arg[++i])
 	{
-		if (lstat(ls->arg[i]->name, ls->arg[i]->stat))
+		if (ls->arg[i]->err)
 		{
 			ls->error = 1;
-			ls->arg[i]->err = set_error(ls, i, errno);
 			insert_nonstat(ls, i);
 		}
 		else if (!(ls->arg[i]->stat->st_mode & S_IFDIR))

@@ -26,7 +26,7 @@ char	*set_error(char	*name, int err)
 {
 	char	*err_str;
 
-	err_str = ft_strjoin_f("ft_ls: ", , 0);
+	err_str = ft_strjoin_f("ft_ls: ", name, 0);
 	err_str = ft_strjoin_f(err_str, ": ", 1);
 	err_str = ft_strjoin_f(err_str, strerror(err), 1);
 	return (err_str);
