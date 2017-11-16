@@ -6,7 +6,7 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 10:35:56 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/16 13:46:37 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/16 17:07:01 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_doc	*insert_value(char *name, char *path, int flag)
 	t_stat	*s;
 
 	(void)s;
-	if ((data = malloc(sizeof(t_doc))))
+	if (!(data = malloc(sizeof(t_doc))))
 		return (NULL);
 	data->name = ft_strdup(name);
 	data->path = ft_strdup(path);
@@ -66,8 +66,9 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 	char	*file;
 
 	j = -1;
-	if (!(data = malloc(sizeof(t_doc*) * ac - i + 1)))
+	if (!(ls->arg = malloc(sizeof(t_doc*) * (ac - i + 1))))
 		ft_error_init();
+	data = ls->arg;
 	while (++j + i < ac)
 	{
 		file = get_file_name(av[j + i], ls);
@@ -80,5 +81,4 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 		j++;
 	}
 	data[j] = NULL;
-	ls->arg = data;
 }
