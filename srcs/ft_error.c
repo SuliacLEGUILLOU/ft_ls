@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <string.h>
+#include <sys/errno.h>
 
 void 	clear_ls(t_ls *ls)
 {
@@ -44,12 +46,6 @@ void	ft_error_init(void)
 {
 	write(2, "An error occurred while initialising data.\n", 43);
 	exit(12);
-}
-
-void	ft_error_env(void)
-{
-	write(2, "Error : no file in parametter and env is unset.\n", 48);
-	exit(2);
 }
 
 /*

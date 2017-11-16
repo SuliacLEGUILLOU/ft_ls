@@ -41,7 +41,7 @@ libft:
 auteur:
 	@echo "$(LOGIN_AUTEUR)" > auteur
 
-	#===============================#
+#===============================#
 #		Cleaning rules			#
 #===============================#
 
@@ -55,4 +55,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re auteur
+.PHONY: all clean fclean re auteur libft
