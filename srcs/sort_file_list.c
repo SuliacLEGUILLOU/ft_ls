@@ -30,7 +30,8 @@ static void	insert_nonstat(t_ls *ls, int i)
 	t = ls->arg[i];
 	while ((j < i) && ls->arg[j]->err)
 	{
-		if (!(ls->opt & NO_SORT) && (ft_strcmp(t, ls->arg[j]->stat)))
+		if (!(ls->opt & NO_SORT)
+			&& (ft_strcmp(t->name, ls->arg[j]->stat->name)))
 			swap_doc(ls, &t, j);
 		j++;
 	}
