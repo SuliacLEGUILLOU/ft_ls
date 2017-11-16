@@ -22,21 +22,11 @@ void 	clear_ls(t_ls *ls)
 	(void)ls;
 }
 
-char	*set_error(t_ls *ls, int i, int err)
+char	*set_error(char	*name, int err)
 {
-	char	**name;
 	char	*err_str;
-	int		j;
 
-	name = ft_strsplit(ls->arg[i]->name, '/');
-	j = 0;
-	while (name[j + 1])
-		j++;
-	err_str = ft_strjoin_f("ft_ls: ", name[j], 0);
-	j = -1;
-	while (name[++j])
-		free(name[j]);
-	free(name);
+	err_str = ft_strjoin_f("ft_ls: ", , 0);
 	err_str = ft_strjoin_f(err_str, ": ", 1);
 	err_str = ft_strjoin_f(err_str, strerror(err), 1);
 	return (err_str);

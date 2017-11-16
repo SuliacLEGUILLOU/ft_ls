@@ -20,6 +20,6 @@ void	ft_error_init(void);
 void	ft_error_malloc(t_ls *ls);
 void	ft_error_illegal_opt(char f, t_ls *ls);
 void	ft_error_env(void);
-char	*set_error(t_ls *ls, int iter, int err);
+char	*set_error(char	*name, int err);
 
 #endif

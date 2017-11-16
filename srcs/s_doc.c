@@ -39,11 +39,12 @@ t_doc	*insert_value(char *name, char *path, int flag)
 		return (NULL);
 	data->name = ft_strdup(name);
 	data->path = ft_strdup(path);
-//	if (lstat())
 	data->sub_dir = NULL;
-	data->stat = NULL;
 	data->to_print = NULL;
 	data->err = NULL;
+	data->stat = malloc(sizeof(t_stat));
+	if (lstat(path, data->stat))
+		data->err = set_error(data->name, errno);
 	if (flag & 1)
 		free(name);
 	if (flag & 2)
