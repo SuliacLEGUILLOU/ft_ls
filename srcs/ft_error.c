@@ -6,7 +6,7 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 08:57:38 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/11 16:08:09 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:09:09 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ char	*set_error(t_ls *ls, int i, int err)
 	j = 0;
 	while (name[j + 1])
 		j++;
-	err = ft_strjoin_f("ft_ls: ", name[j], 0);
+	err_str = ft_strjoin_f("ft_ls: ", name[j], 0);
 	j = -1;
 	while (name[++j])
 		free(name[j]);
 	free(name);
 	err_str = ft_strjoin_f(err_str, ": ", 1);
 	err_str = ft_strjoin_f(err_str, strerror(err), 1);
-	return (err);
+	return (err_str);
 }
 
 void	ft_error_init(void)

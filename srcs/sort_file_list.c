@@ -6,13 +6,11 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 08:51:45 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/11 16:06:23 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:31:56 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
-#include <sys/error.h>
-#include <sys/stat.h>
 
 static void	swap_doc(t_ls *ls, t_doc **d, int j)
 {
