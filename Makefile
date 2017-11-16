@@ -13,9 +13,9 @@ OPT_FLAG = -DNDEBUG -Os -g0 -march=native
 endif
 
 HEADER=incl
-LIBFT=./libft/
-SRCS_NAME=	ft_error.c		ft_ls.c		main.c		opt_managment.c \
-			sort_file_list.c
+LIBFT=./libft/libft.a
+SRCS_NAME=	ft_error.c	ft_ls.c	main.c	opt_managment.c \
+			sort_file_list.c	s_doc.c
 
 SRCS = $(addprefix srcs/,$(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
@@ -28,7 +28,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): libft $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) -L $(LIBFT) -I $(HEADER)
+	@$(CC) -o $(NAME) $(OBJS) $(LIBFT) -I $(HEADER)
 	@echo "$(NAME) created and indexed"
 	@echo "*** Flag : $(OPT_FLAG) ***"
 

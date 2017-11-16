@@ -6,7 +6,7 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 08:51:45 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/16 13:31:56 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:41:18 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	insert_nonstat(t_ls *ls, int i)
 	while ((j < i) && ls->arg[j]->err)
 	{
 		if (!(ls->opt & NO_SORT)
-			&& (ft_strcmp(t->name, ls->arg[j]->stat->name)))
+			&& (ft_strcmp(t->name, ls->arg[j]->name)))
 			swap_doc(ls, &t, j);
 		j++;
 	}
@@ -95,7 +95,6 @@ static void	sort_directory(t_ls *ls, int i)
 
 void		sort_file_list(t_ls *ls)
 {
-	DIR		*d;
 	int		i;
 
 	i = -1;

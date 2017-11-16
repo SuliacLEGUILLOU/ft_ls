@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   s_doc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 10:35:56 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/15 10:35:57 by msorin           ###   ########.fr       */
+/*   Updated: 2017/11/16 13:46:37 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*get_file_name(char *av, t_ls *ls)
 	if (av[0] == '/')
 		name = ft_strdup(av);
 	else if (av[0] == '~')
-
+		return NULL;
 	else
 	{
 		name = ft_strjoin_f(ls->pwd, "/", 0);
@@ -34,6 +34,7 @@ t_doc	*insert_value(char *name, char *path, int flag)
 	t_doc	*data;
 	t_stat	*s;
 
+	(void)s;
 	if ((data = malloc(sizeof(t_doc))))
 		return (NULL);
 	data->name = ft_strdup(name);
@@ -42,7 +43,7 @@ t_doc	*insert_value(char *name, char *path, int flag)
 	data->sub_dir = NULL;
 	data->stat = NULL;
 	data->to_print = NULL;
-	data->err;
+	data->err = NULL;
 	if (flag & 1)
 		free(name);
 	if (flag & 2)

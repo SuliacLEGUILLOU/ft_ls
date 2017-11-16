@@ -6,7 +6,7 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 08:57:38 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/16 13:09:09 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:53:48 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
+
+void 	clear_ls(t_ls *ls)
+{
+	(void)ls;
+}
 
 char	*set_error(t_ls *ls, int i, int err)
 {
