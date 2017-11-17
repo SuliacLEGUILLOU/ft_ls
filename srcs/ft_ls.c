@@ -13,19 +13,36 @@
 #include <ft_ls.h>
 
 /*
-** for rg == 0 try opendir
-** if success, ls on sub_data
-** else print with (flag)
+** may need to not be static
 */
 
-static void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir)
+static void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
 {
-	struct dirent	*info;
+	t_dir	*info;
+	t_tmp	*t1;
+	t_tmp	*t2;
 
-	(void)arg;
-	(void)i;
-	(void)dir;
-	(void)info;
+	t1 = NULL;
+	t2 = NULL;
+	while (info = readdir(dir))
+	{
+		if (!t1)
+		{
+			t1 = malloc(sizeof(t_tmp));
+			t2 = t1;
+			t2->nb = 1;
+		}
+		else
+		{
+			t2->next = malloc(sizeof(t_tmp));
+			t2->next->nb = t2->nb + 1;
+			t2 = t2->next;
+		}
+		t2->dir = copy_dirent(info)
+		t2->next = NULL;
+	}
+	filling_sub_dir(arg, i, t, opt);
+	closedir(dir);
 }
 
 static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
