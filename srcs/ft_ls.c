@@ -6,7 +6,7 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:51:17 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/17 13:22:52 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/17 13:46:43 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 {
 	if (opt & DETAIL)
 	{
-
+		// TODO
+		arg[i]->to_print = ft_strjoin("Detail ", arg[i]->name);
 	}
 	else
 		arg[i]->to_print = ft_strdup(arg[i]->name);
