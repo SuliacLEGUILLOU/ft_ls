@@ -12,6 +12,7 @@
 
 #include <ft_ls.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 static char	*get_file_name(char *av, t_ls *ls)
 {
@@ -31,25 +32,25 @@ static char	*get_file_name(char *av, t_ls *ls)
 
 t_doc	*insert_value(char *name, char *path, int flag)
 {
-	t_doc	*data;
-	t_stat	*s;
+	t_doc	*tmp;
 
-	(void)s;
-	if (!(data = malloc(sizeof(t_doc))))
+ft_putendl("Start 1.");
+	if (!(tmp = (t_doc*)malloc(sizeof(t_doc))))
 		return (NULL);
-	data->name = ft_strdup(name);
-	data->path = ft_strdup(path);
-	data->sub_dir = NULL;
-	data->to_print = NULL;
-	data->err = NULL;
-	data->stat = malloc(sizeof(t_stat));
-	if (lstat(path, data->stat))
-		data->err = set_error(data->name, errno);
+ft_putendl("Start 2.");
+	tmp->name = ft_strdup(name);
+	tmp->path = ft_strdup(path);
+	tmp->sub_dir = NULL;
+	tmp->to_print = NULL;
+	tmp->err = NULL;
+	tmp->stat = malloc(sizeof(t_stat));
+	if (lstat(path, tmp->stat))
+		tmp->err = set_error(tmp->name, errno);
 	if (flag & 1)
 		free(name);
 	if (flag & 2)
 		free(path);
-	return (data);
+	return (tmp);
 }
 
 /*
@@ -64,13 +65,16 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 	t_doc	**data;
 	char	*name;
 	char	*file;
+	t_doc	*tmp;
 
+	tmp = NULL;
 	j = -1;
 	if (!(ls->arg = malloc(sizeof(t_doc*) * (ac - i + 1))))
 		ft_error_init();
 	data = ls->arg;
 	while (++j + i < ac)
 	{
+		ft_putendl("?");
 		file = get_file_name(av[j + i], ls);
 		name = ft_strsplit_last(file, '/', 1);
 		data[j] = insert_value(name, file, 3);

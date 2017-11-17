@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <ft_ls.h>
+#include <stdlib.h>
 
 /*
 ** may need to not be static
@@ -24,7 +25,7 @@ static void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
 
 	t1 = NULL;
 	t2 = NULL;
-	while (info = readdir(dir))
+	while ((info = readdir(dir)))
 	{
 		if (!t1)
 		{
@@ -38,10 +39,10 @@ static void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
 			t2->next->nb = t2->nb + 1;
 			t2 = t2->next;
 		}
-		t2->dir = copy_dirent(info)
+		t2->dir = copy_dirent(info);
 		t2->next = NULL;
 	}
-	filling_sub_dir(arg, i, t, opt);
+	filling_sub_dir(arg, i, t1, opt);
 	closedir(dir);
 }
 
@@ -82,7 +83,7 @@ int        ft_ls(t_ls *ls)
 		{
 			// is a dir
 			dir_info = opendir(ls->arg[i]->path);
-			st_fill_struct_dir(ls->arg, i, dir_info);
+			st_fill_struct_dir(ls->arg, i, dir_info, ls->opt);
 		}
 		else
 		{

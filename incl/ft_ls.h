@@ -40,4 +40,7 @@ void	sort_file_list(t_ls *ls);
 
 void	set_arg(t_ls *ls, char **av, int ac, int i);
 
+t_dir	*copy_dirent(t_dir *src);
+void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt);
+
 #endif

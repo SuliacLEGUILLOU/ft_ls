@@ -15,7 +15,8 @@ endif
 HEADER=incl
 LIBFT=./libft/libft.a
 SRCS_NAME=	ft_error.c	ft_ls.c	main.c	opt_managment.c \
-			sort_file_list.c	s_doc.c
+			sort_file_list.c	s_doc.c	copy_dirent.c \
+			get_indir_doc.c
 
 SRCS = $(addprefix srcs/,$(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
