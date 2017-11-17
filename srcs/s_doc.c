@@ -6,7 +6,7 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 10:35:56 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/16 17:07:01 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/17 13:15:29 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 	while (++j + i < ac)
 	{
 		file = get_file_name(av[j + i], ls);
-		name = ft_strsplit_last(file, '/', 0);
+		name = ft_strsplit_last(file, '/', 1);
 		data[j] = insert_value(name, file, 3);
 	}
 	if (j == 0)

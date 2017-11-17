@@ -6,7 +6,7 @@
 /*   By: sle-guil <sle-guil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:50:06 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/16 13:33:04 by sle-guil         ###   ########.fr       */
+/*   Updated: 2017/11/17 12:16:28 by sle-guil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stddef.h>
 # include <sys/errno.h>
 # include <sys/stat.h>
+# include <dirent.h>
 
 /*
 ** needed in order to don't have leaks
