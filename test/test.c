@@ -209,7 +209,8 @@ void print_stat (t_stat *s)
 	c = s->st_mode;
 		//printf("13\n");
 	ft_putnbr_octal(c);
-//	ft_putnbr(c);
+	write(1, "\n", 1);
+	ft_putnbr(c);
 		//printf("14\n");
 	write(1, "\t/* Protection */\n", 18);
 };
@@ -230,7 +231,7 @@ int	main(int ac, char **av, char **env)
 	t_stat	*s1;
 	t_stat	*s2;
 //	char	*str;
-	char	dir[100] = "/Users/msorin/Desktop/gh_ft_ls/test/testage/";
+	char	dir[100] = "/Users/msorin/Desktop/gh_ft_ls/Makefile";
 	//char	dir[32] = "/dev";
 
 	s1 = malloc(sizeof(t_stat));

@@ -21,10 +21,15 @@ static char	*get_file_name(char *av, t_ls *ls)
 	if (av[0] == '/')
 		name = ft_strdup(av);
 	else if (av[0] == '~')
-		return NULL;
+	{
+		name = ft_strdup(ls->home);
+		name = ft_strjoin_f(name, "/", 1);
+		name = ft_strjoin_f(name, av, 1);
+	}
 	else
 	{
-		name = ft_strjoin_f(ls->pwd, "/", 0);
+		name = ft_strdup(ls->pwd);
+		name = ft_strjoin_f(name, "/", 1);
 		name = ft_strjoin_f(name, av, 1);
 	}
 	return (name);
@@ -34,10 +39,8 @@ t_doc	*insert_value(char *name, char *path, int flag)
 {
 	t_doc	*tmp;
 
-ft_putendl("Start 1.");
 	if (!(tmp = (t_doc*)malloc(sizeof(t_doc))))
 		return (NULL);
-ft_putendl("Start 2.");
 	tmp->name = ft_strdup(name);
 	tmp->path = ft_strdup(path);
 	tmp->sub_dir = NULL;
@@ -74,7 +77,6 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 	data = ls->arg;
 	while (++j + i < ac)
 	{
-		ft_putendl("?");
 		file = get_file_name(av[j + i], ls);
 		name = ft_strsplit_last(file, '/', 1);
 		data[j] = insert_value(name, file, 3);
