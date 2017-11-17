@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_minmax.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/16 11:40:52 by msorin            #+#    #+#             */
-/*   Updated: 2017/11/16 11:45:00 by msorin           ###   ########.fr       */
+/*   Created: 2017/11/16 15:36:26 by msorin            #+#    #+#             */
+/*   Updated: 2017/11/16 16:08:47 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-
-char	*ft_strndup(const char *src, int len)
+int		ft_max(int a, int b)
 {
-	int		i;
-	int		min;
-	char	*dest;
-
-	min = ft_min(ft_strlen(src), len);
-	if (!(dest = ft_strnew(min)))
-		return (NULL);
-	i = 0;
-	while (i < min)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	if (a > b)
+		return (a);
+	return (b);
 }
+
+int		ft_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
