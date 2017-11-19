@@ -57,6 +57,7 @@ static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
 
+//just for test
 static void	print_subdir(t_doc **data)
 {
 	int	i;
