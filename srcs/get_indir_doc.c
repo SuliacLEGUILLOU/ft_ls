@@ -14,14 +14,14 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
-// static void	st_swap_doc(t_doc **src, t_doc **d, int j)
-// {
-// 	t_doc	*t;
+static void	st_swap_doc(t_doc **src, t_doc **d, int j)
+{
+	t_doc	*t;
 
-// 	t = src[j];
-// 	src[j] = *d;
-// 	*d = t;
-// }
+	t = src[j];
+	src[j] = *d;
+	*d = t;
+}
 
 static int	st_get_lst_ln(t_tmp *s)
 {
@@ -37,10 +37,21 @@ static int	st_get_lst_ln(t_tmp *s)
 
 static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 {
-	(void)arg;
-	(void)i;
-	(void)d;
-	(void)opt;
+	int		j;
+	t_doc	*t;
+
+	j = 0;
+	t = d;
+	while (arg[i]->sub_dir[j])
+	{
+		if ((opt & TIME) && arg[i]->sub_dir[j]->ctime > d->ctime)
+			st_swap_doc(arg[i]->sub_dir, &t, j);
+		else if (!(opt & NO_SORT)
+			&& (ft_strcmp(arg[i]->sub_dir[j]->name, d->name) > 0))
+			st_swap_doc(arg[i]->sub_dir, &t, j);
+		j++;
+	}
+	arg[i]->sub_dir[j] = t;
 }
 
 void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
@@ -51,6 +62,7 @@ void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 	t_stat	*stat;
 
 	arg[i]->sub_dir = malloc(sizeof(t_doc*) * (st_get_lst_ln(lst) + 1));
+	arg[i]->sub_dir[0] = NULL;
 	stat = malloc(sizeof(t_stat));
 	t1 = lst;
 	while (t1->next)
@@ -61,6 +73,7 @@ void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 		lstat(d->path, stat);
 		d->stat = stat;
 		d->ctime = stat->st_ctime;
+		d->to_print = ft_strjoin_f("printing : ", d->name, 0);// to replace with aff/aff_det
 		st_insert_new_doc(arg, i, d, opt);
 		t2 = t1;
 		t1 = t1->next;

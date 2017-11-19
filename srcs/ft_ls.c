@@ -57,6 +57,20 @@ static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
 
+static void	print_subdir(t_doc **data)
+{
+	int	i;
+
+	i = 0;
+	while (data[i])
+	{
+		ft_putendl(data[i]->to_print);
+		if (data[i]->sub_dir)
+			print_subdir(data[i]->sub_dir);
+		i++;
+	}
+}
+
 static void	st_print(t_ls const *ls)
 {
 	int		i;
@@ -67,6 +81,8 @@ static void	st_print(t_ls const *ls)
 	while (ls->arg[i])
 	{
 		ft_putendl(ls->arg[i]->to_print);
+		if (ls->arg[i]->sub_dir)
+			print_subdir(ls->arg[i]->sub_dir);
 		i++;
 	}
 }

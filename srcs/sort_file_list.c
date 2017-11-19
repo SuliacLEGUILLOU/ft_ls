@@ -78,7 +78,7 @@ static void	sort_directory(t_ls *ls, int i)
 	j = -1;
 	t = ls->arg[i];
 	while ((j + 1 < i) && (ls->arg[j + 1]->err
-		|| !(ls->arg[j]->stat->st_mode & S_IFDIR)))
+		|| !(ls->arg[j + 1]->stat->st_mode & S_IFDIR)))
 		j++;
 	while (++j < i)
 	{
