@@ -51,6 +51,7 @@ clean:
 	@echo "*** Object file cleaned ***"
 
 fclean: clean
+	@(cd my_lib && $(MAKE) $@)
 	@/bin/rm -f $(NAME)
 	@echo "*** $(NAME) cleaned ***"
 
