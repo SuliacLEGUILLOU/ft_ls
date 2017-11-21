@@ -26,4 +26,29 @@
 # define MINOR(x)	(x & 0xff)
 # define MAJOR(x)	(x >> 24)
 
+/*
+** define color
+** C30 Black
+** C31 Red
+** C34 Blue
+** C35 Purple
+** C41 FRed
+** C42 FGreen
+** C43 FYellow
+** C46 FLBlue
+** C94 DPurple
+** C95 LPurple
+*/
+
+# define C30 "\x1B[30m"
+# define C31 "\x1B[31m"
+# define C34 "\x1B[34m"
+# define C35 "\x1B[35m"
+# define C41 "\x1B[41m"
+# define C42 "\x1B[42m"
+# define C43 "\x1B[43m"
+# define C46 "\x1B[46m"
+# define RESETNDL "\033[0m\n"
+# define RESET "\033[0m"
+
 #endif

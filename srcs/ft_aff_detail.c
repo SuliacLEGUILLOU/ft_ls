@@ -12,11 +12,23 @@
 
 #include <ft_ls.h>
 
-void	get_detail(t_doc **aff, i, t_mask opt)
+static char	*set_color(char *str, int mode)
+{
+	(void)str;
+	(void)mode;
+}
+
+void		get_detail(t_doc **aff, int i, t_mask opt)
 {
 	char	*str;
 
-	str = aff->to_print;
+	str = aff[i]->to_print;
 	if (!(opt & DETAIL) && !(opt & COLOR) && !(opt & CLASIFY))
 		return ;
+	if (opt & COLOR)
+		str = set_color(str, aff[i]->stat->st_mode);
+	if (opt & CLASIFY)
+		str = set_clasify(str, aff[i]->stat->st_mode);
+	if (opt & DETAIL)
+		str = set_detail(str, aff[i]->stat);
 }
