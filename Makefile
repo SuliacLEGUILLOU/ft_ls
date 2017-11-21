@@ -13,7 +13,7 @@ OPT_FLAG = -DNDEBUG -Os -g0 -march=native
 endif
 
 HEADER=incl
-LIBFT=./libft/libft.a
+LIBFT=./my_lib/libft.a
 SRCS_NAME=	ft_error.c	ft_ls.c	main.c	opt_managment.c \
 			sort_file_list.c	s_doc.c	copy_dirent.c \
 			get_indir_doc.c
@@ -37,7 +37,7 @@ $(NAME): libft $(OBJS)
 	@$(CC) -o $@ -c $< $(C_FLAG) $(OPT_FLAG) -I $(HEADER)
 
 libft:
-	@make -C libft/
+	@make -C my_lib/
 
 auteur:
 	@echo "$(LOGIN_AUTEUR)" > auteur
