@@ -14,16 +14,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define S_IXUGO 73
+
 typedef struct stat	t_stat;
+
+void	print_binari(int nb)
+{
+	if (!(nb % 2) && !(nb / 2))
+		printf("0");
+	if (nb / 2)
+		print_binari(nb / 2);
+	printf("%d", nb % 2);
+}
 
 int		main(void)
 {
 	t_stat	s1;
 
-	lstat("/Users/msorin/Desktop/gh_ft_ls/test/testage", &s1);
-	printf("%o s_fifo without '/'\n", s1.st_mode);
-	lstat("/Users/msorin/Desktop/gh_ft_ls/test/testage/", &s1);
-	printf("%o s_fifo with '/'\n", s1.st_mode);
+	// lstat("/Users/msorin/Desktop/gh_ft_ls/test/testage", &s1);
+	// printf("%o s_fifo without '/'\n", s1.st_mode);
+	// lstat("/Users/msorin/Desktop/gh_ft_ls/test/testage/", &s1);
+	// printf("%o s_fifo with '/'\n", s1.st_mode);
+
+	printf("%o\n", S_IXUGO);
+	printf("%d\n", S_ISUID + S_ISGID + S_ISVTX);
 
 	printf("\n");
 
@@ -38,6 +52,23 @@ int		main(void)
 	printf("%o directory 'd' ('/' with -F)\n", S_IFDIR);
 	printf("%o character special file 'c'\n", S_IFCHR);
 	printf("%o FIFO 'p' ('|' with -F)\n", S_IFIFO);
+
+	printf("\n");
+
+	print_binari(S_IFSOCK);
+	printf("\n");
+	print_binari(S_IFLNK);
+	printf("\n");
+	print_binari(S_IFREG);
+	printf("\n0");
+	print_binari(S_IFBLK);
+	printf("\n0");
+	print_binari(S_IFDIR);
+	printf("\n00");
+	print_binari(S_IFCHR);
+	printf("\n000");
+	print_binari(S_IFIFO);
+	printf("\n");
 
 	printf("\n");
 
@@ -57,6 +88,10 @@ int		main(void)
 
 	printf("\n");
 
+	printf("%d\n", S_ISUID + S_ISGID);
+
+	printf("\n");
+
 	printf("%o rwx...... (rws...... if S_ISUID) ('*' with -F)\n", S_IRWXU);
 	printf("%o rw-......\n", S_IRUSR + S_IWUSR);
 	printf("%o r-x...... (r-s...... if S_ISUID) ('*' with -F)\n", S_IRUSR + S_IXUSR);
@@ -68,7 +103,7 @@ int		main(void)
 	printf("\n");
 
 	printf("%o ...rwx... (...rws.... if S_ISGID) ('*' with -F)\n", S_IRWXG);
-	printf("%o rw-......\n", S_IRGRP + S_IWGRP);
+	printf("%o ...rw-...\n", S_IRGRP + S_IWGRP);
 	printf("%o ...r-x... (...r-s... if S_ISGID) ('*' with -F)\n", S_IRGRP + S_IXGRP);
 	printf("%o ...r--...\n", S_IRGRP);
 	printf("%o ...-wx... (...-ws... if S_ISGID) ('*' with -F)\n", S_IWGRP + S_IXGRP);

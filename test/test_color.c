@@ -19,6 +19,8 @@
 
 # define C30 "\x1B[30m"
 # define C31 "\x1B[31m"
+# define C32 "\x1B[32m"
+# define C33 "\x1B[33m"
 # define C34 "\x1B[34m"
 # define C35 "\x1B[35m"
 # define C41 "\x1B[41m"
@@ -29,24 +31,30 @@
 
 # define k0 ""
 // /Users/msorin/Desktop/gh_ft_ls/test/test_prot/check5.txt
-# define k1 C35
-// /Users/msorin/goinfre
-# define k2 C34
-// /Users/msorin/Desktop/gh_ft_ls/test/test_prot/test3
-# define k3 C31
+# define k1 C31
 // /Users/msorin/Desktop/gh_ft_ls/test/test_prot/truc
-# define k4 C46 C34
-// /dev/disk1
-# define k5 C43 C34
-// /dev/rdisk1
+# define k2 C32
+// /private/var/folders/zz/zyxvpxvq6csfxvn_n0000nj80005c_/T/discord.sock
+# define k3 C33
+// /Users/msorin/Desktop/gh_ft_ls/test/testage
+# define k4 C34
+// /Users/msorin/Desktop/gh_ft_ls/test/test_prot/test3
+# define k5 C35
+// /Users/msorin/goinfre
 # define k6 C41 C30
 // /Users/msorin/Desktop/gh_ft_ls/test/test_prot/a.out
-# define k7 C43  C30
-// /Users/msorin/Desktop/gh_ft_ls/test/test_prot/test1
-# define k8 C42 C30
+# define k7 C42 C30
 // /Users/msorin/Desktop/gh_ft_ls/test/test_prot/test2
+# define k8 C43 C30
+// /Users/msorin/Desktop/gh_ft_ls/test/test_prot/test1
+# define k9 C43 C34
+// /dev/rdisk1
+# define k10 C46 C30
+// /Users/msorin/Desktop/gh_ft_ls/test/test_prot/chose
+# define k11 C46 C34
+// /dev/disk1
 
-# define TAB(x) {write(1, (char*[]){k0, k1, k2, k3, k4, k5, k6, k7, k8}[x], 5 * ((x > 0) + (x > 3)));}
+# define TAB(x) {write(1, (char*[]){k0, k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11}[x], 5 * ((x > 0) + (x > 5)));}
 
 typedef struct stat	t_stat;
 
@@ -171,17 +179,20 @@ void	ft_putnbroct_ndl(int nb)
 
 int		main(void)
 {
-	char	c[9][60] =
+	char	c[12][70] =
 	{
 		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/check5.txt",
-		"/Users/msorin/goinfre",
-		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/test3",
 		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/truc",
-		"/dev/disk1",
-		"/dev/rdisk1",
+		"/private/var/folders/zz/zyxvpxvq6csfxvn_n0000nj80005c_/T/discord.sock",
+		"/Users/msorin/Desktop/gh_ft_ls/test/testage",
+		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/test3",
+		"/Users/msorin/goinfre",
 		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/a.out",
+		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/test2",
 		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/test1",
-		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/test2"
+		"/dev/rdisk1",
+		"/Users/msorin/Desktop/gh_ft_ls/test/test_prot/chose",
+		"/dev/disk1"
 	};
 	int		i;
 	t_stat	*s;
@@ -189,9 +200,10 @@ int		main(void)
 
 	s = malloc(sizeof(t_stat));
 	i = 0;
-	while (i < 9)
+	while (i < 12)
 	{
-		lstat(c[i], s);
+		if (lstat(c[i], s))
+			write(1, "?", 1);
 		str = ft_strjoin_f("ls -dG ", c[i], 0);
 		system(str);
 		TAB(i);
