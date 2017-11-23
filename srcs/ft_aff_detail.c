@@ -12,10 +12,22 @@
 
 #include <ft_ls.h>
 
-char	*set_clasify(char *str, int mode);
-char	*set_detail(char *str, t_stat *st);
+static char	*set_clasify(char *str, int mode)
+{
+	char	*ret;
 
-void	get_detail(t_doc **aff, int i, t_mask opt)
+	if (mode & S_IFSOCK)
+		ret = ft_strjoin_f(str, "=", 1);
+	if (mode & S_IFLNK)
+		ret = ft_strjoin_f(str, "@", 1);
+	if ((mode & S_IFDIR) && !(mode & S_IFLNK))
+		ret = ft_strjoin_f(str, "/", 1);
+	if (mode & S_IFIFO)
+		ret = ft_strjoin_f(str, "|", 1);
+	return (ret);
+}
+
+void		get_detail(t_doc **aff, int i, t_mask opt)
 {
 	char	*str;
 

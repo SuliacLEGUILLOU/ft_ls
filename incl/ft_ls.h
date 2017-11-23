@@ -45,5 +45,6 @@ void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt);
 
 void	get_detail(t_doc **aff, int i, t_mask opt);
 char	*set_color(char *str, int mode);
+char	*set_detail(char *str, t_stat *st);
 
 #endif
