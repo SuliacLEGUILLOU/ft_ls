@@ -43,4 +43,7 @@ void	set_arg(t_ls *ls, char **av, int ac, int i);
 t_dir	*copy_dirent(t_dir *src);
 void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt);
 
+void	get_detail(t_doc **aff, int i, t_mask opt);
+char	*set_color(char *str, int mode);
+
 #endif

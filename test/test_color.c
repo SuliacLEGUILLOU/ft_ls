@@ -155,14 +155,30 @@ void	ft_putnbrhexa(size_t nb)
 	write(1, &c, 1);
 }
 
-void ft_putnbr_octal(size_t t)
+void fill_zeros(int rg)
+{
+	int		i;
+
+	i = -1;
+	while (++i < rg)
+		write(1, "0", 1);
+}
+
+void ft_putnbr_octal(size_t t, int rg)
 {
 	char	c;
 
-	if (t && (t / 8))
-		ft_putnbr_octal((int)(t / 8));
-	c = (t % 8) + '0';
-	write(1, &c, 1);
+	if (!t && rg)
+	{
+		fill_zeros(rg);
+		return ;
+	}
+	ft_putnbr_octal((int)(t / 8), rg - 1);
+	if (t)
+	{
+		c = (t % 8) + '0';
+		write(1, &c, 1);
+	}
 }
 
 void	ft_putnbrhexa_ndl(int nb)
@@ -171,9 +187,9 @@ void	ft_putnbrhexa_ndl(int nb)
 	write(1, "\n", 1);
 }
 
-void	ft_putnbroct_ndl(int nb)
+void	ft_putnbroct_ndl(int nb, int rg)
 {
-	ft_putnbr_octal(nb);
+	ft_putnbr_octal(nb, rg);
 	write(1, "\n", 1);
 }
 
@@ -207,7 +223,7 @@ int		main(void)
 		str = ft_strjoin_f("ls -dG ", c[i], 0);
 		system(str);
 		TAB(i);
-		ft_putnbr_octal(s->st_mode);
+		ft_putnbr_octal(s->st_mode, 6);
 		write(1, RESETNDL, 5);
 		free(str);
 		i++;
