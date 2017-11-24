@@ -12,9 +12,17 @@
 
 #include <ft_ls.h>
 
-char	*set_detail(char *str, t_stat *st)
+static char	*add_time(char *str, time_t t)
 {
 	(void)str;
-	(void)st;
+	(void)t;
+	return (NULL);
+}
+
+char	*set_detail(char *str, t_stat *st)
+{
+	char	*ret;
+
+	ret = add_time(str, st->st_ctime);
 	return (NULL);
 }

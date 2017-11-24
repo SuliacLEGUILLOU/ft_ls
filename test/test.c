@@ -233,7 +233,9 @@ int	main(int ac, char **av, char **env)
 //	char	*str;
 	char	dir[100] = "/Users/msorin/Desktop/gh_ft_ls/Makefile";
 	//char	dir[32] = "/dev";
+	t_stat	test;
 
+	(void)test;
 	s1 = malloc(sizeof(t_stat));
 	s2 = malloc(sizeof(t_stat));
 //	d = opendir(dir);
