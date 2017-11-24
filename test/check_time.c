@@ -14,11 +14,16 @@
 Nov  2 11:06
 Jun 15 16:19
 Thu Nov  2 14:57:26 2017
+
+1511538372 + 31104000
+
 */
 
 #include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
+
+char	ech[17] = "0123456789ABCDEF";
 
 char	*ft_split_time(char *str)
 {
@@ -45,32 +50,46 @@ int		ft_strlen(char *s)
 	return (1 + ft_strlen(s + 1));
 }
 
-// void	touch_ls(size_t t)
-// {
+void	ft_putnbr_base(size_t nb, int base)
+{
+	char	c;
 
-// }
+	if (nb / base)
+		ft_putnbr_base(nb / base, base);
+	c = ech[(nb % base)];
+	write(1, &c, 1);
+}
+
+void	ft_putnbr_base_ndl(int nb, int base)
+{
+	size_t	t;
+
+	if (!nb)
+		write(1, "0", 1);
+	else
+	{
+		if (nb < 0)
+		{
+			write(1, "-", 1);
+			t = 0 - nb;
+		}
+		else
+			t = nb;
+		ft_putnbr_base(t, base);
+	}
+	write(1, "\n", 1);
+}
 
 int		main(void)
 {
 	char	*str;
-	time_t	t;
 	time_t	*q;
-	size_t	i;
 
 	q = malloc(sizeof(time_t));
-	time(&t);
-	i = (int)t;
-	while (i < 253402297199)
-	{
-		if (!((i % 60) + ((i / 60) % 60)))
-		{
-			*q = i;
-			str = ctime(q);
-			write(1, str, ft_strlen(str));
-			//write(1, "\n", 1);
-			//free(str);
-		}
-		i++;
-	}
+	*q = 1511538372 + 311040000; //time(q);// = i;
+	str = ctime(q);
+	ft_putnbr_base_ndl(*q, 10);
+	write(1, str, ft_strlen(str));
+	free(q);
 	return (0);
 }

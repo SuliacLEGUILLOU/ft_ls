@@ -151,7 +151,6 @@ void ft_putnbr_octal(int n)
 	size_t	t;
 	char	c;
 
-	//printf("1\n");
 	if (n < 0)
 	{
 		write(1, "-", 1);
@@ -159,7 +158,6 @@ void ft_putnbr_octal(int n)
 	}
 	else
 		t = n;
-	//printf("2\n");
 	if (t && (t / 8))
 		ft_putnbr_octal((int)(t / 8));
 	c = (t % 8) + '0';
@@ -171,7 +169,6 @@ void ft_putnbr(int n)
 	size_t	t;
 	char	c;
 
-	//printf("1\n");
 	if (n < 0)
 	{
 		write(1, "-", 1);
@@ -179,7 +176,6 @@ void ft_putnbr(int n)
 	}
 	else
 		t = n;
-	//printf("2\n");
 	if (t && (t / 10))
 		ft_putnbr((int)(t / 10));
 	c = (t % 10) + '0';
@@ -203,15 +199,11 @@ void ft_putnbr(int n)
 void print_stat (t_stat *s)
 {
 	int c;
-		//printf("11\n");
 	write(1, "s->st_mode - ", 13);
-		//printf("12\n");
 	c = s->st_mode;
-		//printf("13\n");
 	ft_putnbr_octal(c);
 	write(1, "\n", 1);
 	ft_putnbr(c);
-		//printf("14\n");
 	write(1, "\t/* Protection */\n", 18);
 };
 
