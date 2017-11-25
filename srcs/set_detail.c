@@ -11,18 +11,30 @@
 /* ************************************************************************** */
 
 #include <ft_ls.h>
+#include <time.h>
 
 static char	*add_time(char *str, time_t t)
 {
-	(void)str;
-	(void)t;
-	return (NULL);
+	char	*ret;
+	char	*tmp;
+
+	tmp = ctime(&t);
+	if (time(NULL) >= t)
+		ret = ft_strndup(tmp + 4, 12);
+	else
+	{
+		ret = ft_strndup(tmp + 4, 7);
+		ret = ft_strjoin_f(ret, ft_strndup(tmp + 19, 5), 3);
+	}
+	ret = ft_strjoin_f(ret, " ", 1);
+	ret = ft_strjoin_f(ret, str, 1);
+	return (ret);
 }
 
-char	*set_detail(char *str, t_stat *st)
+char	*set_detail(char *str, t_stat *st)//, int nlink, int ttsize)
 {
 	char	*ret;
 
-	ret = add_time(str, st->st_ctime);
-	return (NULL);
+	ret = add_time(str, st->st_mtime);
+	return (ret);
 }

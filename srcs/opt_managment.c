@@ -34,6 +34,8 @@ static void	set_flag(t_ls *ls, char f)
 		ls->opt += NO_SORT + ALL;
 	else if (f == 'F' && !(ls->opt & CLASSIFY))
 		ls->opt += CLASSIFY;
+	else if (f == 'G' && !(ls->opt & COLOR))
+		ls->opt += COLOR;
 }
 
 int			is_flag(const char *arg, t_ls *ls)
@@ -45,7 +47,7 @@ int			is_flag(const char *arg, t_ls *ls)
 	i = 0;
 	while (arg[++i])
 	{
-		if (ft_strchr("lRaArtfF", arg[i]))
+		if (ft_strchr("aflrtAFGR", arg[i]))
 			set_flag(ls, arg[i]);
 		else
 			ft_error_illegal_opt(arg[i], ls);

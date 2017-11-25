@@ -13,82 +13,78 @@
 #include <ft_ls.h>
 #include <stdlib.h>
 
+//
+#include <unistd.h>
+
 /*
 ** may need to not be static
 */
 
-static void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
-{
-	t_dir	*info;
-	t_tmp	*t1;
-	t_tmp	*t2;
-
-	t1 = NULL;
-	t2 = NULL;
-	while ((info = readdir(dir)))
-	{
-		if (!t1)
-		{
-			t1 = malloc(sizeof(t_tmp));
-			t2 = t1;
-			t2->nb = 1;
-		}
-		else
-		{
-			t2->next = malloc(sizeof(t_tmp));
-			t2->next->nb = t2->nb + 1;
-			t2 = t2->next;
-		}
-		t2->dir = copy_dirent(info);
-		t2->next = NULL;
-	}
-	filling_sub_dir(arg, i, t1, opt);
-	closedir(dir);
-}
-
 static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 {
-	if (opt & DETAIL)
-	{
-		// TODO
-		arg[i]->to_print = ft_strjoin("Detail ", arg[i]->name);
-	}
+	if (opt & (DETAIL | COLOR | CLASSIFY))
+		get_detail(arg, i, opt);
 	else
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
 
 //just for test
-static void	print_subdir(t_doc **data)
+static void	print_subdir(t_doc **data, t_mask opt)
 {
 	int	i;
 
+//	return ;
 	i = 0;
 	while (data[i])
 	{
 		ft_putendl(data[i]->to_print);
 		if (data[i]->sub_dir)
-			print_subdir(data[i]->sub_dir);
+			print_subdir(data[i]->sub_dir, opt);
 		i++;
 	}
 }
 
+// static void	st_print(t_ls const *ls)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	if (ls->opt & DETAIL)
+// 	{
+// 		ft_putendl("Total de fichier dans le dossier");
+// 	}
+// 	while (ls->arg[i])
+// 	{
+// 		ft_putendl(ls->arg[i]->to_print);
+// 		if (ls->arg[i]->sub_dir)
+// 			print_subdir(ls->arg[i]->sub_dir);
+// 		i++;
+// 	}
+// }
+
+// This function will have to call the detail function.
 static void	st_print(t_ls const *ls)
 {
 	int		i;
 
 	i = 0;
 	if (ls->opt & DETAIL)
+	{
 		ft_putendl("Total de fichier dans le dossier");
+	}
 	while (ls->arg[i])
 	{
 		ft_putendl(ls->arg[i]->to_print);
 		if (ls->arg[i]->sub_dir)
-			print_subdir(ls->arg[i]->sub_dir);
+		{
+			write(1, ls->arg[i]->path, ft_strlen(ls->arg[i]->path));
+			print_subdir(ls->arg[i]->sub_dir, ls->opt);
+		}
 		i++;
 	}
 }
 
-int        ft_ls(t_ls *ls)
+int			ft_ls(t_ls *ls)
 {
 	int		i;
 	DIR		*dir_info;
@@ -98,9 +94,9 @@ int        ft_ls(t_ls *ls)
 	{
 		if (S_IFDIR & ls->arg[i]->stat->st_mode)
 		{
-			// is a dir
 			dir_info = opendir(ls->arg[i]->path);
 			st_fill_struct_dir(ls->arg, i, dir_info, ls->opt);
+			closedir(dir_info);
 		}
 		else
 		{
@@ -109,5 +105,5 @@ int        ft_ls(t_ls *ls)
 		++i;
 	}
 	st_print(ls);
-    return (ls->error);
+	return (ls->error);
 }

@@ -44,7 +44,7 @@ static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 	t = d;
 	while (arg[i]->sub_dir[j])
 	{
-		if ((opt & TIME) && arg[i]->sub_dir[j]->ctime > d->ctime)
+		if ((opt & TIME) && arg[i]->sub_dir[j]->mtime > d->mtime)
 			st_swap_doc(arg[i]->sub_dir, &t, j);
 		else if (!(opt & NO_SORT)
 			&& (ft_strcmp(arg[i]->sub_dir[j]->name, d->name) > 0))
@@ -52,31 +52,63 @@ static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 		j++;
 	}
 	arg[i]->sub_dir[j] = t;
+	arg[i]->sub_dir[j + 1] = NULL;
 }
 
-void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
+static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 {
 	t_tmp	*t1;
 	t_tmp	*t2;
 	t_doc	*d;
 	t_stat	*stat;
+	int		len;
 
-	arg[i]->sub_dir = malloc(sizeof(t_doc*) * (st_get_lst_ln(lst) + 1));
-	arg[i]->sub_dir[0] = NULL;
+	arg[i]->sub_dir = malloc(sizeof(t_doc*) * ((len = st_get_lst_ln(lst)) + 1));
+	while (--len >= 0)
+		arg[i]->sub_dir[len] = NULL;
 	stat = malloc(sizeof(t_stat));
 	t1 = lst;
 	while (t1->next)
 	{
 		d = malloc(sizeof(t_doc));
 		d->name = ft_strdup(t1->dir->d_name);
-		d->path = ft_strjoin_f(arg[i]->path, t1->dir->d_name, 0);
+		d->path = ft_strjoin_f(arg[i]->path, d->name, 0);
 		lstat(d->path, stat);
 		d->stat = stat;
-		d->ctime = stat->st_ctime;
-		d->to_print = ft_strjoin_f("printing : ", d->name, 0);// to replace with aff/aff_det
+		d->mtime = stat->st_mtime;
+		d->sub_dir = NULL;
 		st_insert_new_doc(arg, i, d, opt);
 		t2 = t1;
 		t1 = t1->next;
 		free(t2);
 	}
+}
+
+void		st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
+{
+	t_dir	*info;
+	t_tmp	*t1;
+	t_tmp	*t2;
+
+	t1 = NULL;
+	t2 = NULL;
+	while ((info = readdir(dir)))
+	{
+		if (!t1)
+		{
+			t1 = malloc(sizeof(t_tmp));
+			t2 = t1;
+			t2->nb = 1;
+		}
+		else
+		{
+			t2->next = malloc(sizeof(t_tmp));
+			t2->next->nb = t2->nb + 1;
+			t2 = t2->next;
+		}
+		t2->dir = copy_dirent(info);
+		t2->next = NULL;
+	}
+	arg[i]->to_print = ft_strjoin_f(arg[i]->name, ":", 0);
+	filling_sub_dir(arg, i, t1, opt);
 }

@@ -18,7 +18,7 @@
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
 
-typedef short			t_mask;
+typedef int				t_mask;
 typedef unsigned long	size_t;
 
 typedef struct s_tmp	t_tmp;
@@ -36,7 +36,7 @@ struct	s_doc
 {
 	char	*name;
 	char	*path;
-	size_t	ctime;
+	size_t	mtime;
 	t_doc	**sub_dir;
 	t_stat	*stat;
 	char	*to_print;

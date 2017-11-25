@@ -27,9 +27,9 @@ OBJS = $(SRCS:.c=.o)
 #		Compilation rules 		#
 #===============================#
 
-all: $(NAME)
+all: libft $(NAME)
 
-$(NAME): libft $(OBJS)
+$(NAME): $(OBJS)
 	@$(CC) -o $(NAME) $(OBJS) $(LIBFT) -I $(HEADER)
 	@echo "$(NAME) created and indexed"
 	@echo "*** Flag : $(OPT_FLAG) ***"
@@ -56,6 +56,8 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 	@echo "*** $(NAME) cleaned ***"
 
+half: clean $(NAME)
+
 re: fclean all
 
-.PHONY: all clean fclean re auteur libft
+.PHONY: all clean fclean re auteur libft half

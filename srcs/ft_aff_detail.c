@@ -16,14 +16,16 @@ static char	*set_clasify(char *str, int mode)
 {
 	char	*ret;
 
-	if (mode & S_IFSOCK)
+	if ((mode & S_IFSOCK) == S_IFSOCK)
 		ret = ft_strjoin_f(str, "=", 1);
-	if (mode & S_IFLNK)
+	else if ((mode & S_IFLNK) == S_IFLNK)
 		ret = ft_strjoin_f(str, "@", 1);
-	if ((mode & S_IFDIR) && !(mode & S_IFLNK))
+	else if ((mode & S_IFDIR) && !(mode & S_IFLNK))
 		ret = ft_strjoin_f(str, "/", 1);
-	if (mode & S_IFIFO)
+	else if (mode & S_IFIFO)
 		ret = ft_strjoin_f(str, "|", 1);
+	else
+		ret = ft_strjoin_f(str, "", 1);
 	return (ret);
 }
 
@@ -31,13 +33,17 @@ void		get_detail(t_doc **aff, int i, t_mask opt)
 {
 	char	*str;
 
-	str = aff[i]->to_print;
+	str = ft_strdup(aff[i]->path);
 	if (!(opt & DETAIL) && !(opt & COLOR) && !(opt & CLASSIFY))
-		return ;
-	if (opt & COLOR)
-		str = set_color(str, aff[i]->stat->st_mode);
-	if (opt & CLASSIFY)
-		str = set_clasify(str, aff[i]->stat->st_mode);
-	if (opt & DETAIL)
-		str = set_detail(str, aff[i]->stat);
+		;
+	else
+	{
+		if (opt & COLOR)
+			str = set_color(str, aff[i]->stat->st_mode);
+		if (opt & CLASSIFY)
+			str = set_clasify(str, aff[i]->stat->st_mode);
+		if (opt & DETAIL)
+			str = set_detail(str, aff[i]->stat);
+	}
+	aff[i]->to_print = str;
 }
