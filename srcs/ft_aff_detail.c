@@ -34,16 +34,11 @@ void		get_detail(t_doc **aff, int i, t_mask opt)
 	char	*str;
 
 	str = ft_strdup(aff[i]->path);
-	if (!(opt & DETAIL) && !(opt & COLOR) && !(opt & CLASSIFY))
-		;
-	else
-	{
-		if (opt & COLOR)
-			str = set_color(str, aff[i]->stat->st_mode);
-		if (opt & CLASSIFY)
-			str = set_clasify(str, aff[i]->stat->st_mode);
-		if (opt & DETAIL)
-			str = set_detail(str, aff[i]->stat);
-	}
+	if (opt & COLOR)
+		str = set_color(str, aff[i]->stat->st_mode);
+	if (opt & CLASSIFY)
+		str = set_clasify(str, aff[i]->stat->st_mode);
+	if (opt & DETAIL)
+		str = set_detail(str, aff[i]->stat);
 	aff[i]->to_print = str;
 }

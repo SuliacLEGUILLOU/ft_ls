@@ -56,19 +56,19 @@ int		main(void)
 	printf("\n");
 
 	print_binari(S_IFSOCK);
-	printf("\n");
+	printf(" - S_IFSOCK\n");
 	print_binari(S_IFLNK);
-	printf("\n");
+	printf(" - S_IFLNK\n");
 	print_binari(S_IFREG);
-	printf("\n0");
+	printf(" - S_IFREG\n0");
 	print_binari(S_IFBLK);
-	printf("\n0");
+	printf(" - S_IFBLK\n0");
 	print_binari(S_IFDIR);
-	printf("\n00");
+	printf(" - S_IFDIR\n00");
 	print_binari(S_IFCHR);
-	printf("\n000");
+	printf(" - S_IFCHR\n000");
 	print_binari(S_IFIFO);
-	printf("\n");
+	printf(" - S_IFIFO\n");
 
 	printf("\n");
 

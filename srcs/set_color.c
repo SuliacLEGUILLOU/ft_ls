@@ -65,7 +65,7 @@ char		*set_color(char *str, int mode)
 		ret = first_cut(str, mode);
 	if ((mode & S_IFDIR) && !(mode & S_IFLNK))
 		ret = second_cut(str, mode);
-	if ((mode & S_IFCHR) & !(mode & S_IFSOCK))
+	if ((mode & S_IFCHR) && !(mode & S_IFSOCK))
 		ret = double_color(C43, C34, str);
 	return ((ret = ft_strjoin_f(ret, RESET, 1)));
 }

@@ -92,7 +92,10 @@ int			ft_ls(t_ls *ls)
 	i = 0;
 	while (ls->arg[i])
 	{
-		if (S_IFDIR & ls->arg[i]->stat->st_mode)
+		if (ls->arg[i]->err)
+			ls->arg[i]->to_print = ft_strdup(ls->arg[i]->err);
+		else if ((S_IFDIR & ls->arg[i]->stat->st_mode)
+			&& !(S_IFLNK & ls->arg[i]->stat->st_mode))
 		{
 			dir_info = opendir(ls->arg[i]->path);
 			st_fill_struct_dir(ls->arg, i, dir_info, ls->opt);

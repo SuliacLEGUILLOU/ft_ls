@@ -49,6 +49,7 @@ t_doc	*insert_value(char *name, char *path, int flag)
 	tmp->stat = malloc(sizeof(t_stat));
 	if (lstat(path, tmp->stat))
 		tmp->err = set_error(tmp->name, errno);
+	tmp->mtime = tmp->stat->st_mtime;
 	if (flag & 1)
 		free(name);
 	if (flag & 2)
@@ -72,9 +73,8 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 
 	tmp = NULL;
 	j = -1;
-	if (!(ls->arg = malloc(sizeof(t_doc*) * (ac - i + 1))))
+	if (!(data = malloc(sizeof(t_doc*) * (ac - i + 1))))
 		ft_error_init();
-	data = ls->arg;
 	while (++j + i < ac)
 	{
 		file = get_file_name(av[j + i], ls);
@@ -87,4 +87,5 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 		j++;
 	}
 	data[j] = NULL;
+	ls->arg = data;
 }

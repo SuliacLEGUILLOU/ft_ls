@@ -89,25 +89,24 @@ void		st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
 	t_dir	*info;
 	t_tmp	*t1;
 	t_tmp	*t2;
+	t_tmp	*t3;
+	int		j;
 
 	t1 = NULL;
 	t2 = NULL;
+	t3 = NULL;
+	j = 1;
 	while ((info = readdir(dir)))
 	{
-		if (!t1)
-		{
-			t1 = malloc(sizeof(t_tmp));
-			t2 = t1;
-			t2->nb = 1;
-		}
-		else
-		{
-			t2->next = malloc(sizeof(t_tmp));
-			t2->next->nb = t2->nb + 1;
-			t2 = t2->next;
-		}
+		t2 = malloc(sizeof(t_tmp));
 		t2->dir = copy_dirent(info);
+		t2->nb = j++;
 		t2->next = NULL;
+		if (!t1)
+			t1 = t2;
+		else
+			t3->next = t2;
+		t3 = t2;
 	}
 	arg[i]->to_print = ft_strjoin_f(arg[i]->name, ":", 0);
 	filling_sub_dir(arg, i, t1, opt);
