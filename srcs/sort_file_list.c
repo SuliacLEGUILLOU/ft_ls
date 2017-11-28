@@ -78,17 +78,24 @@ static void	sort_directory(t_ls *ls, int i)
 	j = -1;
 	t = ls->arg[i];
 	while ((j + 1 < i) && (ls->arg[j + 1]->err
-		|| !(ls->arg[j + 1]->stat->st_mode & S_IFDIR)))
+		|| !((ls->arg[j + 1]->stat->st_mode & S_IFDIR)
+			&& !(ls->arg[j + 1]->stat->st_mode & S_IFLNK))))
 		j++;
 	while (++j < i)
 	{
 		if (ls->opt & NO_SORT)
 			continue ;
+		ft_putnbr(j);
+		ft_putendl("_debug1");
 		if (!(ls->opt & TIME) && (ft_strcmp(t->name, ls->arg[j]->name) < 0))
+		{
+			ft_putendl("debug2");
 			swap_doc(ls, &t, j);
+		}
 		else if ((ls->opt & TIME)
 			&& (t->stat->st_mtime < ls->arg[j]->stat->st_mtime))
 			swap_doc(ls, &t, j);
+		ft_putendl("debug3");
 	}
 	ls->arg[i] = t;
 }

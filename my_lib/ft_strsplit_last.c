@@ -25,7 +25,7 @@ char	*ft_strsplit_last(const char *str, const char c, int f)
 	int		j;
 	char	*ret;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	while (str[j])
 	{
@@ -33,7 +33,9 @@ char	*ft_strsplit_last(const char *str, const char c, int f)
 			i = j;
 		j++;
 	}
-	if (f)
+	if (i == -1)
+		ret = ft_strdup(str);
+	else if (f)
 		ret = ft_strdup(str + i + 1);
 	else
 		ret = ft_strndup(str, i);

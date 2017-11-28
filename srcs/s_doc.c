@@ -47,7 +47,6 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 	int		j;
 	t_doc	**data;
 	char	*name;
-	char	*file;
 	t_doc	*tmp;
 
 	tmp = NULL;
@@ -56,7 +55,7 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 		ft_error_init();
 	while (++j + i < ac)
 	{
-		name = ft_strsplit_last(file, '/', 1);
+		name = ft_strsplit_last(av[i], '/', 1);
 		data[j] = insert_value(name, av[i], 1);
 	}
 	if (j == 0)

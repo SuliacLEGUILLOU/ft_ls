@@ -38,20 +38,45 @@ static int	st_get_lst_ln(t_tmp *s)
 	return (t->nb);
 }
 
+//debug
+void	debug_print(size_t nb)
+{
+	char ech[17] = "0123456789ABCDEF";
+	if (nb / 16)
+		debug_print(nb / 16);
+	ft_putchar(ech[nb % 16]);
+}
+//!debug
+
 static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 {
 	int		j;
 	t_doc	*t;
 
+	ft_putendl(d->name);
 	j = 0;
 	t = d;
 	while (arg[i]->sub_dir[j])
 	{
 		if ((opt & TIME) && arg[i]->sub_dir[j]->mtime > d->mtime)
+		{
 			st_swap_doc(arg[i]->sub_dir, &t, j);
-		else if (!(opt & NO_SORT)
+			j++;
+			continue ;
+		}
+		debug_print((size_t)arg[i]->sub_dir[j]->name);
+		ft_putendl("");
+		debug_print((size_t)d);
+		ft_putendl("");
+		debug_print((size_t)d->name);
+		ft_putendl("");
+		if (!(opt & NO_SORT)
 			&& (ft_strcmp(arg[i]->sub_dir[j]->name, d->name) > 0))
+		{
 			st_swap_doc(arg[i]->sub_dir, &t, j);
+			j++;
+			continue ;
+		}
 		j++;
 	}
 	arg[i]->sub_dir[j] = t;
@@ -66,23 +91,35 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 	t_doc	*d;
 	t_stat	*stat;
 	int		len;
+	int		dbg = 0;
 
 	arg[i]->sub_dir = malloc(sizeof(t_doc*) * ((len = st_get_lst_ln(lst)) + 1));
 	while (--len >= 0)
 		arg[i]->sub_dir[len] = NULL;
 	stat = malloc(sizeof(t_stat));
 	t1 = lst;
-	while (t1->next)
+	while (t1)
 	{
+		ft_putnbr(dbg);
+		ft_putchar('\n');
+		dbg++;
 		d = malloc(sizeof(t_doc));
+		ft_putendl(t1->dir->d_name);
 		d->name = ft_strdup(t1->dir->d_name);
+		ft_putendl(d->name);
 		d->path = ft_strdup(arg[i]->path);
 		d->path = ft_strjoin_f(d->path, ft_strjoin_f("/", d->name, 0), 3);
+		ft_putstr(".:");
+		ft_putstr(d->name);
+		ft_putendl(":.");
 		if (lstat(d->path, stat))
 			perror(d->path);
-		d->stat = stat;
+		d->stat = copy_stat(stat);
 		d->mtime = stat->st_mtime;
 		d->sub_dir = NULL;
+		ft_putendl("<->");
+		ft_putendl(d->name);
+		ft_putendl(">-<");
 		st_insert_new_doc(arg, i, d, opt);
 		t2 = t1;
 		t1 = t1->next;
