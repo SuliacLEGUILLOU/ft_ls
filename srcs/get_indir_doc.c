@@ -14,6 +14,9 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
+//
+#include <stdio.h>
+
 static void	st_swap_doc(t_doc **src, t_doc **d, int j)
 {
 	t_doc	*t;
@@ -55,6 +58,7 @@ static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 	arg[i]->sub_dir[j + 1] = NULL;
 }
 
+//
 static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 {
 	t_tmp	*t1;
@@ -72,8 +76,10 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 	{
 		d = malloc(sizeof(t_doc));
 		d->name = ft_strdup(t1->dir->d_name);
-		d->path = ft_strjoin_f(arg[i]->path, d->name, 0);
-		lstat(d->path, stat);
+		d->path = ft_strdup(arg[i]->path);
+		d->path = ft_strjoin_f(d->path, ft_strjoin_f("/", d->name, 0), 3);
+		if (lstat(d->path, stat))
+			perror(d->path);
 		d->stat = stat;
 		d->mtime = stat->st_mtime;
 		d->sub_dir = NULL;
@@ -83,6 +89,7 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 		free(t2);
 	}
 }
+//
 
 void		st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
 {

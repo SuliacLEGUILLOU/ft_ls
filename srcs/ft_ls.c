@@ -28,15 +28,25 @@ static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
 
-//just for test
 static void	print_subdir(t_doc **data, t_mask opt)
 {
 	int	i;
+	DIR	*d;
 
-//	return ;
 	i = 0;
 	while (data[i])
 	{
+		if ((data[i]->stat->st_mode & S_IFDIR)
+			&& !(data[i]->stat->st_mode & S_IFLNK)
+			&& ft_strcmp(data[i]->name, ".")
+			&& ft_strcmp(data[i]->name, ".."))
+		{
+			d = opendir(data[i]->path);
+			st_fill_struct_dir(data, i, d, opt);
+			closedir(d);
+		}
+		else
+			st_fill_struct_file(data, i, opt);
 		ft_putendl(data[i]->to_print);
 		if (data[i]->sub_dir)
 			print_subdir(data[i]->sub_dir, opt);
@@ -77,7 +87,7 @@ static void	st_print(t_ls const *ls)
 		ft_putendl(ls->arg[i]->to_print);
 		if (ls->arg[i]->sub_dir)
 		{
-			write(1, ls->arg[i]->path, ft_strlen(ls->arg[i]->path));
+			ft_putendl(ls->arg[i]->path);
 			print_subdir(ls->arg[i]->sub_dir, ls->opt);
 		}
 		i++;

@@ -16,7 +16,7 @@
 ** TODO: comment every function in order to explain why it is complicate
 */
 
-int			main(int argc, char **argv, char const **env)
+int		main(int argc, char **argv, char const **env)
 {
 	t_ls	ls;
 	int		i;

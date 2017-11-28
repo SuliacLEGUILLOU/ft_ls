@@ -47,4 +47,6 @@ void	get_detail(t_doc **aff, int i, t_mask opt);
 char	*set_color(char *str, int mode);
 char	*set_detail(char *str, t_stat *st);//, int nlink, int ttsize);
 
+void	debug_print_arg(t_doc *arg);//
+
 #endif

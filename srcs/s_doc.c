@@ -14,27 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static char	*get_file_name(char *av, t_ls *ls)
-{
-	char *name;
-
-	if (av[0] == '/')
-		name = ft_strdup(av);
-	else if (av[0] == '~')
-	{
-		name = ft_strdup(ls->home);
-		name = ft_strjoin_f(name, "/", 1);
-		name = ft_strjoin_f(name, av, 1);
-	}
-	else
-	{
-		name = ft_strdup(ls->pwd);
-		name = ft_strjoin_f(name, "/", 1);
-		name = ft_strjoin_f(name, av, 1);
-	}
-	return (name);
-}
-
 t_doc	*insert_value(char *name, char *path, int flag)
 {
 	t_doc	*tmp;
@@ -77,9 +56,8 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 		ft_error_init();
 	while (++j + i < ac)
 	{
-		file = get_file_name(av[j + i], ls);
 		name = ft_strsplit_last(file, '/', 1);
-		data[j] = insert_value(name, file, 3);
+		data[j] = insert_value(name, av[i], 1);
 	}
 	if (j == 0)
 	{

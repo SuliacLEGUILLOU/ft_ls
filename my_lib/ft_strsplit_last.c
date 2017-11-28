@@ -26,7 +26,7 @@ char	*ft_strsplit_last(const char *str, const char c, int f)
 	char	*ret;
 
 	i = 0;
-	j = -1;
+	j = 0;
 	while (str[j])
 	{
 		if (str[j] == c)

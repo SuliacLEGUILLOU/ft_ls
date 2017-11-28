@@ -97,8 +97,8 @@ void		sort_file_list(t_ls *ls)
 {
 	int		i;
 
-	i = -1;
-	while (ls->arg[++i])
+	i = 0;
+	while (ls->arg[i])
 	{
 		if (ls->arg[i]->err)
 		{
@@ -109,5 +109,6 @@ void		sort_file_list(t_ls *ls)
 			sort_file(ls, i);
 		else
 			sort_directory(ls, i);
+		i++;
 	}
 }

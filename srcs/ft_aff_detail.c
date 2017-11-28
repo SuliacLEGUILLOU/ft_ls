@@ -33,7 +33,7 @@ void		get_detail(t_doc **aff, int i, t_mask opt)
 {
 	char	*str;
 
-	str = ft_strdup(aff[i]->path);
+	str = ft_strdup(aff[i]->name);
 	if (opt & COLOR)
 		str = set_color(str, aff[i]->stat->st_mode);
 	if (opt & CLASSIFY)
