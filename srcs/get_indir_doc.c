@@ -13,9 +13,7 @@
 #include <ft_ls.h>
 #include <sys/stat.h>
 #include <stdlib.h>
-
-//
-#include <stdio.h>
+#include <unistd.h>
 
 static void	st_swap_doc(t_doc **src, t_doc **d, int j)
 {
@@ -84,7 +82,8 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 		d->path = ft_strdup(arg[i]->path);
 		d->path = ft_strjoin_f(d->path, ft_strjoin_f("/", d->name, 0), 3);
 		d->stat = malloc(sizeof(t_stat));
-		lstat(d->path, d->stat);
+		if (lstat(d->path, d->stat))
+			d->err = set_error(d->name, errno);
 		d->mtime = d->stat->st_mtime;
 		d->sub_dir = NULL;
 		st_insert_new_doc(arg, i, d, opt);
@@ -118,6 +117,6 @@ void		st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
 			t3->next = t2;
 		t3 = t2;
 	}
-	arg[i]->to_print = ft_strjoin_f(arg[i]->name, ":", 0);
+	arg[i]->to_print = ft_strjoin_f(arg[i]->path, ":", 0);
 	filling_sub_dir(arg, i, t1, opt);
 }

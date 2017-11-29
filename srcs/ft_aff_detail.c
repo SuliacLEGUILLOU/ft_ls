@@ -29,7 +29,7 @@ static char	*set_clasify(char *str, int mode)
 	return (ret);
 }
 
-void		get_detail(t_doc **aff, int i, t_mask opt)
+void		get_detail(t_doc **aff, int i, t_mask opt)//, t_int4 length)
 {
 	char	*str;
 

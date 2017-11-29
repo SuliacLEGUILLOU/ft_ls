@@ -13,12 +13,9 @@
 #include <ft_ls.h>
 #include <stdlib.h>
 
-//
-#include <unistd.h>
+static void	recur_dir(t_doc **data, t_mask opt, int i);
+static void	print_subdir(t_doc **data, t_mask opt);
 
-/*
-** may need to not be static
-*/
 
 static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 {
@@ -28,50 +25,50 @@ static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
 
+static void	recur_dir(t_doc **data, t_mask opt, int i)
+{
+	DIR	*d;
+
+	if (data[i]->name[0] == '.' && !(opt & (ALL + ALL_MAJ)))
+		return ;
+	if (!((data[i]->stat->st_mode & S_IFDIR)
+		&& !(data[i]->stat->st_mode & S_IFLNK)))
+		return ;
+	if (!ft_strcmp(data[i]->name, ".") || !ft_strcmp(data[i]->name, ".."))
+		return ;
+	d = opendir(data[i]->path);
+	st_fill_struct_dir(data, i, d, opt);
+	closedir(d);
+	ft_putchar('\n');
+	ft_putstr(data[i]->path);
+	ft_putendl(":");
+	print_subdir(data[i]->sub_dir, opt);
+}
+
 static void	print_subdir(t_doc **data, t_mask opt)
 {
 	int	i;
-	DIR	*d;
 
-	i = 0;
-	while (data[i])
+	i = -1;
+	while (data[++i])
 	{
-		if ((opt & RECUR)
-			&& (data[i]->stat->st_mode & S_IFDIR)
-			&& !(data[i]->stat->st_mode & S_IFLNK)
-			&& ft_strcmp(data[i]->name, ".")
-			&& ft_strcmp(data[i]->name, ".."))
-		{
-			d = opendir(data[i]->path);
-			st_fill_struct_dir(data, i, d, opt);
-			closedir(d);
-		}
-		else
-			st_fill_struct_file(data, i, opt);
+		if (data[i]->name[0] == '.' && !(opt & (ALL + ALL_MAJ)))
+			continue ;
+		if (!(opt & ALL) && !(ft_strcmp(data[i]->name, ".")
+			&& ft_strcmp(data[i]->name, "..")))
+			continue ;
+		st_fill_struct_file(data, i, opt);
 		ft_putendl(data[i]->to_print);
-		if (data[i]->sub_dir)
-			print_subdir(data[i]->sub_dir, opt);
-		i++;
+	}
+	if (!(opt & RECUR))
+		return ;
+	i = -1;
+	while(data[++i])
+	{
+		if (opt & RECUR)
+			recur_dir(data, opt, i);
 	}
 }
-
-// static void	st_print(t_ls const *ls)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	if (ls->opt & DETAIL)
-// 	{
-// 		ft_putendl("Total de fichier dans le dossier");
-// 	}
-// 	while (ls->arg[i])
-// 	{
-// 		ft_putendl(ls->arg[i]->to_print);
-// 		if (ls->arg[i]->sub_dir)
-// 			print_subdir(ls->arg[i]->sub_dir);
-// 		i++;
-// 	}
-// }
 
 // This function will have to call the detail function.
 static void	st_print(t_ls const *ls)
@@ -85,6 +82,8 @@ static void	st_print(t_ls const *ls)
 	}
 	while (ls->arg[i])
 	{
+		if (i && ls->arg[i]->sub_dir)
+			ft_putchar('\n');
 		ft_putendl(ls->arg[i]->to_print);
 		if (ls->arg[i]->sub_dir)
 			print_subdir(ls->arg[i]->sub_dir, ls->opt);

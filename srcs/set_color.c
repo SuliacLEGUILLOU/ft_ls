@@ -38,7 +38,7 @@ static char	*second_cut(char *str, int mode)
 {
 	char	*ret;
 
-	if (!(mode & S_IWUGO))
+	if (!(mode & S_IWOTH))
 		ret = ft_strjoin_f(C34, str, 2);
 	else if (!(mode & S_IDVTX))
 		ret = double_color(C43, C30, str);

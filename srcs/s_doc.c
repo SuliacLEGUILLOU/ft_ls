@@ -55,8 +55,8 @@ void	set_arg(t_ls *ls, char **av, int ac, int i)
 		ft_error_init();
 	while (++j + i < ac)
 	{
-		name = ft_strsplit_last(av[i], '/', 1);
-		data[j] = insert_value(name, av[i], 1);
+		name = ft_strsplit_last(av[i + j], '/', 1);
+		data[j] = insert_value(name, av[i + j], 1);
 	}
 	if (j == 0)
 	{

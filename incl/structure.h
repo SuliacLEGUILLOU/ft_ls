@@ -21,9 +21,18 @@ typedef struct dirent	t_dir;
 typedef int				t_mask;
 typedef unsigned long	size_t;
 
+typedef struct s_int4	t_int4;
 typedef struct s_tmp	t_tmp;
 typedef struct s_doc	t_doc;
 typedef struct s_ls		t_ls;
+
+struct	s_int4
+{
+	int		w;
+	int		x;
+	int		y;
+	int		z;
+};
 
 struct	s_tmp
 {
