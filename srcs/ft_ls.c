@@ -14,11 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls);
-static void	print_subdir(t_doc **data, t_mask opt, t_ls *ls);
-
-
-static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
+static void	st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 {
 	if (opt & (DETAIL | COLOR | CLASSIFY))
 		get_detail(arg, i, opt);
@@ -26,9 +22,9 @@ static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
 
-static void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
+void		recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
 {
-	DIR	*d;
+	DIR		*d;
 
 	if (data[i]->name[0] == '.' && !(opt & (ALL + ALL_MAJ)))
 		return ;
@@ -51,9 +47,9 @@ static void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
 	print_subdir(data[i]->sub_dir, opt, ls);
 }
 
-static void	print_subdir(t_doc **data, t_mask opt, t_ls *ls)
+void		print_subdir(t_doc **data, t_mask opt, t_ls *ls)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	while (data[++i])
@@ -69,7 +65,7 @@ static void	print_subdir(t_doc **data, t_mask opt, t_ls *ls)
 	if (!(opt & RECUR))
 		return ;
 	i = -1;
-	while(data[++i])
+	while (data[++i])
 	{
 		if (opt & RECUR)
 			recur_dir(data, opt, i, ls);

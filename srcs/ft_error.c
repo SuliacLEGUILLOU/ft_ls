@@ -17,7 +17,7 @@
 #include <string.h>
 #include <sys/errno.h>
 
-char	*set_error(char	*name, int err)
+char	*set_error(char *name, int err)
 {
 	char	*err_str;
 

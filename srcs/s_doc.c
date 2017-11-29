@@ -25,7 +25,7 @@ static char	*ft_set_name(char *name)
 	return (ret);
 }
 
-t_doc	*insert_value(char *name, char *path, int flag)
+t_doc		*insert_value(char *name, char *path, int flag)
 {
 	t_doc	*tmp;
 
@@ -53,7 +53,7 @@ t_doc	*insert_value(char *name, char *path, int flag)
 ** so we have to keep in memory the pwd
 */
 
-void	set_arg(t_ls *ls, char **av, int ac, int i)
+void		set_arg(t_ls *ls, char **av, int ac, int i)
 {
 	int		j;
 	t_doc	**data;

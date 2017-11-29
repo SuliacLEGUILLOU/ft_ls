@@ -14,6 +14,7 @@
 # define STRUCTURE_H
 
 # include <sys/stat.h>
+# include <dirent.h>
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
@@ -51,7 +52,6 @@ struct	s_doc
 	char	*to_print;
 	char	*err;
 };
-
 
 struct	s_ls
 {

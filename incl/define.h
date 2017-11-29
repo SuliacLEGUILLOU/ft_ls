@@ -22,10 +22,8 @@
 # define NO_SORT	64
 # define CLASSIFY	128
 # define COLOR		256
-# define nul		'\0'
 # define MINOR(x)	(x & 0xff)
 # define MAJOR(x)	(x >> 24)
-
 
 /*
 ** sys/stat is missing some define

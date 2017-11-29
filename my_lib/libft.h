@@ -97,12 +97,12 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 ** Bonus
 */
 
-int		ft_max(int a, int b);
-int		ft_min(int a, int b);
-char	*ft_strsplit_last(const char *str, const char c, int f);
-char	*ft_strjoin_f(char *s1, char *s2, int f);
-char	*ft_getenv(const char *val, const char **env);
-char	*ft_strndup(const char *src, int len);
+int					ft_max(int a, int b);
+int					ft_min(int a, int b);
+char				*ft_strsplit_last(const char *str, const char c, int f);
+char				*ft_strjoin_f(char *s1, char *s2, int f);
+char				*ft_getenv(const char *val, const char **env);
+char				*ft_strndup(const char *src, int len);
 
 /*
 ** !Bonus

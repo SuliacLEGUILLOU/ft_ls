@@ -31,7 +31,7 @@ static char	*add_time(char *str, time_t t)
 	return (ret);
 }
 
-char	*set_detail(char *str, t_stat *st)//, int nlink, int ttsize)
+char		*set_detail(char *str, t_stat *st)//, int nlink, int ttsize)
 {
 	char	*ret;
 

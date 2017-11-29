@@ -70,7 +70,8 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 	t_doc	*d;
 	int		len;
 
-	arg[i]->sub_dir = malloc(sizeof(t_doc*) * ((len = st_get_lst_ln(lst)) + 1));
+	len = st_get_lst_ln(lst);
+	arg[i]->sub_dir = malloc(sizeof(t_doc*) * (len + 1));
 	while (--len >= 0)
 		arg[i]->sub_dir[len] = NULL;
 	t1 = lst;

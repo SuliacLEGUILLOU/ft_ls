@@ -29,11 +29,14 @@
 void	clean_ls(t_ls *ls);
 
 /*
-** set_flag seems to be used only in is_flag, moved to static 
+** set_flag seems to be used only in is_flag, moved to static
 ** void	set_flag(t_ls *ls, char f);
 */
 
 int		is_flag(const char *arg, t_ls *ls);
+
+void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls);
+void	print_subdir(t_doc **data, t_mask opt, t_ls *ls);
 
 int		ft_ls(t_ls *ls);
 void	sort_file_list(t_ls *ls);
