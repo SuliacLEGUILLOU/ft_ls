@@ -12,9 +12,10 @@
 
 #include <ft_ls.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-static void	recur_dir(t_doc **data, t_mask opt, int i);
-static void	print_subdir(t_doc **data, t_mask opt);
+static void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls);
+static void	print_subdir(t_doc **data, t_mask opt, t_ls *ls);
 
 
 static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
@@ -25,7 +26,7 @@ static void st_fill_struct_file(t_doc **arg, int i, t_mask opt)
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
 
-static void	recur_dir(t_doc **data, t_mask opt, int i)
+static void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
 {
 	DIR	*d;
 
@@ -36,16 +37,21 @@ static void	recur_dir(t_doc **data, t_mask opt, int i)
 		return ;
 	if (!ft_strcmp(data[i]->name, ".") || !ft_strcmp(data[i]->name, ".."))
 		return ;
-	d = opendir(data[i]->path);
+	if (!(d = opendir(data[i]->path)))
+	{
+		perror(data[i]->path);
+		ls->error = errno;
+		return ;
+	}
 	st_fill_struct_dir(data, i, d, opt);
 	closedir(d);
 	ft_putchar('\n');
 	ft_putstr(data[i]->path);
 	ft_putendl(":");
-	print_subdir(data[i]->sub_dir, opt);
+	print_subdir(data[i]->sub_dir, opt, ls);
 }
 
-static void	print_subdir(t_doc **data, t_mask opt)
+static void	print_subdir(t_doc **data, t_mask opt, t_ls *ls)
 {
 	int	i;
 
@@ -66,27 +72,25 @@ static void	print_subdir(t_doc **data, t_mask opt)
 	while(data[++i])
 	{
 		if (opt & RECUR)
-			recur_dir(data, opt, i);
+			recur_dir(data, opt, i, ls);
 	}
 }
 
-// This function will have to call the detail function.
-static void	st_print(t_ls const *ls)
+static void	st_print(t_ls *ls)
 {
 	int		i;
 
 	i = 0;
-	if (ls->opt & DETAIL)
-	{
-		ft_putendl("Total de fichier dans le dossier");
-	}
 	while (ls->arg[i])
 	{
 		if (i && ls->arg[i]->sub_dir)
 			ft_putchar('\n');
-		ft_putendl(ls->arg[i]->to_print);
+		if (ls->arg[i]->err)
+			ft_putendl_fd(ls->arg[i]->err, 2);
+		else
+			ft_putendl(ls->arg[i]->to_print);
 		if (ls->arg[i]->sub_dir)
-			print_subdir(ls->arg[i]->sub_dir, ls->opt);
+			print_subdir(ls->arg[i]->sub_dir, ls->opt, ls);
 		i++;
 	}
 }
@@ -115,5 +119,6 @@ int			ft_ls(t_ls *ls)
 		++i;
 	}
 	st_print(ls);
+	clean_ls(ls);
 	return (ls->error);
 }

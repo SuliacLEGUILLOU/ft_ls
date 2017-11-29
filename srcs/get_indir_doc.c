@@ -67,7 +67,6 @@ static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 {
 	t_tmp	*t1;
-	t_tmp	*t2;
 	t_doc	*d;
 	int		len;
 
@@ -79,7 +78,7 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 	{
 		d = malloc(sizeof(t_doc));
 		d->name = ft_strdup(t1->dir->d_name);
-		d->path = ft_strdup(arg[i]->path);
+		d->path = ft_strdup(ft_strcmp(arg[i]->path, "/") ? arg[i]->path : "");
 		d->path = ft_strjoin_f(d->path, ft_strjoin_f("/", d->name, 0), 3);
 		d->stat = malloc(sizeof(t_stat));
 		if (lstat(d->path, d->stat))
@@ -87,10 +86,9 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 		d->mtime = d->stat->st_mtime;
 		d->sub_dir = NULL;
 		st_insert_new_doc(arg, i, d, opt);
-		t2 = t1;
 		t1 = t1->next;
-		free(t2);
 	}
+	clean_t_tmp(lst);
 }
 
 void		st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)

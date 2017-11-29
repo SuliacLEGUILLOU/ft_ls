@@ -26,7 +26,7 @@
 /*
 ** needed in order to don't have leaks
 */
-void	clear_ls(t_ls *ls);
+void	clean_ls(t_ls *ls);
 
 /*
 ** set_flag seems to be used only in is_flag, moved to static 
@@ -47,5 +47,9 @@ void	get_detail(t_doc **aff, int i, t_mask opt);
 char	*set_color(char *str, int mode);
 char	*set_detail(char *str, t_stat *st);//, int nlink, int ttsize);
 
+int		ft_print_data(t_doc *data);
+
+void	clean_t_doc(t_doc *data);
+void	clean_t_tmp(t_tmp *lst);
 
 #endif

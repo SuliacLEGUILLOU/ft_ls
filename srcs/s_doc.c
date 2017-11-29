@@ -14,13 +14,24 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+static char	*ft_set_name(char *name)
+{
+	char	*ret;
+
+	if (ft_strcmp(name, ""))
+		ret = ft_strdup("/");
+	else
+		ret = ft_strdup(name);
+	return (ret);
+}
+
 t_doc	*insert_value(char *name, char *path, int flag)
 {
 	t_doc	*tmp;
 
 	if (!(tmp = (t_doc*)malloc(sizeof(t_doc))))
 		return (NULL);
-	tmp->name = ft_strdup(name);
+	tmp->name = ft_set_name(name);
 	tmp->path = ft_strdup(path);
 	tmp->sub_dir = NULL;
 	tmp->to_print = NULL;
