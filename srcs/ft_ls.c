@@ -36,15 +36,12 @@ static void	print_subdir(t_doc **data, t_mask opt)
 	i = 0;
 	while (data[i])
 	{
-		ft_putnbr(i);
-		ft_putendl("_debug");
 		if ((opt & RECUR)
 			&& (data[i]->stat->st_mode & S_IFDIR)
 			&& !(data[i]->stat->st_mode & S_IFLNK)
 			&& ft_strcmp(data[i]->name, ".")
 			&& ft_strcmp(data[i]->name, ".."))
 		{
-			ft_putendl("debug_");
 			d = opendir(data[i]->path);
 			st_fill_struct_dir(data, i, d, opt);
 			closedir(d);
