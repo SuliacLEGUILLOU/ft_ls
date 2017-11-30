@@ -25,13 +25,13 @@ static char	*ft_set_name(char *name)
 	return (ret);
 }
 
-t_doc		*insert_value(char *name, char *path, int flag)
+t_doc		*insert_value(char *name, char *path, int flag, int init)
 {
 	t_doc	*tmp;
 
 	if (!(tmp = (t_doc*)malloc(sizeof(t_doc))))
 		return (NULL);
-	tmp->name = ft_set_name(name);
+	tmp->name = init ? ft_set_name(name) : ft_strdup(name);
 	tmp->path = ft_strdup(path);
 	tmp->sub_dir = NULL;
 	tmp->to_print = NULL;
@@ -67,11 +67,11 @@ void		set_arg(t_ls *ls, char **av, int ac, int i)
 	while (++j + i < ac)
 	{
 		name = ft_strsplit_last(av[i + j], '/', 1);
-		data[j] = insert_value(name, av[i + j], 1);
+		data[j] = insert_value(name, av[i + j], 1, 1);
 	}
 	if (j == 0)
 	{
-		data[0] = insert_value(".", ls->pwd, 0);
+		data[0] = insert_value(".", ls->pwd, 0, 1);
 		j++;
 	}
 	data[j] = NULL;

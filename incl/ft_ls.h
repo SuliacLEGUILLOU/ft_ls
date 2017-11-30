@@ -43,6 +43,8 @@ void	sort_file_list(t_ls *ls);
 
 void	set_arg(t_ls *ls, char **av, int ac, int i);
 
+t_doc	*insert_value(char *name, char *path, int flag, int init);
+
 t_dir	*copy_dirent(t_dir *src);
 void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt);
 

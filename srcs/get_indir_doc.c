@@ -45,19 +45,11 @@ static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 	t = d;
 	while (arg[i]->sub_dir[j])
 	{
-		if ((opt & TIME) && arg[i]->sub_dir[j]->mtime > d->mtime)
-		{
+		if ((opt & TIME) && (arg[i]->sub_dir[j]->mtime < d->mtime))
 			st_swap_doc(arg[i]->sub_dir, &t, j);
-			j++;
-			continue ;
-		}
-		if (!(opt & NO_SORT)
+		else if (!(opt & NO_SORT)
 			&& (ft_strcmp(arg[i]->sub_dir[j]->name, d->name) > 0))
-		{
 			st_swap_doc(arg[i]->sub_dir, &t, j);
-			j++;
-			continue ;
-		}
 		j++;
 	}
 	arg[i]->sub_dir[j] = t;
@@ -68,6 +60,8 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 {
 	t_tmp	*t1;
 	t_doc	*d;
+	char	*name;
+	char	*path;
 	int		len;
 
 	len = st_get_lst_ln(lst);
@@ -77,15 +71,11 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 	t1 = lst;
 	while (t1)
 	{
-		d = malloc(sizeof(t_doc));
-		d->name = ft_strdup(t1->dir->d_name);
-		d->path = ft_strdup(ft_strcmp(arg[i]->path, "/") ? arg[i]->path : "");
-		d->path = ft_strjoin_f(d->path, ft_strjoin_f("/", d->name, 0), 3);
-		d->stat = malloc(sizeof(t_stat));
-		if (lstat(d->path, d->stat))
-			d->err = set_error(d->name, errno);
-		d->mtime = d->stat->st_mtime;
-		d->sub_dir = NULL;
+		name = ft_strdup(t1->dir->d_name);
+		path = ft_strdup(ft_strcmp(arg[i]->path, "/") ? arg[i]->path : "");
+		path = ft_strjoin_f(path, "/", 1);
+		path = ft_strjoin_f(path, name, 1);
+		d = insert_value(name, path, 3, 0);
 		st_insert_new_doc(arg, i, d, opt);
 		t1 = t1->next;
 	}
