@@ -41,9 +41,9 @@ t_doc		*insert_value(char *name, char *path, int flag, int init)
 		tmp->err = set_error(tmp->name, errno);
 	tmp->mtime = tmp->stat->st_mtime;
 	if (flag & 1)
-		free(name);
+		ft_strdel(&name);
 	if (flag & 2)
-		free(path);
+		ft_strdel(&path);
 	return (tmp);
 }
 

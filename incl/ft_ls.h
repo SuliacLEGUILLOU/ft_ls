@@ -57,6 +57,7 @@ int		ft_print_data(t_doc *data);
 void	clean_t_doc(t_doc *data);
 void	clean_t_tmp(t_tmp *lst);
 
+int		need_swap(t_doc *s1, t_doc *s2, t_mask opt);
 void	sort_indir(t_doc **data, t_mask opt);
 
 #endif

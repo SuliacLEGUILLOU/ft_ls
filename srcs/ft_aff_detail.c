@@ -33,6 +33,7 @@ void		get_detail(t_doc **aff, int i, t_mask opt)//, t_int4 length)
 {
 	char	*str;
 
+	ft_putendl("debug");
 	str = ft_strdup(aff[i]->name);
 	if (opt & COLOR)
 		str = set_color(str, aff[i]->stat->st_mode);
