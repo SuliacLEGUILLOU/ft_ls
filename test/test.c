@@ -211,7 +211,7 @@ void	print_ls(char *src)
 {
 	char	*dest;
 
-	dest = ft_strjoin_f("ls -dla ", src, 0);
+	dest = ft_strjoin_f("ls -Glat ", src, 0);
 	system(dest);
 	free(dest);
 }
@@ -238,13 +238,13 @@ int	main(int ac, char **av, char **env)
 		write(1, " :\n", 3);
 		s1 = malloc(sizeof(t_stat));
 		s2 = malloc(sizeof(t_stat));
-		if (stat(str, s1)) //if (stat(dir, s1))
-			perror("fail");
-		else
-		{
-			write(1, "stat : ", 7);
-			print_stat(s1);
-		}
+		// if (stat(str, s1)) //if (stat(dir, s1))
+		// 	perror("fail");
+		// else
+		// {
+		// 	write(1, "stat : ", 7);
+		// 	print_stat(s1);
+		// }
 		if (lstat(str, s2)) //if (lstat(dir, s2))
 			perror("arfl");
 		else
@@ -253,11 +253,12 @@ int	main(int ac, char **av, char **env)
 			print_stat(s2);
 		}
 //		print_ls(dir);
-		print_ls(str);
+		// print_ls(str);
 		free(s1);
 		free(s2);
 		free(str);
 	}
+	print_ls(dir);
 	closedir(d);
 	return (0);
 }

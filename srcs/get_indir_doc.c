@@ -15,15 +15,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	st_swap_doc(t_doc **src, t_doc **d, int j)
-{
-	t_doc	*t;
-
-	t = src[j];
-	src[j] = *d;
-	*d = t;
-}
-
 static int	st_get_lst_ln(t_tmp *s)
 {
 	t_tmp	*t;
@@ -36,7 +27,7 @@ static int	st_get_lst_ln(t_tmp *s)
 	return (t->nb);
 }
 
-static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
+static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d)
 {
 	int		j;
 	t_doc	*t;
@@ -44,14 +35,7 @@ static void	st_insert_new_doc(t_doc **arg, int i, t_doc *d, t_mask opt)
 	j = 0;
 	t = d;
 	while (arg[i]->sub_dir[j])
-	{
-		if ((opt & TIME) && (arg[i]->sub_dir[j]->mtime < d->mtime))
-			st_swap_doc(arg[i]->sub_dir, &t, j);
-		else if (!(opt & NO_SORT)
-			&& (ft_strcmp(arg[i]->sub_dir[j]->name, d->name) > 0))
-			st_swap_doc(arg[i]->sub_dir, &t, j);
 		j++;
-	}
 	arg[i]->sub_dir[j] = t;
 	arg[i]->sub_dir[j + 1] = NULL;
 }
@@ -76,10 +60,11 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 		path = ft_strjoin_f(path, "/", 1);
 		path = ft_strjoin_f(path, name, 1);
 		d = insert_value(name, path, 3, 0);
-		st_insert_new_doc(arg, i, d, opt);
+		st_insert_new_doc(arg, i, d);
 		t1 = t1->next;
 	}
 	clean_t_tmp(lst);
+	sort_indir(arg[i]->sub_dir, opt);
 }
 
 void		st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)

@@ -18,7 +18,7 @@ static char	*ft_set_name(char *name)
 {
 	char	*ret;
 
-	if (ft_strcmp(name, ""))
+	if (!ft_strcmp(name, ""))
 		ret = ft_strdup("/");
 	else
 		ret = ft_strdup(name);

@@ -59,7 +59,7 @@ static void	sort_file(t_ls *ls, int i)
 		if (!(ls->opt & TIME) && (ft_strcmp(t->name, ls->arg[j]->name) < 0))
 			swap_doc(ls, &t, j);
 		else if ((ls->opt & TIME)
-			&& (t->stat->st_mtime < ls->arg[j]->stat->st_mtime))
+			&& (t->stat->st_mtime > ls->arg[j]->stat->st_mtime))
 			swap_doc(ls, &t, j);
 	}
 	while (j < i)
@@ -90,7 +90,7 @@ static void	sort_directory(t_ls *ls, int i)
 			swap_doc(ls, &t, j);
 		}
 		else if ((ls->opt & TIME)
-			&& (t->stat->st_mtime < ls->arg[j]->stat->st_mtime))
+			&& (t->stat->st_mtime > ls->arg[j]->stat->st_mtime))
 			swap_doc(ls, &t, j);
 	}
 	ls->arg[i] = t;
