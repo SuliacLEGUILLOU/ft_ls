@@ -6,7 +6,7 @@
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/26 16:23:20 by msorin            #+#    #+#             */
-/*   Updated: 2015/02/20 16:01:49 by msorin           ###   ########.fr       */
+/*   Updated: 2017/12/04 17:07:03 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char				*ft_strsplit_last(const char *str, const char c, int f);
 char				*ft_strjoin_f(char *s1, char *s2, int f);
 char				*ft_getenv(const char *val, const char **env);
 char				*ft_strndup(const char *src, int len);
+size_t				ft_nblen(int nb);
 
 /*
 ** !Bonus

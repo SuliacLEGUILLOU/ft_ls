@@ -18,6 +18,8 @@
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
+typedef struct passwd	t_pass;
+typedef struct group	t_grp;
 
 typedef int				t_mask;
 typedef unsigned long	size_t;
@@ -46,6 +48,8 @@ struct	s_doc
 {
 	char	*name;
 	char	*path;
+	char	*usr;
+	char	*grp;
 	size_t	mtime;
 	t_doc	**sub_dir;
 	t_stat	*stat;

@@ -13,8 +13,12 @@
 #include <ft_ls.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include <uuid/uuid.h>
+#include <grp.h>
 
-static char	*ft_set_name(char *name)
+static char	*st_set_name(char *name)
 {
 	char	*ret;
 
@@ -25,13 +29,29 @@ static char	*ft_set_name(char *name)
 	return (ret);
 }
 
+static char	*st_set_usr(uid_t uid)
+{
+	t_pass	*usr;
+
+	usr = getpwuid(uid);
+	return (ft_strdup(usr->pw_name));
+}
+
+static char	*st_set_grp(gid_t gid)
+{
+	t_grp	*grp;
+
+	grp = getgrgid(gid);
+	return (ft_strdup(grp->gr_name));
+}
+
 t_doc		*insert_value(char *name, char *path, int flag, int init)
 {
 	t_doc	*tmp;
 
 	if (!(tmp = (t_doc*)malloc(sizeof(t_doc))))
 		return (NULL);
-	tmp->name = init ? ft_set_name(name) : ft_strdup(name);
+	tmp->name = init ? st_set_name(name) : ft_strdup(name);
 	tmp->path = ft_strdup(path);
 	tmp->sub_dir = NULL;
 	tmp->to_print = NULL;
@@ -39,6 +59,8 @@ t_doc		*insert_value(char *name, char *path, int flag, int init)
 	tmp->stat = malloc(sizeof(t_stat));
 	if (lstat(path, tmp->stat))
 		tmp->err = set_error(tmp->name, errno);
+	tmp->usr = st_set_usr(tmp->stat->st_uid);
+	tmp->grp = st_set_grp(tmp->stat->st_gid);
 	tmp->mtime = tmp->stat->st_mtime;
 	if (flag & 1)
 		ft_strdel(&name);

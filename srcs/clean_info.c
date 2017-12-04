@@ -28,6 +28,10 @@ void	clean_t_doc(t_doc *data)
 		free(data->name);
 	if (data->path)
 		free(data->path);
+	if (data->usr)
+		free(data->usr);
+	if (data->grp)
+		free(data->grp);
 	if (data->stat)
 		free(data->stat);
 	if (data->to_print)

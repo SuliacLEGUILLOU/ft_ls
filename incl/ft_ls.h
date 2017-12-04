@@ -38,7 +38,7 @@ int		is_flag(const char *arg, t_ls *ls);
 void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls);
 void	print_subdir(t_doc **data, t_mask opt, t_ls *ls);
 
-int		ft_ls(t_ls *ls);
+int		ft_ls(t_ls *ls);//, t_int4 len1);
 void	sort_file_list(t_ls *ls);
 
 void	set_arg(t_ls *ls, char **av, int ac, int i);
@@ -50,7 +50,7 @@ void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt);
 
 void	get_detail(t_doc **aff, int i, t_mask opt);
 char	*set_color(char *str, int mode);
-char	*set_detail(char *str, t_stat *st);//, int nlink, int ttsize);
+char	*set_detail(char *str, t_stat *st);//, t_int4 length);
 
 int		ft_print_data(t_doc *data);
 

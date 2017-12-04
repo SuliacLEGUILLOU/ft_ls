@@ -115,7 +115,7 @@ int			ft_ls(t_ls *ls)
 	}
 	st_print(ls);
 	clean_ls(ls);
-	while (1)
-		;
+	// while (1)
+	// 	;
 	return (ls->error);
 }
