@@ -46,7 +46,7 @@ void		recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
 		st_fill_struct_dir(data, i, d, opt);
 		closedir(d);
 		ft_putendl(data[i]->to_print);
-		print_subdir(data[i]->sub_dir, opt, ls);		
+		print_subdir(data[i]->sub_dir, opt, ls);
 	}
 }
 
