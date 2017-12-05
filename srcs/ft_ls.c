@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	st_fill_struct_file(t_doc **arg, int i, t_mask opt)
+static void	st_fill_struct_file(t_doc **arg, int i, t_mask opt, t_int4 len)
 {
 	if (opt & (DETAIL | COLOR | CLASSIFY))
 		get_detail(arg, i, opt);
@@ -33,23 +33,28 @@ void		recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
 		return ;
 	if (!ft_strcmp(data[i]->name, ".") || !ft_strcmp(data[i]->name, ".."))
 		return ;
+	ft_putchar('\n');
 	if (!(d = opendir(data[i]->path)))
 	{
 		perror(data[i]->path);
 		ls->error = errno;
 		return ;
 	}
-	st_fill_struct_dir(data, i, d, opt);
-	closedir(d);
-	ft_putchar('\n');
-	ft_putendl(data[i]->to_print);
-	print_subdir(data[i]->sub_dir, opt, ls);
+	else
+	{
+		st_fill_struct_dir(data, i, d, opt);
+		closedir(d);
+		ft_putendl(data[i]->to_print);
+		print_subdir(data[i]->sub_dir, opt, ls);		
+	}
 }
 
 void		print_subdir(t_doc **data, t_mask opt, t_ls *ls)
 {
 	int		i;
+	t_int4	len;
 
+	len = get_len(data);
 	i = -1;
 	while (data[++i])
 	{
@@ -58,7 +63,7 @@ void		print_subdir(t_doc **data, t_mask opt, t_ls *ls)
 		if (!(opt & ALL) && !(ft_strcmp(data[i]->name, ".")
 			&& ft_strcmp(data[i]->name, "..")))
 			continue ;
-		st_fill_struct_file(data, i, opt);
+		st_fill_struct_file(data, i, opt, len);
 		ft_putendl(data[i]->to_print);
 	}
 	if (!(opt & RECUR))
