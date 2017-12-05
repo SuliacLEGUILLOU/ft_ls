@@ -12,7 +12,7 @@
 
 #include <stddef.h>
 
-size_t	nb_len(int nb)
+size_t	ft_nblen(int nb)
 {
 	size_t	ret;
 

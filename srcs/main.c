@@ -20,6 +20,7 @@ int		main(int argc, char **argv, char const **env)
 {
 	t_ls	ls;
 	int		i;
+	t_int4	len1;
 
 	i = 0;
 	ls.opt = 0;
@@ -33,5 +34,6 @@ int		main(int argc, char **argv, char const **env)
 	}
 	set_arg(&ls, argv, argc, i);
 	sort_file_list(&ls);
-	return (ft_ls(&ls));
+	len1 = get_len1(ls.arg);
+	return (ft_ls(&ls, len1));
 }

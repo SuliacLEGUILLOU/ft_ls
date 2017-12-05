@@ -16,6 +16,7 @@
 
 static void	st_fill_struct_file(t_doc **arg, int i, t_mask opt, t_int4 len)
 {
+	(void)len;
 	if (opt & (DETAIL | COLOR | CLASSIFY))
 		get_detail(arg, i, opt);
 	else
@@ -95,7 +96,7 @@ static void	st_print(t_ls *ls)
 	}
 }
 
-int			ft_ls(t_ls *ls)
+int			ft_ls(t_ls *ls, t_int4 len1)
 {
 	int		i;
 	DIR		*dir_info;
@@ -114,7 +115,7 @@ int			ft_ls(t_ls *ls)
 		}
 		else
 		{
-			st_fill_struct_file(ls->arg, i, ls->opt);
+			st_fill_struct_file(ls->arg, i, ls->opt, len1);
 		}
 		++i;
 	}

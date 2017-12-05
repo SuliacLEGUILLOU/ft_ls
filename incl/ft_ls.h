@@ -38,7 +38,7 @@ int		is_flag(const char *arg, t_ls *ls);
 void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls);
 void	print_subdir(t_doc **data, t_mask opt, t_ls *ls);
 
-int		ft_ls(t_ls *ls);//, t_int4 len1);
+int		ft_ls(t_ls *ls, t_int4 len1);
 void	sort_file_list(t_ls *ls);
 
 void	set_arg(t_ls *ls, char **av, int ac, int i);
@@ -59,5 +59,8 @@ void	clean_t_tmp(t_tmp *lst);
 
 int		need_swap(t_doc *s1, t_doc *s2, t_mask opt);
 void	sort_indir(t_doc **data, t_mask opt);
+
+t_int4	get_len(t_doc **arg);
+t_int4	get_len1(t_doc **arg);
 
 #endif
