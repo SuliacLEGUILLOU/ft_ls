@@ -13,18 +13,36 @@
 #include <ft_ls.h>
 #include <time.h>
 
+static char	*set_time(const char *hour, int is_far)
+{
+	char	*ret;
+
+	if (is_far)
+		ret = ft_strdup(hour);
+	else
+	{
+		ret = ft_strndup(hour + 4, 7);
+		ret = ft_strjoin_f(ret, ft_strndup(hour + 19, 5), 3);
+	}
+	return (ret);
+}
+
 static char	*add_time(char *str, time_t t)
 {
 	char	*ret;
 	char	*tmp;
+	time_t	now;
 
+	now = time(NULL);
 	tmp = ctime(&t);
 	if (time(NULL) >= t)
 		ret = ft_strndup(tmp + 4, 12);
 	else
 	{
-		ret = ft_strndup(tmp + 4, 7);
-		ret = ft_strjoin_f(ret, ft_strndup(tmp + 19, 5), 3);
+		if ((t < now - 15778476) || (t > now))
+			ret = set_time(tmp, 1);
+		else
+			ret = set_time(tmp, 0);
 	}
 	ret = ft_strjoin_f(ret, " ", 1);
 	ret = ft_strjoin_f(ret, str, 1);
