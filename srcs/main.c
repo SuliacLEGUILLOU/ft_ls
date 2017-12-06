@@ -34,6 +34,6 @@ int		main(int argc, char **argv, char const **env)
 	}
 	set_arg(&ls, argv, argc, i);
 	sort_file_list(&ls);
-	len1 = get_len1(ls.arg);
+	len1 = get_len1(&ls);
 	return (ft_ls(&ls, len1));
 }

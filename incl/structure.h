@@ -29,7 +29,7 @@ typedef struct s_tmp	t_tmp;
 typedef struct s_doc	t_doc;
 typedef struct s_ls		t_ls;
 
-struct	s_int4
+struct					s_int4
 {
 	int		w;
 	int		x;
@@ -37,14 +37,14 @@ struct	s_int4
 	int		z;
 };
 
-struct	s_tmp
+struct					s_tmp
 {
 	int		nb;
 	t_dir	*dir;
 	t_tmp	*next;
 };
 
-struct	s_doc
+struct					s_doc
 {
 	char	*name;
 	char	*path;
@@ -57,7 +57,7 @@ struct	s_doc
 	char	*err;
 };
 
-struct	s_ls
+struct					s_ls
 {
 	t_mask	opt;
 	char	*pwd;

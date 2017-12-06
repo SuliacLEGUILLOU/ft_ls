@@ -20,7 +20,7 @@ static size_t	get_blklen(size_t mode, size_t blocks)
 	return (ft_nblen(blocks));
 }
 
-t_int4	get_len(t_doc **arg)
+t_int4			get_len(t_doc **arg)
 {
 	t_int4	ret;
 	t_int4	tmp;
@@ -47,7 +47,7 @@ t_int4	get_len(t_doc **arg)
 	return (ret);
 }
 
-t_int4	get_len1(t_doc **arg)
+t_int4			get_len1(t_ls *ls)
 {
 	t_int4	ret;
 	t_int4	tmp;
@@ -59,14 +59,14 @@ t_int4	get_len1(t_doc **arg)
 	ret.x = 0;
 	ret.y = 0;
 	ret.z = 0;
-	while (arg[i + 1]->err)
+	while (ls->arg[i] && ls->arg[i + 1]->err)
 		i++;
-	while (!arg[++i]->sub_dir)
+	while (ls->arg[++i] && !ls->arg[i]->sub_dir)
 	{
-		s = arg[i]->stat;
+		s = ls->arg[i]->stat;
 		tmp.w = ft_nblen(s->st_nlink);
-		tmp.x = ft_strlen(arg[i]->usr);
-		tmp.y = ft_strlen(arg[i]->grp);
+		tmp.x = ft_strlen(ls->arg[i]->usr);
+		tmp.y = ft_strlen(ls->arg[i]->grp);
 		tmp.z = get_blklen(s->st_mode, s->st_blocks);
 		ret.w = ret.w > tmp.w ? ret.w : tmp.w;
 		ret.x = ret.x > tmp.x ? ret.x : tmp.x;

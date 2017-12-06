@@ -16,9 +16,8 @@
 
 static void	st_fill_struct_file(t_doc **arg, int i, t_mask opt, t_int4 len)
 {
-	(void)len;
 	if (opt & (DETAIL | COLOR | CLASSIFY))
-		get_detail(arg, i, opt);
+		get_detail(arg, i, opt, len);
 	else
 		arg[i]->to_print = ft_strdup(arg[i]->name);
 }
@@ -121,7 +120,7 @@ int			ft_ls(t_ls *ls, t_int4 len1)
 	}
 	st_print(ls);
 	clean_ls(ls);
-	// while (1)
-	// 	;
+	while (1)
+		;
 	return (ls->error);
 }

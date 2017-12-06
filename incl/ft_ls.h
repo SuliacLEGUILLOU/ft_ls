@@ -48,9 +48,9 @@ t_doc	*insert_value(char *name, char *path, int flag, int init);
 t_dir	*copy_dirent(t_dir *src);
 void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt);
 
-void	get_detail(t_doc **aff, int i, t_mask opt);
+void	get_detail(t_doc **aff, int i, t_mask opt, t_int4 len);
 char	*set_color(char *str, int mode);
-char	*set_detail(char *str, t_stat *st);//, t_int4 length);
+char	*set_detail(char *str, t_stat *st, t_int4 length);
 
 int		ft_print_data(t_doc *data);
 
@@ -61,6 +61,6 @@ int		need_swap(t_doc *s1, t_doc *s2, t_mask opt);
 void	sort_indir(t_doc **data, t_mask opt);
 
 t_int4	get_len(t_doc **arg);
-t_int4	get_len1(t_doc **arg);
+t_int4	get_len1(t_ls *ls);
 
 #endif

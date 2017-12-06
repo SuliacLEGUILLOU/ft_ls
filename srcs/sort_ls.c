@@ -32,7 +32,7 @@ int		need_swap(t_doc *s1, t_doc *s2, t_mask opt)
 	return (0);
 }
 
-void		sort_indir(t_doc **data, t_mask opt)
+void	sort_indir(t_doc **data, t_mask opt)
 {
 	t_doc	*t;
 	int		i;
@@ -57,5 +57,3 @@ void		sort_indir(t_doc **data, t_mask opt)
 		i++;
 	}
 }
-
-

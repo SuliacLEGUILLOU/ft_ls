@@ -29,17 +29,16 @@ static char	*set_clasify(char *str, int mode)
 	return (ret);
 }
 
-void		get_detail(t_doc **aff, int i, t_mask opt)//, t_int4 length)
+void		get_detail(t_doc **aff, int i, t_mask opt, t_int4 length)
 {
 	char	*str;
 
-	ft_putendl("debug");
 	str = ft_strdup(aff[i]->name);
 	if (opt & COLOR)
 		str = set_color(str, aff[i]->stat->st_mode);
 	if (opt & CLASSIFY)
 		str = set_clasify(str, aff[i]->stat->st_mode);
 	if (opt & DETAIL)
-		str = set_detail(str, aff[i]->stat);
+		str = set_detail(str, aff[i]->stat, length);
 	aff[i]->to_print = str;
 }

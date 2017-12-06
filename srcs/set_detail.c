@@ -31,10 +31,11 @@ static char	*add_time(char *str, time_t t)
 	return (ret);
 }
 
-char		*set_detail(char *str, t_stat *st)//, int nlink, int ttsize)
+char		*set_detail(char *str, t_stat *st, t_int4 lenght)
 {
 	char	*ret;
 
+	(void)lenght;
 	ret = add_time(str, st->st_mtime);
 	return (ret);
 }

@@ -52,19 +52,19 @@ static int		ft_power_ten(int n)
 	return (number);
 }
 
-// static int		ft_nbr_nbr(int n)
-// {
-// 	unsigned int	number;
+static int		ft_nbr_nbr(int n)
+{
+	unsigned int	number;
 
-// 	number = 0;
-// 	while (n >= 10 || n <= -10)
-// 	{
-// 		n = n / 10;
-// 		number++;
-// 	}
-// 	number++;
-// 	return (number);
-// }
+	number = 0;
+	while (n >= 10 || n <= -10)
+	{
+		n = n / 10;
+		number++;
+	}
+	number++;
+	return (number);
+}
 
 char			*ft_itoa(int n)
 {
@@ -73,7 +73,7 @@ char			*ft_itoa(int n)
 	int		count;
 	char	*str;
 
-	size = ft_nblen(n);
+	size = ft_nbr_nbr(n);
 	str = ft_tab_for_char(n, size);
 	if (!str)
 		return (NULL);
