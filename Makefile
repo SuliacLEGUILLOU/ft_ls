@@ -12,6 +12,8 @@ else
 OPT_FLAG = -DNDEBUG -Os -g0 -march=native
 endif
 
+FSANI = -fsanitize=address
+
 HEADER=incl
 LIBFT=./my_lib/libft.a
 SRCS_NAME=	ft_error.c	ft_ls.c	main.c	opt_managment.c \
