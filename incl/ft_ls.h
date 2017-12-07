@@ -23,42 +23,30 @@
 # include <sys/stat.h>
 # include <dirent.h>
 
-/*
-** needed in order to don't have leaks
-*/
-void	clean_ls(t_ls *ls);
-
-/*
-** set_flag seems to be used only in is_flag, moved to static
-** void	set_flag(t_ls *ls, char f);
-*/
-
-int		is_flag(const char *arg, t_ls *ls);
-
-void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls);
-void	print_subdir(t_doc **data, t_mask opt, t_ls *ls);
-
 int		ft_ls(t_ls *ls, t_int4 len1);
-void	sort_file_list(t_ls *ls);
+int		ft_print_data(t_doc *data);
+int		is_flag(const char *arg, t_ls *ls);
+int		need_swap(t_doc *s1, t_doc *s2, t_mask opt);
 
-void	set_arg(t_ls *ls, char **av, int ac, int i);
-
-t_doc	*insert_value(char *name, char *path, int flag, int init);
-
-t_dir	*copy_dirent(t_dir *src);
-void	st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt);
-
-void	get_detail(t_doc **aff, int i, t_mask opt, t_int4 len);
+char	*add_time(char *str, time_t t);
+char	*get_blocks(char *str, t_stat *st, int blk);
 char	*set_color(char *str, int mode);
 char	*set_detail(char *str, t_stat *st, t_int4 length);
 
-int		ft_print_data(t_doc *data);
-
+void	clean_ls(t_ls *ls);
 void	clean_t_doc(t_doc *data);
 void	clean_t_tmp(t_tmp *lst);
-
-int		need_swap(t_doc *s1, t_doc *s2, t_mask opt);
+void	fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt);
+void	get_detail(t_doc **aff, int i, t_mask opt, t_int4 len);
+void	set_arg(t_ls *ls, char **av, int ac, int i);
 void	sort_indir(t_doc **data, t_mask opt);
+void	sort_file_list(t_ls *ls);
+void	print_subdir(t_doc **data, t_mask opt, t_ls *ls);
+void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls);
+
+t_dir	*copy_dirent(t_dir *src);
+
+t_doc	*insert_value(char *name, char *path, int flag, int init);
 
 t_int4	get_len(t_doc **arg);
 t_int4	get_len1(t_ls *ls);

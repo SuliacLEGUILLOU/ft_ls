@@ -59,9 +59,12 @@ t_doc		*insert_value(char *name, char *path, int flag, int init)
 	tmp->stat = malloc(sizeof(t_stat));
 	if (lstat(path, tmp->stat))
 		tmp->err = set_error(tmp->name, errno);
-	tmp->usr = st_set_usr(tmp->stat->st_uid);
-	tmp->grp = st_set_grp(tmp->stat->st_gid);
-	tmp->mtime = tmp->stat->st_mtime;
+	else
+	{
+		tmp->usr = st_set_usr(tmp->stat->st_uid);
+		tmp->grp = st_set_grp(tmp->stat->st_gid);
+		tmp->mtime = tmp->stat->st_mtime;
+	}
 	if (flag & 1)
 		ft_strdel(&name);
 	if (flag & 2)

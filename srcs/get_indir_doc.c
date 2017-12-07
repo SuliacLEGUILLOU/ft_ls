@@ -67,7 +67,7 @@ static void	filling_sub_dir(t_doc **arg, int i, t_tmp *lst, t_mask opt)
 	sort_indir(arg[i]->sub_dir, opt);
 }
 
-void		st_fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
+void		fill_struct_dir(t_doc **arg, int i, DIR *dir, t_mask opt)
 {
 	t_dir	*info;
 	t_tmp	*t1;

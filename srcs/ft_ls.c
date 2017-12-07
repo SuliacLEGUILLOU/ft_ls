@@ -42,7 +42,7 @@ void		recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
 	}
 	else
 	{
-		st_fill_struct_dir(data, i, d, opt);
+		fill_struct_dir(data, i, d, opt);
 		closedir(d);
 		ft_putendl(data[i]->to_print);
 		print_subdir(data[i]->sub_dir, opt, ls);
@@ -83,14 +83,19 @@ static void	st_print(t_ls *ls)
 	i = 0;
 	while (ls->arg[i])
 	{
-		if (i && ls->arg[i]->sub_dir)
-			ft_putchar('\n');
 		if (ls->arg[i]->err)
 			ft_putendl_fd(ls->arg[i]->err, 2);
 		else
-			ft_putendl(ls->arg[i]->to_print);
-		if (ls->arg[i]->sub_dir)
-			print_subdir(ls->arg[i]->sub_dir, ls->opt, ls);
+		{
+			if (i && ls->arg[i]->sub_dir)
+				ft_putchar('\n');
+			if (ls->arg[i]->err)
+				ft_putendl_fd(ls->arg[i]->err, 2);
+			else
+				ft_putendl(ls->arg[i]->to_print);
+			if (ls->arg[i]->sub_dir)
+				print_subdir(ls->arg[i]->sub_dir, ls->opt, ls);
+		}
 		i++;
 	}
 }
@@ -109,7 +114,7 @@ int			ft_ls(t_ls *ls, t_int4 len1)
 			&& !(S_IFLNK & ls->arg[i]->stat->st_mode))
 		{
 			dir_info = opendir(ls->arg[i]->path);
-			st_fill_struct_dir(ls->arg, i, dir_info, ls->opt);
+			fill_struct_dir(ls->arg, i, dir_info, ls->opt);
 			closedir(dir_info);
 		}
 		else

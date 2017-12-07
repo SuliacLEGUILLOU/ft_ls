@@ -38,7 +38,7 @@ t_int4			get_len(t_doc **arg)
 		tmp.w = ft_nblen(s->st_nlink);
 		tmp.x = ft_strlen(arg[i]->usr);
 		tmp.y = ft_strlen(arg[i]->grp);
-		tmp.z = get_blklen(s->st_mode, s->st_blocks);
+		tmp.z = get_blklen(s->st_mode, s->st_size);
 		ret.w = ret.w > tmp.w ? ret.w : tmp.w;
 		ret.x = ret.x > tmp.x ? ret.x : tmp.x;
 		ret.y = ret.y > tmp.y ? ret.y : tmp.y;
@@ -67,7 +67,7 @@ t_int4			get_len1(t_ls *ls)
 		tmp.w = ft_nblen(s->st_nlink);
 		tmp.x = ft_strlen(ls->arg[i]->usr);
 		tmp.y = ft_strlen(ls->arg[i]->grp);
-		tmp.z = get_blklen(s->st_mode, s->st_blocks);
+		tmp.z = get_blklen(s->st_mode, s->st_size);
 		ret.w = ret.w > tmp.w ? ret.w : tmp.w;
 		ret.x = ret.x > tmp.x ? ret.x : tmp.x;
 		ret.y = ret.y > tmp.y ? ret.y : tmp.y;
