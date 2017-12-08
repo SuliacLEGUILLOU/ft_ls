@@ -29,6 +29,6 @@ char		*add_time(char *str, time_t t)
 	else
 		ret = ft_strndup(tmp + 4, 12);
 	ret = ft_strjoin_f(ret, " ", 1);
-	ret = ft_strjoin_f(ret, str, 1);
+	ret = ft_strjoin_f(ret, str, 3);
 	return (ret);
 }

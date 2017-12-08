@@ -38,6 +38,11 @@ void	recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
 		data[i]->err = set_error(data[i]->path, errno);
 	else
 	{
+		if (data[i]->to_print)
+		{
+			free(data[i]->to_print);
+			data[i]->to_print = NULL;
+		}
 		fill_struct_dir(data, i, d, opt);
 		closedir(d);
 	}

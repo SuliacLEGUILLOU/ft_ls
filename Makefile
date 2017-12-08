@@ -28,6 +28,7 @@ SRCS_NAME=	add_time.c \
 			get_guid.c \
 			get_indir_doc.c \
 			get_length.c \
+			get_mode.c \
 			get_nlink.c \
 			main.c \
 			opt_managment.c \

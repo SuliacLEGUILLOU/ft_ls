@@ -1,5 +1,5 @@
 111
-3584
+7000
 
 170000 mask file
 
@@ -41,10 +41,10 @@
 20 ...-w-...
 10 ...--x... (...--s... if S_ISGID) ('*' with -F)
 
-7 ......rwx (......rws if S_ISVTX) ('*' with -F)
+7 ......rwx (......rwt if S_ISVTX) ('*' with -F)
 6 ......rw-
-5 ......r-x (......r-s if S_ISVTX) ('*' with -F)
+5 ......r-x (......r-t if S_ISVTX) ('*' with -F)
 4 ......r--
-3 ......-wx (-ws...... if S_ISUID) ('*' with -F)
+3 ......-wx (......-wt if S_ISVTX) ('*' with -F)
 2 ......-w-
-1 ......--x (......--s if S_ISVTX) ('*' with -F)
+1 ......--x (......--t if S_ISVTX) ('*' with -F)

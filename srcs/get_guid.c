@@ -19,7 +19,8 @@ char	*set_grp(gid_t gid)
 {
 	t_grp	*grp;
 
-	grp = getgrgid(gid);
+	if (!(grp = getgrgid(gid)))
+		return (NULL);
 	return (ft_strdup(grp->gr_name));
 }
 
@@ -27,6 +28,7 @@ char	*set_usr(uid_t uid)
 {
 	t_pass	*usr;
 
-	usr = getpwuid(uid);
+	if (!(usr = getpwuid(uid)))
+		return (NULL);
 	return (ft_strdup(usr->pw_name));
 }

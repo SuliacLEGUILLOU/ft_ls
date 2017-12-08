@@ -18,10 +18,7 @@ char	*get_gu_name(char *str, char *gu, int len)
 	int		tlen;
 
 	tlen = ft_strlen(gu);
-	if (len != tlen)
-		ret = ft_initstr(32, len - tlen);
-	else
-		ret = ft_strnew(0);
+	ret = ft_initstr(32, len - tlen + 2);
 	ret = ft_strjoin_f(gu, ret, 2);
 	ret = ft_strjoin_f(ret, str, 3);
 	return (ret);

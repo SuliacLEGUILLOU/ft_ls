@@ -24,6 +24,8 @@ static char	*set_clasify(char *str, int mode)
 		ret = ft_strjoin_f(str, "/", 1);
 	else if (mode & S_IFIFO)
 		ret = ft_strjoin_f(str, "|", 1);
+	else if (mode & S_IXUGO)
+		ret = ft_strjoin_f(str, "*", 1);
 	else
 		ret = ft_strjoin_f(str, "", 1);
 	return (ret);

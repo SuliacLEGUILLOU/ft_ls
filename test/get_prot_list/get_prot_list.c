@@ -37,7 +37,7 @@ int		main(void)
 	// printf("%o s_fifo with '/'\n", s1.st_mode);
 
 	printf("%o\n", S_IXUGO);
-	printf("%d\n", S_ISUID + S_ISGID + S_ISVTX);
+	printf("%o\n", S_ISUID + S_ISGID + S_ISVTX);
 
 	printf("\n");
 
@@ -103,13 +103,13 @@ int		main(void)
 
 	printf("\n");
 
-	printf("%o ......rwx (......rws if S_ISVTX) ('*' with -F)\n", S_IRWXO);
+	printf("%o ......rwx (......rwt if S_ISVTX) ('*' with -F)\n", S_IRWXO);
 	printf("%o ......rw-\n", S_IROTH + S_IWOTH);
-	printf("%o ......r-x (......r-s if S_ISVTX) ('*' with -F)\n", S_IROTH + S_IXOTH);
+	printf("%o ......r-x (......r-t if S_ISVTX) ('*' with -F)\n", S_IROTH + S_IXOTH);
 	printf("%o ......r--\n", S_IROTH);
-	printf("%o ......-wx (-ws...... if S_ISUID) ('*' with -F)\n", S_IWOTH + S_IXOTH);
+	printf("%o ......-wx (......-wt if S_ISVTX) ('*' with -F)\n", S_IWOTH + S_IXOTH);
 	printf("%o ......-w-\n", S_IWOTH);
-	printf("%o ......--x (......--s if S_ISVTX) ('*' with -F)\n", S_IXOTH);
+	printf("%o ......--x (......--t if S_ISVTX) ('*' with -F)\n", S_IXOTH);
 
 	return (0);
 }

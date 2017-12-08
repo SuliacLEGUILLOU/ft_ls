@@ -31,6 +31,7 @@ int		need_swap(t_doc *s1, t_doc *s2, t_mask opt);
 char	*add_time(char *str, time_t t);
 char	*get_blocks(char *str, t_stat *st, int blk);
 char	*get_gu_name(char *str, char *grp, int len);
+char	*get_mode(char *str, int mode, char *path);
 char	*get_nlink(char *str, int nlink, int len);
 char	*set_color(char *str, int mode);
 char	*set_detail(char *str, t_doc *data, t_int4 length);
