@@ -16,11 +16,27 @@ FSANI = -fsanitize=address
 
 HEADER=incl
 LIBFT=./my_lib/libft.a
-SRCS_NAME=	ft_error.c	ft_ls.c	main.c	opt_managment.c \
-			sort_file_list.c	s_doc.c	copy_dirent.c \
-			get_indir_doc.c	ft_aff_detail.c	set_color.c \
-			set_detail.c clean_info.c ft_print_data.c sort_ls.c \
-			get_length.c add_time.c get_block.c
+SRCS_NAME=	add_time.c \
+			clean_info.c \
+			copy_dirent.c \
+			ft_aff_detail.c \
+			ft_error.c \
+			ft_ls.c \
+			ft_print_data.c \
+			get_block.c \
+			get_gu_name.c \
+			get_guid.c \
+			get_indir_doc.c \
+			get_length.c \
+			get_nlink.c \
+			main.c \
+			opt_managment.c \
+			print_ls.c \
+			s_doc.c \
+			set_color.c \
+			set_detail.c \
+			sort_file_list.c \
+			sort_ls.c
 
 SRCS = $(addprefix srcs/,$(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)

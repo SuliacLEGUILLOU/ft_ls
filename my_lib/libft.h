@@ -6,7 +6,7 @@
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/26 16:23:20 by msorin            #+#    #+#             */
-/*   Updated: 2017/12/04 17:07:03 by msorin           ###   ########.fr       */
+/*   Updated: 2017/12/08 12:50:30 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
+char				*ft_initstr(char c, int sz);
 char				*ft_strsplit_last(const char *str, const char c, int f);
 char				*ft_strjoin_f(char *s1, char *s2, int f);
 char				*ft_getenv(const char *val, const char **env);

@@ -14,118 +14,38 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	st_fill_struct_file(t_doc **arg, int i, t_mask opt, t_int4 len)
+static void	st_setup_dir(t_ls *ls, int i)
 {
-	if (opt & (DETAIL | COLOR | CLASSIFY))
-		get_detail(arg, i, opt, len);
-	else
-		arg[i]->to_print = ft_strdup(arg[i]->name);
-}
+	DIR		*dir_info;
 
-void		recur_dir(t_doc **data, t_mask opt, int i, t_ls *ls)
-{
-	DIR		*d;
-
-	if (data[i]->name[0] == '.' && !(opt & (ALL + ALL_MAJ)))
-		return ;
-	if (!((data[i]->stat->st_mode & S_IFDIR)
-		&& !(data[i]->stat->st_mode & S_IFLNK)))
-		return ;
-	if (!ft_strcmp(data[i]->name, ".") || !ft_strcmp(data[i]->name, ".."))
-		return ;
-	ft_putchar('\n');
-	if (!(d = opendir(data[i]->path)))
+	if (!(dir_info = opendir(ls->arg[i]->path)))
 	{
-		perror(data[i]->path);
 		ls->error = errno;
-		return ;
+		ls->arg[i]->err = set_error(ls->arg[i]->path, errno);
 	}
 	else
 	{
-		fill_struct_dir(data, i, d, opt);
-		closedir(d);
-		ft_putendl(data[i]->to_print);
-		print_subdir(data[i]->sub_dir, opt, ls);
-	}
-}
-
-void		print_subdir(t_doc **data, t_mask opt, t_ls *ls)
-{
-	int		i;
-	t_int4	len;
-
-	len = get_len(data);
-	i = -1;
-	while (data[++i])
-	{
-		if (data[i]->name[0] == '.' && !(opt & (ALL + ALL_MAJ)))
-			continue ;
-		if (!(opt & ALL) && !(ft_strcmp(data[i]->name, ".")
-			&& ft_strcmp(data[i]->name, "..")))
-			continue ;
-		st_fill_struct_file(data, i, opt, len);
-		ft_putendl(data[i]->to_print);
-	}
-	if (!(opt & RECUR))
-		return ;
-	i = -1;
-	while (data[++i])
-	{
-		if (opt & RECUR)
-			recur_dir(data, opt, i, ls);
-	}
-}
-
-static void	st_print(t_ls *ls)
-{
-	int		i;
-
-	i = 0;
-	while (ls->arg[i])
-	{
-		if (ls->arg[i]->err)
-			ft_putendl_fd(ls->arg[i]->err, 2);
-		else
-		{
-			if (i && ls->arg[i]->sub_dir)
-				ft_putchar('\n');
-			if (ls->arg[i]->err)
-				ft_putendl_fd(ls->arg[i]->err, 2);
-			else
-				ft_putendl(ls->arg[i]->to_print);
-			if (ls->arg[i]->sub_dir)
-				print_subdir(ls->arg[i]->sub_dir, ls->opt, ls);
-		}
-		i++;
+		fill_struct_dir(ls->arg, i, dir_info, ls->opt);
+		closedir(dir_info);
 	}
 }
 
 int			ft_ls(t_ls *ls, t_int4 len1)
 {
 	int		i;
-	DIR		*dir_info;
 
-	i = 0;
-	while (ls->arg[i])
+	i = -1;
+	while (ls->arg[++i])
 	{
 		if (ls->arg[i]->err)
-			ls->arg[i]->to_print = ft_strdup(ls->arg[i]->err);
-		else if ((S_IFDIR & ls->arg[i]->stat->st_mode)
+			continue ;
+		if ((S_IFDIR & ls->arg[i]->stat->st_mode)
 			&& !(S_IFLNK & ls->arg[i]->stat->st_mode))
-		{
-			dir_info = opendir(ls->arg[i]->path);
-			fill_struct_dir(ls->arg, i, dir_info, ls->opt);
-			closedir(dir_info);
-		}
+			st_setup_dir(ls, i);
 		else
-		{
-			st_fill_struct_file(ls->arg, i, ls->opt, len1);
-		}
-		++i;
+			fill_struct_file(ls->arg, i, ls->opt, len1);
 	}
-	st_print(ls);
+	print_ls(ls);
 	clean_ls(ls);
-	// while (1)
-	// 	;
 	return (ls->error);
 }

@@ -12,12 +12,16 @@
 
 #include <ft_ls.h>
 
-char		*set_detail(char *str, t_stat *st, t_int4 lenght)
+char		*set_detail(char *str, t_doc *data, t_int4 lenght)
 {
 	char	*ret;
 
 	(void)lenght;
-	ret = add_time(str, st->st_mtime);
-	ret = get_blocks(ret, st, lenght.z);
+	ret = add_time(str, data->stat->st_mtime);
+	ret = get_blocks(ret, data->stat, lenght.z);
+	ret = get_gu_name(ret, data->grp, lenght.y);
+	ret = get_gu_name(ret, data->usr, lenght.x);
+	ret = get_nlink(ret, data->stat->st_nlink, lenght.w);
+	ret = get_mode(ret, data->stat->st_mode);
 	return (ret);
 }

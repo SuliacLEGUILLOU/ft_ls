@@ -39,6 +39,6 @@ void		get_detail(t_doc **aff, int i, t_mask opt, t_int4 length)
 	if (opt & CLASSIFY)
 		str = set_clasify(str, aff[i]->stat->st_mode);
 	if (opt & DETAIL)
-		str = set_detail(str, aff[i]->stat, length);
+		str = set_detail(str, aff[i], length);
 	aff[i]->to_print = str;
 }

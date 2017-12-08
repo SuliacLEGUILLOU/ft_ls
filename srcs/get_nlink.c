@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nblen.c                                         :+:      :+:    :+:   */
+/*   get_nlink.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 17:04:50 by msorin            #+#    #+#             */
-/*   Updated: 2017/12/04 17:05:25 by msorin           ###   ########.fr       */
+/*   Created: 2017/12/08 13:08:58 by msorin            #+#    #+#             */
+/*   Updated: 2017/12/08 13:08:59 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <ft_ls.h>
 
-size_t	ft_nblen(int nb)
+char	*get_nlink(char *str, int nlink, int len)
 {
-	size_t	ret;
-	int		t;
+	char	*ret;
+	char	*sint;
+	int		tlen;
 
-	ret = 1;
-	if (nb == 0)
-		return (ret);
-	if (nb < 0)
-		ret++;
-	if (!(nb / 10))
-		return (ret);
-	t = nb;
-	while (t / 10)
-	{
-		t /= 10;
-		ret++;
-	}
+	tlen = ft_nblen(nlink);
+	if (len != tlen)
+		ret = ft_initstr(32, len - tlen);
+	else
+		ret = ft_strnew(0);
+	sint = ft_itoa(nlink);
+	ret = ft_strjoin_f(ret, sint, 3);
+	ret = ft_strjoin_f(ret, " ", 1);
+	ret = ft_strjoin_f(ret, str, 3);
 	return (ret);
 }

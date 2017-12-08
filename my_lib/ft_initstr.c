@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nblen.c                                         :+:      :+:    :+:   */
+/*   ft_initstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 17:04:50 by msorin            #+#    #+#             */
-/*   Updated: 2017/12/04 17:05:25 by msorin           ###   ########.fr       */
+/*   Created: 2017/12/08 12:47:19 by msorin            #+#    #+#             */
+/*   Updated: 2017/12/08 12:49:40 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <libft.h>
 
-size_t	ft_nblen(int nb)
+char	*ft_initstr(char c, int sz)
 {
-	size_t	ret;
-	int		t;
+	int		i;
+	char	*ret;
 
-	ret = 1;
-	if (nb == 0)
-		return (ret);
-	if (nb < 0)
-		ret++;
-	if (!(nb / 10))
-		return (ret);
-	t = nb;
-	while (t / 10)
-	{
-		t /= 10;
-		ret++;
-	}
+	if (!(ret = ft_strnew(sz)))
+		return (NULL);
+	i = -1;
+	while (++i < sz)
+		ret[i] = c;
 	return (ret);
 }

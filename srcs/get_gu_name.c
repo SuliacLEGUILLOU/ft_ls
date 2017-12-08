@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nblen.c                                         :+:      :+:    :+:   */
+/*   get_gu_name.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msorin <msorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 17:04:50 by msorin            #+#    #+#             */
-/*   Updated: 2017/12/04 17:05:25 by msorin           ###   ########.fr       */
+/*   Created: 2017/12/08 12:43:51 by msorin            #+#    #+#             */
+/*   Updated: 2017/12/08 12:43:52 by msorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <ft_ls.h>
 
-size_t	ft_nblen(int nb)
+char	*get_gu_name(char *str, char *gu, int len)
 {
-	size_t	ret;
-	int		t;
+	char	*ret;
+	int		tlen;
 
-	ret = 1;
-	if (nb == 0)
-		return (ret);
-	if (nb < 0)
-		ret++;
-	if (!(nb / 10))
-		return (ret);
-	t = nb;
-	while (t / 10)
-	{
-		t /= 10;
-		ret++;
-	}
+	tlen = ft_strlen(gu);
+	if (len != tlen)
+		ret = ft_initstr(32, len - tlen);
+	else
+		ret = ft_strnew(0);
+	ret = ft_strjoin_f(gu, ret, 2);
+	ret = ft_strjoin_f(ret, str, 3);
 	return (ret);
 }
