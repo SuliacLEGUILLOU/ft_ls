@@ -1,0 +1,50 @@
+111
+3584
+
+170000 mask file
+
+140000 socket link 's' ('=' with -F)
+120000 siymbolic link 'l' ('@' with -F)
+100000 regular file '-'
+60000 block special file 'b'
+40000 directory 'd' ('/' with -F)
+20000 character special file 'c'
+10000 FIFO 'p' ('|' with -F)
+
+1100000000000000 s--------- S_IFSOCK
+1010000000000000 l--------- S_IFLNK
+1000000000000000 ---------- S_IFREG
+0110000000000000 b--------- S_IFBLK
+0100000000000000 d--------- S_IFDIR
+0010000000000000 c--------- S_IFCHR
+0001000000000000 p--------- S_IFIFO
+
+4000 ..S...... (..s...... if +x)
+2000 .....S... (.....s... if +x)
+1000 ........T (........t if +x)
+
+3072
+
+700 rwx...... (rws...... if S_ISUID) ('*' with -F)
+600 rw-......
+500 r-x...... (r-s...... if S_ISUID) ('*' with -F)
+400 r--......
+300 -wx...... (-ws...... if S_ISUID) ('*' with -F)
+200 -w-......
+100 --x...... (--s...... if S_ISUID) ('*' with -F)
+
+70 ...rwx... (...rws.... if S_ISGID) ('*' with -F)
+60 ...rw-...
+50 ...r-x... (...r-s... if S_ISGID) ('*' with -F)
+40 ...r--...
+30 ...-wx... (...-ws... if S_ISGID) ('*' with -F)
+20 ...-w-...
+10 ...--x... (...--s... if S_ISGID) ('*' with -F)
+
+7 ......rwx (......rws if S_ISVTX) ('*' with -F)
+6 ......rw-
+5 ......r-x (......r-s if S_ISVTX) ('*' with -F)
+4 ......r--
+3 ......-wx (-ws...... if S_ISUID) ('*' with -F)
+2 ......-w-
+1 ......--x (......--s if S_ISVTX) ('*' with -F)

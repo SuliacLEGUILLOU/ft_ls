@@ -56,29 +56,20 @@ int		main(void)
 	printf("\n");
 
 	print_binari(S_IFSOCK);
-	printf(" - S_IFSOCK\n");
+	printf(" s--------- S_IFSOCK\n");
 	print_binari(S_IFLNK);
-	printf(" - S_IFLNK\n");
+	printf(" l--------- S_IFLNK\n");
 	print_binari(S_IFREG);
-	printf(" - S_IFREG\n0");
+	printf(" ---------- S_IFREG\n0");
 	print_binari(S_IFBLK);
-	printf(" - S_IFBLK\n0");
+	printf(" b--------- S_IFBLK\n0");
 	print_binari(S_IFDIR);
-	printf(" - S_IFDIR\n00");
+	printf(" d--------- S_IFDIR\n00");
 	print_binari(S_IFCHR);
-	printf(" - S_IFCHR\n000");
+	printf(" c--------- S_IFCHR\n000");
 	print_binari(S_IFIFO);
-	printf(" - S_IFIFO\n");
+	printf(" p--------- S_IFIFO\n");
 
-	printf("\n");
-
-	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFSOCK, ~S_IFMT & S_IFSOCK);
-	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFLNK, ~S_IFMT & S_IFLNK);
-	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFREG, ~S_IFMT & S_IFREG);
-	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFBLK, ~S_IFMT & S_IFBLK);
-	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFDIR, ~S_IFMT & S_IFDIR);
-	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFCHR, ~S_IFMT & S_IFCHR);
-	printf("%o - %o test with S_IFMT && ~S_IFMT\n", S_IFMT & S_IFIFO, ~S_IFMT & S_IFIFO);
 
 	printf("\n");
 
