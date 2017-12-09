@@ -73,8 +73,10 @@ void	print_subdir(t_doc **data, t_mask opt, t_ls *ls)
 	i = -1;
 	while (data[++i])
 	{
-		if (opt & RECUR)
+		if ((data[i]->stat->st_mode & S_IFDIR) == S_IFDIR)
 			recur_dir(data, opt, i, ls);
+		clean_t_doc(data[i]);
+		data[i] = NULL;
 	}
 }
 

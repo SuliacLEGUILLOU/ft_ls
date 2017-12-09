@@ -19,8 +19,14 @@ char		*add_time(char *str, time_t t)
 	char	*tmp;
 	time_t	now;
 
+	tmp = NULL;
 	now = time(NULL);
 	tmp = ctime(&t);
+	if (!tmp || !*tmp)
+	{
+		ret = ft_strjoin_f("            ", str, 2);
+		return (ret);
+	}
 	if ((t < now - 15778476) || (t > now))
 	{
 		ret = ft_strndup(tmp + 4, 7);
